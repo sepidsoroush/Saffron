@@ -1,13 +1,6 @@
 import supabase from "../config/supabaseConfig";
 import { useEffect, useState } from "react";
-
-export interface Food {
-  id: string;
-  name: string;
-  ingredients?: string[];
-  lastCooked?: Date;
-  type?: string;
-}
+import { Food } from "../types";
 
 function MealsPage() {
   const [foods, setFoods] = useState<Food[] | null>([]);
