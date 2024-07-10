@@ -1,25 +1,25 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MealsTab from "./tabs/Meals";
+import GroceryTab from "./tabs/Grocery";
+import WeeklyPlanTab from "./tabs/WeeklyPlan";
 
-import RootLayout from "./pages/Root";
-import ErrorPage from "./pages/ErrorPage";
-import MealsPage from "./pages/Meals";
-import PantryPage from "./pages/Pantry";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
-    children: [{ index: true, element: <MealsPage /> }],
-  },
-  {
-    path: "/pantry",
-    element: <PantryPage />,
-  },
-]);
-
-function App() {
-  return <RouterProvider router={router} />;
+export function App() {
+  return (
+    <Tabs defaultValue="weeklyplan" className="w-full">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="weeklyplan">Weekly Plan</TabsTrigger>
+        <TabsTrigger value="meals">Meals</TabsTrigger>
+        <TabsTrigger value="grocery">Grocery</TabsTrigger>
+      </TabsList>
+      <TabsContent value="weeklyplan">
+        <WeeklyPlanTab />
+      </TabsContent>
+      <TabsContent value="meals">
+        <MealsTab />
+      </TabsContent>
+      <TabsContent value="grocery">
+        <GroceryTab />
+      </TabsContent>
+    </Tabs>
+  );
 }
-
-export default App;

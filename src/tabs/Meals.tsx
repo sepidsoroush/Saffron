@@ -2,7 +2,7 @@ import supabase from "../config/supabaseConfig";
 import { useEffect, useState } from "react";
 import { Food } from "../types";
 
-function MealsPage() {
+function MealsTab() {
   const [foods, setFoods] = useState<Food[] | null>([]);
   const [fetchErrors, setFetchErrors] = useState<string | null>(null);
 
@@ -37,4 +37,4 @@ function MealsPage() {
   );
 }
 
-export default MealsPage;
+export default MealsTab;

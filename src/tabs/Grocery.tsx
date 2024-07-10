@@ -2,7 +2,7 @@ import supabase from "../config/supabaseConfig";
 import { useEffect, useState } from "react";
 import { Ingredient } from "../types";
 
-function PantryPage() {
+function GroceryTab() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   useEffect(() => {
@@ -15,7 +15,6 @@ function PantryPage() {
     if (data) {
       setIngredients(data);
     }
-    console.log(data);
   }
 
   return (
@@ -31,4 +30,4 @@ function PantryPage() {
   );
 }
 
-export default PantryPage;
+export default GroceryTab;
