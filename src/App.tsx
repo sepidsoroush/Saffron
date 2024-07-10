@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MealsTab from "./tabs/Meals";
 import GroceryTab from "./tabs/Grocery";
-import WeeklyPlanTab from "./tabs/WeeklyPlan";
+import WeeklyPlanTab from "./tabs/weekly-plan/page";
 
 export function App() {
   return (
