@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { WeeklyPlan, columns } from "./columns";
+import { columns } from "./columns";
+import { WeeklyPlan } from "@/types";
 import { DataTable } from "./data-table";
 
 async function getData(): Promise<WeeklyPlan[]> {

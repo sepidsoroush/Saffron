@@ -1,12 +1,20 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+// import { Plus } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogTrigger,
+//   DialogFooter,
+// } from "@/components/ui/dialog";
+import { AddMealComboBx } from "@/components/add-meal";
 
-export type WeeklyPlan = {
-  id: number;
-  day: string;
-  meal: string;
-};
+import { WeeklyPlan } from "@/types";
 
 export const columns: ColumnDef<WeeklyPlan>[] = [
   {
@@ -16,5 +24,13 @@ export const columns: ColumnDef<WeeklyPlan>[] = [
   {
     accessorKey: "meal",
     header: "Meal",
+  },
+  {
+    id: "actions",
+    cell: () => {
+      //   const day = row.original;
+
+      return <AddMealComboBx />;
+    },
   },
 ];

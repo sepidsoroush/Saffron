@@ -25,3 +25,9 @@ export enum MealType {
   Healthy,
   Special,
 }
+
+export interface WeeklyPlan {
+  id: number;
+  day: string;
+  meal: string;
+}
