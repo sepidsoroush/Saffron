@@ -1,38 +1,37 @@
-import supabase from "../config/supabaseConfig";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setDataAction } from "@/store/meals-actions";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Meal } from "../types";
 
 function MealsTab() {
-  const [foods, setFoods] = useState<Meal[] | null>([]);
-  const [fetchErrors, setFetchErrors] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
+  const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
 
   useEffect(() => {
-    getFoods();
-  }, []);
-
-  async function getFoods() {
-    const { data, error } = await supabase.from("foods").select();
-    if (error) {
-      setFetchErrors("Could not fetch the foods list");
-      setFoods(null);
-      console.log(error);
-    }
-    if (data) {
-      setFoods(data);
-      setFetchErrors(null);
-    }
-  }
+    dispatch(setDataAction());
+  }, [dispatch]);
 
   return (
     <>
-      {fetchErrors && <p>{fetchErrors}</p>}
-      {foods && (
-        <ul>
-          {foods.map((food) => (
-            <li key={food.id}>{food.name}</li>
-          ))}
-        </ul>
-      )}
+      <>
+        {isLoading ? (
+          <div className="w-full h-screen flex items-center place-content-center">
+            <LoadingSpinner
+              width={48}
+              height={48}
+              className="flex items-center place-content-center"
+            />
+          </div>
+        ) : (
+          <ul>
+            {meals.map((food) => (
+              <li key={food.id}>{food.name}</li>
+            ))}
+          </ul>
+        )}
+      </>
     </>
   );
 }
