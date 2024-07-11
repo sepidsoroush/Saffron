@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchMeals } from "@/store/meals-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { MealCard } from "@/components/meal-card";
+import { MealCard } from "@/components/meals/meal-card";
 import NewMeal from "@/components/meals/new-meal";
 import { Meal } from "../types";
 

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { IngredientItem } from "../ingredient-item";
+import { IngredientItem } from "../ingredients/ingredient-item";
 import { Meal } from "@/types";
 
 type Props = {

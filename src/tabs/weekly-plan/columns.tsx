@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { SelectMealComboBx } from "@/components/select-meal";
+import { SelectMealComboBx } from "@/components/meals/select-meal";
 
 import { WeeklyPlan } from "@/types";
 

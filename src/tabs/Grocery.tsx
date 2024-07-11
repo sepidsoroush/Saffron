@@ -3,7 +3,7 @@ import { Ingredient } from "../types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchIngredients } from "@/store/ingredients-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { IngredientItem } from "@/components/ingredient-item";
+import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { CardDescription } from "@/components/ui/card";
 
 function GroceryTab() {
