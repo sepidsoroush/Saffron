@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchMeals } from "@/store/meals-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { MealCard } from "@/components/meal-card";
+import NewMeal from "@/components/meals/new-meal";
 import { Meal } from "../types";
 
 function MealsTab() {
@@ -27,11 +28,14 @@ function MealsTab() {
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-2">
-      {meals.map((item) => (
-        <MealCard key={item.id} meal={item} />
-      ))}
-    </ul>
+    <div className="px-2">
+      <NewMeal />
+      <ul className="grid grid-cols-2 gap-2 overflow-auto">
+        {meals.map((item) => (
+          <MealCard key={item.id} meal={item} />
+        ))}
+      </ul>
+    </div>
   );
 }
 

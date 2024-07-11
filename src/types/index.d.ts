@@ -1,29 +1,36 @@
 export interface Meal {
   id: string;
   name: string;
-  ingredients?: Ingredient[];
-  lastCooked?: Date;
+  ingredients: Ingredient[];
+  // lastCooked?: Date;
+  cuisine?: CuisineType;
   type?: MealType;
 }
 
 export interface Ingredient {
   id: string;
   name: string;
-  category?: string;
+  // category?: string;
   available: boolean;
-  status?: string;
+  // status?: string;
+}
+
+export enum CuisineType {
+  Persian = "Persian",
+  Italian = "Italian",
+  Mexican = "Mexican",
+  American = "American",
+  Turkish = "Turkish",
+  Russian = "Russian",
+  Indian = "Indian",
+  Other = "Other",
 }
 
 export enum MealType {
-  Persian,
-  Italian,
-  Mexican,
-  American,
-  Turkish,
-  Russian,
-  Indian,
-  Healthy,
-  Special,
+  Breakfast = "Breakfast",
+  Lunch = "Lunch",
+  Dinner = "Dinner",
+  Snack = "Snack",
 }
 
 export interface WeeklyPlan {

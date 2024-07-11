@@ -59,7 +59,7 @@ const meals: WeeklyPlan[] = [
   },
 ];
 
-export function AddMealComboBx() {
+export function SelectMealComboBx() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [selectedMeal, setSelectedMeal] = React.useState<WeeklyPlan | null>(
