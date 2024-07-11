@@ -3,6 +3,8 @@ import { Ingredient } from "../types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchIngredients } from "@/store/ingredients-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { IngredientItem } from "@/components/ingredient-item";
+import { CardDescription } from "@/components/ui/card";
 
 function GroceryTab() {
   const dispatch = useAppDispatch();
@@ -15,24 +17,32 @@ function GroceryTab() {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex items-center place-content-center">
+        <LoadingSpinner
+          width={48}
+          height={48}
+          className="flex items-center place-content-center"
+        />
+      </div>
+    );
+  }
+
+  // Separate ingredients based on 'available' property
+  const availableIngredients = ingredients.filter((item) => item.available);
+  const unavailableIngredients = ingredients.filter((item) => !item.available);
+
   return (
-    <>
-      {isLoading ? (
-        <div className="w-full h-screen flex items-center place-content-center">
-          <LoadingSpinner
-            width={48}
-            height={48}
-            className="flex items-center place-content-center"
-          />
-        </div>
-      ) : (
-        <ul>
-          {ingredients.map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      )}
-    </>
+    <ul className="flex flex-col gap-2 m-2">
+      <CardDescription>Grocery list</CardDescription>
+      {unavailableIngredients.map((item) => (
+        <IngredientItem key={item.id} ingredient={item} />
+      ))}
+      {availableIngredients.map((item) => (
+        <IngredientItem key={item.id} ingredient={item} />
+      ))}
+    </ul>
   );
 }
 

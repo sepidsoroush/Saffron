@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchMeals } from "@/store/meals-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { MealCard } from "@/components/meal-card";
 import { Meal } from "../types";
 
 function MealsTab() {
@@ -13,24 +14,24 @@ function MealsTab() {
     dispatch(fetchMeals());
   }, [dispatch]);
 
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex items-center place-content-center">
+        <LoadingSpinner
+          width={48}
+          height={48}
+          className="flex items-center place-content-center"
+        />
+      </div>
+    );
+  }
+
   return (
-    <>
-      {isLoading ? (
-        <div className="w-full h-screen flex items-center place-content-center">
-          <LoadingSpinner
-            width={48}
-            height={48}
-            className="flex items-center place-content-center"
-          />
-        </div>
-      ) : (
-        <ul>
-          {meals.map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      )}
-    </>
+    <ul className="grid grid-cols-2 gap-2">
+      {meals.map((item) => (
+        <MealCard key={item.id} meal={item} />
+      ))}
+    </ul>
   );
 }
 
