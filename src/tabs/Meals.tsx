@@ -1,9 +1,9 @@
 import supabase from "../config/supabaseConfig";
 import { useEffect, useState } from "react";
-import { Food } from "../types";
+import { Meal } from "../types";
 
 function MealsTab() {
-  const [foods, setFoods] = useState<Food[] | null>([]);
+  const [foods, setFoods] = useState<Meal[] | null>([]);
   const [fetchErrors, setFetchErrors] = useState<string | null>(null);
 
   useEffect(() => {
