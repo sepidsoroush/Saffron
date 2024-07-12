@@ -16,9 +16,9 @@ const NewMeal: React.FC = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="gap-1">
+        <Button className="gap-1 w-full">
           <Plus size={18} />
-          <span className="text-base font-light">Add new Meal</span>
+          <span className="text-base font-light">New Meal</span>
         </Button>
       </DialogTrigger>
       <DialogContent aria-describedby={undefined}>

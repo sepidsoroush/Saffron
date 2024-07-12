@@ -28,13 +28,15 @@ function MealsTab() {
   }
 
   return (
-    <div className="px-2">
-      <NewMeal />
-      <ul className="grid grid-cols-2 gap-2 overflow-auto">
+    <div className="flex flex-col h-screen">
+      <ul className="flex-1 px-2">
         {meals.map((item) => (
           <MealCard key={item.id} meal={item} />
         ))}
       </ul>
+      <div className="sticky bottom-0 p-2">
+        <NewMeal />
+      </div>
     </div>
   );
 }
