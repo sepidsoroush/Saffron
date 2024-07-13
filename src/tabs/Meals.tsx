@@ -3,7 +3,9 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchMeals } from "@/store/meals-actions";
 // import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { MealCard } from "@/components/meals/meal-card";
-import NewMeal from "@/components/meals/new-meal";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Meal } from "../types";
 
 function MealsTab() {
@@ -34,9 +36,15 @@ function MealsTab() {
           <MealCard key={item.id} meal={item} />
         ))}
       </ul>
-      <div className="sticky bottom-0 p-2">
-        <NewMeal />
-      </div>
+      <Button className="sticky bottom-0 p-2">
+        <Link
+          to="/new-meal"
+          className="gap-1 w-full flex flex-row justify-center items-center"
+        >
+          <Plus size={18} />
+          <span className="text-base font-light">New Meal</span>
+        </Link>
+      </Button>
     </div>
   );
 }

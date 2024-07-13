@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -51,7 +51,6 @@ type ActionType = "create" | "update";
 interface MealFormProps {
   actionType: ActionType;
   mealToUpdate?: Meal;
-  onOpenChange: Dispatch<SetStateAction<boolean>>;
 }
 
 const formSchema = z.object({
@@ -68,11 +67,7 @@ const formSchema = z.object({
   type: z.enum(mealTypeInfo),
 });
 
-const MealForm = ({
-  actionType,
-  mealToUpdate,
-  onOpenChange,
-}: MealFormProps) => {
+const MealForm = ({ actionType, mealToUpdate }: MealFormProps) => {
   const [value, setValue] = React.useState<Option[]>([]);
   const dispatch = useAppDispatch();
 
@@ -108,7 +103,6 @@ const MealForm = ({
     }
 
     form.reset();
-    onOpenChange(false);
   }
 
   const onDelete = () => {
