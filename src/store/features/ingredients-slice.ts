@@ -19,14 +19,14 @@ const ingredientsSlice = createSlice({
     addItem: (state, action: PayloadAction<Ingredient>) => {
       state.ingredients.push(action.payload);
     },
-    deleteItem: (state, action: PayloadAction<string>) => {
+    deleteItem: (state, action: PayloadAction<number>) => {
       state.ingredients = state.ingredients.filter(
         (ingredient) => ingredient.id !== action.payload
       );
     },
     updateItem: (
       state,
-      action: PayloadAction<{ id: string; ingredient: Ingredient }>
+      action: PayloadAction<{ id: number; ingredient: Ingredient }>
     ) => {
       const { id, ingredient } = action.payload;
       const index = state.ingredients.findIndex(

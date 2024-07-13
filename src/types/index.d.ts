@@ -1,14 +1,16 @@
+import { CuisineType, MealType, WeekDay } from "./constants";
+
 export interface Meal {
-  id: string;
+  id: number;
   name: string;
-  ingredients: Ingredient[];
+  // ingredients: Ingredient[];
   // lastCooked?: Date;
   cuisine?: CuisineType;
   type?: MealType;
 }
 
 export interface Ingredient {
-  id: string;
+  id: number;
   name: string;
   // category?: string;
   available: boolean;
@@ -16,35 +18,13 @@ export interface Ingredient {
 }
 
 export interface Schedule {
-  id: string;
+  id: number;
   day: WeekDay;
-  meal: Meal;
+  meal_id: string;
 }
 
-export enum CuisineType {
-  Persian = "Persian",
-  Italian = "Italian",
-  Mexican = "Mexican",
-  American = "American",
-  Turkish = "Turkish",
-  Russian = "Russian",
-  Indian = "Indian",
-  Other = "Other",
-}
-
-export enum MealType {
-  Breakfast = "Breakfast",
-  Lunch = "Lunch",
-  Dinner = "Dinner",
-  Snack = "Snack",
-}
-
-export enum WeekDay {
-  Monday = "Monday",
-  Tuesday = "Tuesday",
-  Wednesday = "Wednesday",
-  Thursday = "Thursday",
-  Friday = "Friday",
-  Saturday = "Saturday",
-  Sunday = "Sunday",
+export interface compositions {
+  id: number;
+  meal_id: string;
+  ingredient_id: string;
 }

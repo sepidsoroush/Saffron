@@ -24,7 +24,7 @@ export function fetchMeals() {
   };
 }
 
-export function deleteMeal(mealID: string) {
+export function deleteMeal(mealID: number) {
   return async (dispatch: Dispatch) => {
     dispatch(uiActions.setLoading(true));
     try {
@@ -55,7 +55,7 @@ export function addMeal(meal: Meal) {
   };
 }
 
-export function updateMeal(id: string, meal: Meal) {
+export function updateMeal(id: number, meal: Meal) {
   return async (dispatch: Dispatch) => {
     dispatch(uiActions.setLoading(true));
     try {

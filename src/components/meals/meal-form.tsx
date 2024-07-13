@@ -4,12 +4,10 @@ import React, { Dispatch, SetStateAction } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-// import { format } from "date-fns";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 import {
   Form,
@@ -29,31 +27,12 @@ import {
 } from "@/components/ui/select";
 
 import { Meal } from "@/types";
+import { CuisineType, MealType } from "@/types/constants";
 import { useAppDispatch } from "@/store/hooks";
 import { addMeal, deleteMeal, updateMeal } from "@/store/meals-actions";
-// import { fetchIngredients } from "@/store/ingredients-actions";
 import { cuisineTypeInfo, mealTypeInfo } from "@/__mocks/info";
-// import { cn } from "@/lib/utils";
 
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
-
-enum CuisineType {
-  Persian = "Persian",
-  Italian = "Italian",
-  Mexican = "Mexican",
-  American = "American",
-  Turkish = "Turkish",
-  Russian = "Russian",
-  Indian = "Indian",
-  Other = "Other",
-}
-
-enum MealType {
-  Breakfast = "Breakfast",
-  Lunch = "Lunch",
-  Dinner = "Dinner",
-  Snack = "Snack",
-}
 
 const OPTIONS: Option[] = [
   { label: "tomato", value: "tomato" },
@@ -111,13 +90,13 @@ const MealForm = ({
     const meal: Meal = {
       id: mealToUpdate
         ? mealToUpdate.id
-        : Math.floor(Math.random() * Math.pow(2, 20)).toString(),
+        : Math.floor(Math.random() * Math.pow(2, 20)),
       name: values.name,
-      ingredients: values.ingredients.map((name) => ({
-        id: Math.random().toString(36).substring(7),
-        name: name,
-        available: false,
-      })),
+      // ingredients: values.ingredients.map((name) => ({
+      //   id: Math.floor(Math.random() * Math.pow(2, 20)),
+      //   name: name,
+      //   available: false,
+      // })),
       cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
       type: MealType[values.type as keyof typeof MealType],
     };

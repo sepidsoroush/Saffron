@@ -9,7 +9,7 @@ import { Ingredient } from "@/types";
 interface IngredientFormProps {
   ingredient?: Ingredient;
   type: "update" | "create";
-  onFinish?: () => void; // Optional callback for finishing creation or editing
+  onFinish?: () => void;
 }
 
 const IngredientForm: React.FC<IngredientFormProps> = ({
@@ -36,7 +36,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     const trimmedName = updatedName.trim();
     if (trimmedName === "") {
       if (type === "create" && onFinish) {
-        onFinish(); // Call onFinish to reset state and show the button again
+        onFinish();
       }
       return;
     }
@@ -53,14 +53,14 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     } else {
       dispatch(
         addIngredient({
-          id: Math.floor(Math.random() * Math.pow(2, 20)).toString(),
+          id: Math.floor(Math.random() * Math.pow(2, 20)),
           name: trimmedName,
           available: false,
         })
       );
       setUpdatedName("");
       if (onFinish) {
-        onFinish(); // Call onFinish to reset state and show the button again
+        onFinish();
       }
     }
   };
@@ -76,7 +76,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
       setIsEditing(false);
       setUpdatedName(ingredient?.name || "");
       if (type === "create" && onFinish) {
-        onFinish(); // Call onFinish to reset state and show the button again
+        onFinish();
       }
     }
   };

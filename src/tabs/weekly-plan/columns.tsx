@@ -1,11 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { SelectMealComboBx } from "@/components/meals/select-meal";
+// import { SelectMealComboBx } from "@/components/meals/select-meal";
 
-import { WeeklyPlan } from "@/types";
+import { Schedule } from "@/types";
 
-export const columns: ColumnDef<WeeklyPlan>[] = [
+export const columns: ColumnDef<Schedule>[] = [
   {
     accessorKey: "day",
     header: "Day",
@@ -14,12 +14,12 @@ export const columns: ColumnDef<WeeklyPlan>[] = [
     accessorKey: "meal",
     header: "Meal",
   },
-  {
-    id: "actions",
-    cell: () => {
-      //   const day = row.original;
+  // {
+  //   id: "actions",
+  //   cell: () => {
+  //     //   const day = row.original;
 
-      return <SelectMealComboBx />;
-    },
-  },
+  //     return <SelectMealComboBx />;
+  //   },
+  // },
 ];

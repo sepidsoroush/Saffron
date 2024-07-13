@@ -41,7 +41,7 @@ export function addIngredient(ingredient: Ingredient) {
   };
 }
 
-export function updateIngredient(id: string, ingredient: Ingredient) {
+export function updateIngredient(id: number, ingredient: Ingredient) {
   return async (dispatch: Dispatch) => {
     dispatch(uiActions.setLoading(true));
     try {
@@ -63,7 +63,7 @@ export function updateIngredient(id: string, ingredient: Ingredient) {
   };
 }
 
-export function deleteIngredient(id: string) {
+export function deleteIngredient(id: number) {
   return async (dispatch: Dispatch) => {
     dispatch(uiActions.setLoading(true));
     try {

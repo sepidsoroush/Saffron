@@ -1,5 +1,5 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { IngredientItem } from "../ingredients/ingredient-item";
+// import { IngredientItem } from "../ingredients/ingredient-item";
 import { Meal } from "@/types";
 
 type Props = {
@@ -11,13 +11,13 @@ export const MealCard = ({ meal }: Props) => {
     <Card className="m-2">
       <CardTitle className="text-lg px-4 py-2">{meal.name}</CardTitle>
       <CardContent>
-        <ul>
+        {/* <ul>
           {meal.ingredients?.map((item) => (
             <li key={item.id}>
               <IngredientItem ingredient={item} />
             </li>
           ))}
-        </ul>
+        </ul> */}
       </CardContent>
     </Card>
   );

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Schedule, WeekDay } from "@/types";
+import { Schedule } from "@/types";
+import { WeekDay } from "@/types/constants";
 
 export interface ScheduleState {
   schedule: Schedule[];
