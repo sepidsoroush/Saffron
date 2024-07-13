@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import mealsSlice from "./features/meals-slice";
 import ingredientsSlice from "./features/ingredients-slice";
+import scheduleSlice from "./features/schedule-slice";
 import uiSlice from "./features/ui-slice";
 
 const store = configureStore({
   reducer: {
     meals: mealsSlice.reducer,
     ingredients: ingredientsSlice.reducer,
+    schedule: scheduleSlice.reducer,
     ui: uiSlice.reducer,
   },
 });

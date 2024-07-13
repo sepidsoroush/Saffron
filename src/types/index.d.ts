@@ -15,6 +15,12 @@ export interface Ingredient {
   // status?: string;
 }
 
+export interface Schedule {
+  id: string;
+  day: WeekDay;
+  meal: Meal;
+}
+
 export enum CuisineType {
   Persian = "Persian",
   Italian = "Italian",
@@ -33,8 +39,12 @@ export enum MealType {
   Snack = "Snack",
 }
 
-export interface WeeklyPlan {
-  id: number;
-  day: string;
-  meal: string;
+export enum WeekDay {
+  Monday = "Monday",
+  Tuesday = "Tuesday",
+  Wednesday = "Wednesday",
+  Thursday = "Thursday",
+  Friday = "Friday",
+  Saturday = "Saturday",
+  Sunday = "Sunday",
 }
