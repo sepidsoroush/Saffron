@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Ingredient } from "../types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchIngredients } from "@/store/ingredients-actions";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
+// import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { CardDescription } from "@/components/ui/card";
 import NewIngredient from "@/components/ingredients/new-ingredient";
@@ -12,23 +12,23 @@ function GroceryTab() {
   const ingredients = useAppSelector<Ingredient[]>(
     (state) => state.ingredients.ingredients
   );
-  const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
+  // const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen flex items-center place-content-center">
-        <LoadingSpinner
-          width={48}
-          height={48}
-          className="flex items-center place-content-center"
-        />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="w-full h-screen flex items-center place-content-center">
+  //       <LoadingSpinner
+  //         width={48}
+  //         height={48}
+  //         className="flex items-center place-content-center"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   const availableIngredients = ingredients.filter((item) => item.available);
   const unavailableIngredients = ingredients.filter((item) => !item.available);
