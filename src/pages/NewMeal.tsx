@@ -1,8 +1,8 @@
 import React from "react";
-import MealForm from "@/components/meals/meal-form";
+import NewMealForm from "@/components/meals/new-meal-form";
 
 const NewMealPage: React.FC = () => {
-  return <MealForm actionType="create" />;
+  return <NewMealForm actionType="create" />;
 };
 
 export default NewMealPage;
