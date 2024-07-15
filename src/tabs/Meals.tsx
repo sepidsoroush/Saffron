@@ -1,21 +1,18 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchMeals } from "@/store/meals-actions";
+import { Link } from "react-router-dom";
+
 // import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { MealCard } from "@/components/meals/meal-card";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Meal } from "../types";
 
-function MealsTab() {
-  const dispatch = useAppDispatch();
-  const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
+import { Meal } from "@/types";
+
+type Props = {
+  meals: Meal[];
+};
+
+function MealsTab({ meals }: Props) {
   // const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
-
-  useEffect(() => {
-    dispatch(fetchMeals());
-  }, [dispatch]);
 
   // if (isLoading) {
   //   return (

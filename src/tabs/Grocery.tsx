@@ -1,22 +1,16 @@
-import { useEffect } from "react";
-import { Ingredient } from "../types";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchIngredients } from "@/store/ingredients-actions";
 // import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import NewIngredient from "@/components/ingredients/new-ingredient";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { CardDescription } from "@/components/ui/card";
-import NewIngredient from "@/components/ingredients/new-ingredient";
 
-function GroceryTab() {
-  const dispatch = useAppDispatch();
-  const ingredients = useAppSelector<Ingredient[]>(
-    (state) => state.ingredients.ingredients
-  );
+import { Ingredient } from "@/types";
+
+type Props = {
+  ingredients: Ingredient[];
+};
+
+function GroceryTab({ ingredients }: Props) {
   // const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   // if (isLoading) {
   //   return (
