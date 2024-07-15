@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { useAppSelector } from "@/store/hooks";
 // import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { MealCard } from "@/components/meals/meal-card";
 import { Button } from "@/components/ui/button";
@@ -7,11 +7,9 @@ import { Plus } from "lucide-react";
 
 import { Meal } from "@/types";
 
-type Props = {
-  meals: Meal[];
-};
+function MealsTab() {
+  const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
 
-function MealsTab({ meals }: Props) {
   // const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
 
   // if (isLoading) {

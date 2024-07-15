@@ -24,12 +24,12 @@ const scheduleSlice = createSlice({
     },
     addItem: (
       state,
-      action: PayloadAction<{ day: WeekDay; schedule: Schedule }>
+      action: PayloadAction<{ day: WeekDay; mealId: number }>
     ) => {
-      const { day, schedule } = action.payload;
+      const { day, mealId } = action.payload;
       const index = state.schedule.findIndex((item) => item.day === day);
       if (index !== -1) {
-        state.schedule[index] = schedule;
+        state.schedule[index] = mealId;
       }
     },
   },

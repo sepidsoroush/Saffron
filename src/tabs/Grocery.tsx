@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/store/hooks";
 // import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import NewIngredient from "@/components/ingredients/new-ingredient";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
@@ -5,11 +6,10 @@ import { CardDescription } from "@/components/ui/card";
 
 import { Ingredient } from "@/types";
 
-type Props = {
-  ingredients: Ingredient[];
-};
-
-function GroceryTab({ ingredients }: Props) {
+function GroceryTab() {
+  const ingredients = useAppSelector<Ingredient[]>(
+    (state) => state.ingredients.ingredients
+  );
   // const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
 
   // if (isLoading) {

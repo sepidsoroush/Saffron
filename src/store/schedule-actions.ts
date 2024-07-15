@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import supabase from "@/config/supabaseConfig";
 import { scheduleActions } from "./features/schedule-slice";
 import { uiActions } from "./features/ui-slice";
-import { Schedule } from "@/types";
+// import { Schedule } from "@/types";
 import { WeekDay } from "@/types/constants";
 
 export function fetchSchedule() {
@@ -41,20 +41,20 @@ export function deleteSchedule(day: WeekDay) {
     }
   };
 }
-export function addSchedule(day: WeekDay, schedule: Schedule) {
+export function addSchedule(day: WeekDay, mealId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(uiActions.setLoading(true));
     try {
       const { error } = await supabase
         .from("schedule")
-        .update(schedule)
+        .update(mealId)
         .eq("day", day)
         .select();
 
       if (error) {
         console.error("Error adding schedule:", error);
       }
-      dispatch(scheduleActions.addItem({ day, schedule }));
+      dispatch(scheduleActions.addItem({ day, mealId }));
     } catch (error) {
       console.error("Unexpected error:", error);
     } finally {

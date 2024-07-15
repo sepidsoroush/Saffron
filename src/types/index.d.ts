@@ -20,11 +20,11 @@ export interface Ingredient {
 export interface Schedule {
   id: number;
   day: WeekDay;
-  meal_id: string;
+  meal_id: number;
 }
 
 export interface compositions {
   id: number;
-  meal_id: string;
-  ingredient_id: string;
+  meal_id: number;
+  ingredient_id: number;
 }
