@@ -1,4 +1,4 @@
-"use client";
+import { useNavigate } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -60,6 +60,7 @@ const formSchema = z.object({
 });
 
 const MealForm = ({ actionType, mealToUpdate }: Props) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const ingredientsData = useAppSelector<Ingredient[]>(
@@ -173,7 +174,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       });
     }
 
-    form.reset();
+    navigate("/meals");
   }
 
   const onDelete = () => {
