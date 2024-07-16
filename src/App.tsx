@@ -17,21 +17,15 @@ const router = createBrowserRouter([
       { index: true, element: <SchedulePage /> },
       {
         path: "/meals",
-        element: <MealsPage />,
         children: [
+          { index: true, element: <MealsPage /> },
           {
             path: "/meals/new",
             element: <NewMealPage />,
           },
           {
             path: "/meals/:mealId",
-            children: [
-              { index: true, element: <EditMealPage /> },
-              {
-                path: "/meals/:mealId/edit",
-                element: <EditMealPage />,
-              },
-            ],
+            element: <EditMealPage />,
           },
         ],
       },

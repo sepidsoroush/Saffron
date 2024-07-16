@@ -11,7 +11,7 @@ function MealsPage() {
 
   return (
     <div className="flex flex-col h-screen">
-      <ul className="flex-1 px-2 grid grid-cols-2">
+      <ul className="flex-1 px-2">
         {meals.map((item) => (
           <MealCard key={item.id} meal={item} />
         ))}
