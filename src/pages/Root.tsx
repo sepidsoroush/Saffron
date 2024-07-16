@@ -22,11 +22,9 @@ function RootLayout() {
     <React.Fragment>
       <div className="flex flex-col">
         <Header />
-        <div className="flex flex-1">
-          <main className="flex w-full flex-1 flex-col overflow-hidden">
-            <Outlet />
-          </main>
-        </div>
+        <main className="w-full px-2">
+          <Outlet />
+        </main>
       </div>
     </React.Fragment>
   );

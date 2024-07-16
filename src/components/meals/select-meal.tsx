@@ -1,8 +1,8 @@
-"use client";
-
 import { useState, useEffect } from "react";
 
+import { useAppSelector } from "@/store/hooks";
 import { useMediaQuery } from "@/hooks/use-media-query";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -19,32 +19,29 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Plus } from "lucide-react";
-import { useAppSelector } from "@/store/hooks";
+
 import { Meal } from "@/types";
 import { WeekDay } from "@/types/constants";
-import { useAppDispatch } from "@/store/hooks";
-import { addSchedule } from "@/store/actions/schedule-actions";
 
 type Props = {
   day: WeekDay;
+  onMealChange: (day: WeekDay, mealId: number) => void;
 };
 
-export function SelectMealComboBox({ day }: Props) {
-  const dispatch = useAppDispatch();
-
+export function SelectMealComboBox({ day, onMealChange }: Props) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
 
   useEffect(() => {
     if (selectedMeal) {
-      dispatch(addSchedule(day, selectedMeal.id));
+      onMealChange(day, selectedMeal.id);
     }
-  }, [selectedMeal, dispatch, day]);
+  }, [selectedMeal, day, onMealChange]);
 
   if (isDesktop) {
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={setOpen} aria-describedby={undefined}>
         <PopoverTrigger asChild>
           <Button variant="outline" className="justify-start">
             <Plus />

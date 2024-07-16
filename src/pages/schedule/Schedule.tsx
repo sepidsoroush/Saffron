@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "@/store/hooks";
-import { Schedule, Meal } from "@/types";
+
 import { SelectMealComboBox } from "@/components/meals/select-meal";
 
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { updateSchedule } from "@/store/actions/schedule-actions";
+
+import { Schedule, Meal } from "@/types";
+import { WeekDay } from "@/types/constants";
+
 function SchedulePage() {
+  const dispatch = useAppDispatch();
+
   const schedule = useAppSelector<Schedule[]>(
     (state) => state.schedule.schedule
   );
@@ -19,14 +26,28 @@ function SchedulePage() {
     setMealsMap(mealsMap);
   }, [meals]);
 
+  const handleMealChange = (day: WeekDay, mealId: number) => {
+    dispatch(updateSchedule(day, mealId));
+  };
+
   return (
-    <ul className="container">
+    <ul className="grid grid-rows-7">
       {schedule.map((item) => {
         const meal = mealsMap[item.meal_id];
         return (
-          <li key={item.day} className="flex flex-row justify-between border">
-            <span>{item.day}</span>
-            {meal ? <p>{meal.name}</p> : <SelectMealComboBox day={item.day} />}
+          <li
+            key={item.id}
+            className="flex flex-row justify-between items-center border pr-2"
+          >
+            <span className="px-2 py-4">{item.day}</span>
+            {meal ? (
+              <span className="px-2 py-4">{meal.name}</span>
+            ) : (
+              <SelectMealComboBox
+                day={item.day}
+                onMealChange={handleMealChange}
+              />
+            )}
           </li>
         );
       })}
