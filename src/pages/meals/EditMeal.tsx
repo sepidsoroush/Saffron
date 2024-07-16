@@ -11,8 +11,6 @@ const EditMealPage: React.FC = () => {
   const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
   const mealToUpdate = meals.find((item) => item.id === mealId);
 
-  console.log(mealToUpdate);
-
   return <MealForm actionType="update" mealToUpdate={mealToUpdate} />;
 };
 

@@ -21,8 +21,6 @@ export const MealCard = ({ meal }: Props) => {
     (item) => item.meal_id === meal.id
   );
 
-  console.log(ingredientsInRecipe);
-
   const findIngredientById = (
     ingredient_id: number
   ): Ingredient | undefined => {

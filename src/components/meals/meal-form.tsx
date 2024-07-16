@@ -14,23 +14,29 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
 
 import { Meal, Ingredient, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
+import { CuisineType, MealType } from "@/types/constants";
 
-import { useAppSelector } from "@/store/hooks";
+import { cuisineTypeInfo, mealTypeInfo } from "@/__mocks/info";
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
-// import { CuisineType, MealType } from "@/types/constants";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { addMeal, updateMeal } from "@/store/actions/meals-actions";
 import {
   addComposition,
   updateComposition,
   deleteComposition,
 } from "@/store/actions/compositions-actions";
-// import { cuisineTypeInfo, mealTypeInfo } from "@/__mocks/info";
 
 type ActionType = "create" | "update";
 
@@ -49,6 +55,8 @@ const formSchema = z.object({
       message: "Name must not be longer than 250 characters.",
     }),
   ingredients: z.array(z.string()),
+  cuisine: z.enum(cuisineTypeInfo),
+  type: z.enum(mealTypeInfo),
 });
 
 const MealForm = ({ actionType, mealToUpdate }: Props) => {
@@ -64,10 +72,6 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   const ingredientSelectOptions: SelectOption[] =
     ingredientDataAsSelectOptions(ingredientsData);
 
-  // const ingredientsInRecipe = compositionsData
-  //   .filter((item) => item.meal_id === mealToUpdate.id)
-  //   .map((item) => item.ingredient_id);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,6 +81,8 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             .filter((item) => item.meal_id === mealToUpdate.id)
             .map((item) => item.ingredient_id.toString())
         : [],
+      cuisine: cuisineTypeInfo[0] as CuisineType,
+      type: mealTypeInfo[1] as MealType,
     },
   });
 
@@ -86,8 +92,8 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         ? mealToUpdate.id
         : Math.floor(Math.random() * Math.pow(2, 20)),
       name: values.name,
-      // cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
-      // type: MealType[values.type as keyof typeof MealType],
+      cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
+      type: MealType[values.type as keyof typeof MealType],
     };
 
     if (actionType === "create") {
@@ -205,6 +211,54 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
                 variant="inverted"
                 animation={2}
               />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="cuisine"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cuisine</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a cuisine" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {cuisineTypeInfo.map((item) => (
+                    <SelectItem key={item} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Meal Type</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {mealTypeInfo.map((item) => (
+                    <SelectItem key={item} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
             </FormItem>
           )}
         />
