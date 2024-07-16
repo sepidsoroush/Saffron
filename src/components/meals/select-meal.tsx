@@ -23,7 +23,7 @@ import { useAppSelector } from "@/store/hooks";
 import { Meal } from "@/types";
 import { WeekDay } from "@/types/constants";
 import { useAppDispatch } from "@/store/hooks";
-import { addSchedule } from "@/store/schedule-actions";
+import { addSchedule } from "@/store/actions/schedule-actions";
 
 type Props = {
   day: WeekDay;

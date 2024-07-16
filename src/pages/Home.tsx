@@ -6,9 +6,10 @@ import GroceryTab from "@/tabs/Grocery";
 import ScheduleTab from "@/tabs/Schedule";
 
 import { useAppDispatch } from "@/store/hooks";
-import { fetchMeals } from "@/store/meals-actions";
-import { fetchIngredients } from "@/store/ingredients-actions";
-import { fetchSchedule } from "@/store/schedule-actions";
+import { fetchMeals } from "@/store/actions/meals-actions";
+import { fetchIngredients } from "@/store/actions/ingredients-actions";
+import { fetchSchedule } from "@/store/actions/schedule-actions";
+import { fetchCompositions } from "@/store/actions/compositions-actions";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ export default function Home() {
     dispatch(fetchMeals());
     dispatch(fetchIngredients());
     dispatch(fetchSchedule());
+    dispatch(fetchCompositions());
   }, [dispatch]);
 
   return (

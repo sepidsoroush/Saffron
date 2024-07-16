@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import supabase from "@/config/supabaseConfig";
-import { scheduleActions } from "./features/schedule-slice";
-import { uiActions } from "./features/ui-slice";
+import { scheduleActions } from "../features/schedule-slice";
+import { uiActions } from "../features/ui-slice";
 // import { Schedule } from "@/types";
 import { WeekDay } from "@/types/constants";
 

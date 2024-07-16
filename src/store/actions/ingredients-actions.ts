@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import supabase from "@/config/supabaseConfig";
-import { ingredientsActions } from "./features/ingredients-slice";
-import { uiActions } from "./features/ui-slice";
+import { ingredientsActions } from "../features/ingredients-slice";
+import { uiActions } from "../features/ui-slice";
 import { Ingredient } from "@/types";
 
 export function fetchIngredients() {
