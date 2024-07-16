@@ -1,208 +1,225 @@
-export default {};
-// "use client";
+"use client";
 
-// import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { MultiSelect } from "@/components/ui/multi-select";
 
-// import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
+import { Meal, Ingredient, Composition } from "@/types";
+import { SelectOption } from "@/types/common-ui";
 
-// import {
-//   Form,
-//   FormControl,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
+import { useAppSelector } from "@/store/hooks";
+import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-
-// import { Meal, Ingredient } from "@/types";
 // import { CuisineType, MealType } from "@/types/constants";
-// import { useAppDispatch } from "@/store/hooks";
-// import { addMeal, deleteMeal, updateMeal } from "@/store/meals-actions";
+import { useAppDispatch } from "@/store/hooks";
+import { addMeal, updateMeal } from "@/store/actions/meals-actions";
+import {
+  addComposition,
+  updateComposition,
+  deleteComposition,
+} from "@/store/actions/compositions-actions";
 // import { cuisineTypeInfo, mealTypeInfo } from "@/__mocks/info";
 
-// import { MultiSelect } from "@/components/ui/multi-select";
-// import { SelectOption } from "@/types/common-ui";
+type ActionType = "create" | "update";
 
-// import { useAppSelector } from "@/store/hooks";
-// import { ingredientDataAsSelectOptions } from "@/lib/utils";
+type Props = {
+  actionType: ActionType;
+  mealToUpdate?: Meal;
+};
 
-// type ActionType = "create" | "update";
+const formSchema = z.object({
+  name: z
+    .string()
+    .min(2, {
+      message: "Name must be at least 2 characters.",
+    })
+    .max(250, {
+      message: "Name must not be longer than 250 characters.",
+    }),
+  ingredients: z.array(z.string()),
+});
 
-// interface MealFormProps {
-//   actionType: ActionType;
-//   mealToUpdate?: Meal;
-// }
+const MealForm = ({ actionType, mealToUpdate }: Props) => {
+  const dispatch = useAppDispatch();
 
-// const formSchema = z.object({
-//   name: z
-//     .string()
-//     .min(2, {
-//       message: "Name must be at least 2 characters.",
-//     })
-//     .max(250, {
-//       message: "Name must not be longer than 250 characters.",
-//     }),
-//   ingredients: z.array(z.string()),
-//   cuisine: z.enum(cuisineTypeInfo),
-//   type: z.enum(mealTypeInfo),
-// });
+  const ingredientsData = useAppSelector<Ingredient[]>(
+    (state) => state.ingredients.ingredients
+  );
+  const compositionsData = useAppSelector<Composition[]>(
+    (state) => state.compositions.compositions
+  );
 
-// const MealForm = ({ actionType, mealToUpdate }: MealFormProps) => {
-//   const ingredientsData = useAppSelector<Ingredient[]>(
-//     (state) => state.ingredients.ingredients
-//   );
+  const ingredientSelectOptions: SelectOption[] =
+    ingredientDataAsSelectOptions(ingredientsData);
 
-//   const ingredientSelectOptions: SelectOption[] =
-//     ingredientDataAsSelectOptions(ingredientsData);
-//   const dispatch = useAppDispatch();
+  // const ingredientsInRecipe = compositionsData
+  //   .filter((item) => item.meal_id === mealToUpdate.id)
+  //   .map((item) => item.ingredient_id);
 
-//   const form = useForm<z.infer<typeof formSchema>>({
-//     resolver: zodResolver(formSchema),
-//     defaultValues: {
-//       name: "",
-//       ingredients: [],
-//       cuisine: cuisineTypeInfo[0] as CuisineType,
-//       type: mealTypeInfo[1] as MealType,
-//     },
-//   });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: mealToUpdate ? mealToUpdate.name : "",
+      ingredients: mealToUpdate
+        ? compositionsData
+            .filter((item) => item.meal_id === mealToUpdate.id)
+            .map((item) => item.ingredient_id.toString())
+        : [],
+    },
+  });
 
-//   function onSubmit(values: z.infer<typeof formSchema>) {
-//     const meal: Meal = {
-//       id: mealToUpdate
-//         ? mealToUpdate.id
-//         : Math.floor(Math.random() * Math.pow(2, 20)),
-//       name: values.name,
-//       ingredients: values.ingredients.map((name) => ({
-//         id: Math.floor(Math.random() * Math.pow(2, 20)),
-//         name: name,
-//         available: false,
-//       })),
-//       cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
-//       type: MealType[values.type as keyof typeof MealType],
-//     };
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const meal: Meal = {
+      id: mealToUpdate
+        ? mealToUpdate.id
+        : Math.floor(Math.random() * Math.pow(2, 20)),
+      name: values.name,
+      // cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
+      // type: MealType[values.type as keyof typeof MealType],
+    };
 
-//     if (actionType === "create") {
-//       dispatch(addMeal(meal));
-//     } else if (actionType === "update") {
-//       dispatch(updateMeal(meal.id, meal));
-//     }
+    if (actionType === "create") {
+      dispatch(addMeal(meal)).then(() => {
+        const compositionPromises = values.ingredients.map((ingredientId) => {
+          const composition: Composition = {
+            id: Math.floor(Math.random() * Math.pow(2, 20)),
+            meal_id: meal.id,
+            ingredient_id: Number(ingredientId),
+          };
+          return dispatch(addComposition(composition));
+        });
 
-//     form.reset();
-//   }
+        Promise.all(compositionPromises)
+          .then(() => {
+            console.log("All compositions added successfully");
+          })
+          .catch((error) => {
+            console.error("Error adding compositions:", error);
+          });
+      });
+    } else if (actionType === "update") {
+      dispatch(updateMeal(meal.id, meal)).then(() => {
+        // Fetch existing compositions for the meal
+        const existingCompositions = compositionsData.filter(
+          (composition) => composition.meal_id === meal.id
+        );
 
-//   const onDelete = () => {
-//     if (mealToUpdate) {
-//       dispatch(deleteMeal(mealToUpdate.id));
-//     }
-//   };
+        // Determine which compositions to add, update, or delete
+        const newIngredients = values.ingredients.map(Number);
+        const existingIngredientIds = existingCompositions.map(
+          (c) => c.ingredient_id
+        );
 
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-//         <FormField
-//           control={form.control}
-//           name="name"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Name</FormLabel>
-//               <FormControl>
-//                 <Input placeholder="Meal name" {...field} />
-//               </FormControl>
+        // Add new compositions
+        const addPromises = newIngredients.map((ingredientId) => {
+          if (!existingIngredientIds.includes(ingredientId)) {
+            const composition: Composition = {
+              id: Math.floor(Math.random() * Math.pow(2, 20)),
+              meal_id: meal.id,
+              ingredient_id: ingredientId,
+            };
+            return dispatch(addComposition(composition));
+          }
+        });
 
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="ingredients"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Ingredients</FormLabel>
-//               <MultiSelect
-//                 options={ingredientSelectOptions}
-//                 onValueChange={field.onChange}
-//                 defaultValue={field.value}
-//                 placeholder="Select Ingredients"
-//                 variant="inverted"
-//                 animation={2}
-//               />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="cuisine"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Cuisine</FormLabel>
-//               <Select onValueChange={field.onChange} defaultValue={field.value}>
-//                 <FormControl>
-//                   <SelectTrigger>
-//                     <SelectValue placeholder="Select a cuisine" />
-//                   </SelectTrigger>
-//                 </FormControl>
-//                 <SelectContent>
-//                   {cuisineTypeInfo.map((item) => (
-//                     <SelectItem key={item} value={item}>
-//                       {item}
-//                     </SelectItem>
-//                   ))}
-//                 </SelectContent>
-//               </Select>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="type"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Meal Type</FormLabel>
-//               <Select onValueChange={field.onChange} defaultValue={field.value}>
-//                 <FormControl>
-//                   <SelectTrigger>
-//                     <SelectValue placeholder="Select a type" />
-//                   </SelectTrigger>
-//                 </FormControl>
-//                 <SelectContent>
-//                   {mealTypeInfo.map((item) => (
-//                     <SelectItem key={item} value={item}>
-//                       {item}
-//                     </SelectItem>
-//                   ))}
-//                 </SelectContent>
-//               </Select>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <div className="space-x-4 text-left">
-//           {actionType === "update" ? (
-//             <Button variant="destructive" onClick={onDelete}>
-//               Delete
-//             </Button>
-//           ) : null}
-//           <Button type="submit">
-//             {actionType === "create" ? "Add Meal" : "Update Meal"}
-//           </Button>
-//         </div>
-//       </form>
-//     </Form>
-//   );
-// };
-// export default MealForm;
+        // Remove old compositions
+        const deletePromises = existingCompositions.map((composition) => {
+          if (!newIngredients.includes(composition.ingredient_id)) {
+            return dispatch(deleteComposition(composition.id));
+          }
+        });
+
+        // Update existing compositions if necessary
+        const updatePromises = existingCompositions.map((composition) => {
+          if (
+            newIngredients.includes(composition.ingredient_id) &&
+            composition.meal_id === meal.id
+          ) {
+            const updatedComposition: Composition = {
+              ...composition,
+              ingredient_id: composition.ingredient_id,
+            };
+            return dispatch(
+              updateComposition(composition.id, updatedComposition)
+            );
+          }
+        });
+
+        Promise.all([...addPromises, ...deletePromises, ...updatePromises])
+          .then(() => {
+            console.log("All compositions updated successfully");
+          })
+          .catch((error) => {
+            console.error("Error updating compositions:", error);
+          });
+      });
+    }
+
+    form.reset();
+  }
+
+  const onDelete = () => {
+    console.log("delete");
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Meal name" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="ingredients"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Ingredients</FormLabel>
+              <MultiSelect
+                options={ingredientSelectOptions}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                placeholder="Select Ingredients"
+                variant="inverted"
+                animation={2}
+              />
+            </FormItem>
+          )}
+        />
+        <div className="space-x-4 text-left">
+          {actionType === "update" ? (
+            <Button variant="destructive" onClick={onDelete}>
+              Delete
+            </Button>
+          ) : null}
+          <Button type="submit">
+            {actionType === "create" ? "Add Meal" : "Update Meal"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
+export default MealForm;

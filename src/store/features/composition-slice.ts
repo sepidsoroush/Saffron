@@ -21,6 +21,11 @@ const compositionsSlice = createSlice({
     addItem: (state, action: PayloadAction<Composition>) => {
       state.compositions.push(action.payload);
     },
+    deleteItem(state, action: PayloadAction<number>) {
+      state.compositions = state.compositions.filter(
+        (row) => row.id !== action.payload
+      );
+    },
     updateItem: (
       state,
       action: PayloadAction<{ id: number; composition: Composition }>

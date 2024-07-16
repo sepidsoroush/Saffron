@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { useAppSelector } from "@/store/hooks";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import IngredientListItem from "../ingredients/ingredient-list-item";
@@ -19,6 +21,8 @@ export const MealCard = ({ meal }: Props) => {
     (item) => item.meal_id === meal.id
   );
 
+  console.log(ingredientsInRecipe);
+
   const findIngredientById = (
     ingredient_id: number
   ): Ingredient | undefined => {
@@ -26,18 +30,20 @@ export const MealCard = ({ meal }: Props) => {
   };
 
   return (
-    <Card className="m-2">
-      <CardTitle className="text-lg px-4 py-2">{meal.name}</CardTitle>
-      <CardContent className="px-4 py-0">
-        <ul>
-          {ingredientsInRecipe?.map((item) => (
-            <IngredientListItem
-              key={item.id}
-              ingredient={findIngredientById(item.ingredient_id)}
-            />
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+    <Link to={`/meals/${meal.id}`}>
+      <Card className="m-2">
+        <CardTitle className="text-lg px-4 py-2">{meal.name}</CardTitle>
+        <CardContent className="px-4 py-0">
+          <ul>
+            {ingredientsInRecipe?.map((item) => (
+              <IngredientListItem
+                key={item.id}
+                ingredient={findIngredientById(item.ingredient_id)}
+              />
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };

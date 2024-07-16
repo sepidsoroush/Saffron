@@ -3,7 +3,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
 import Home from "./pages/Home";
-import NewMealPage from "./pages/NewMeal";
+import NewMealPage from "./pages/meals/NewMeal";
+import EditMealPage from "./pages/meals/EditMeal";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +14,18 @@ const router = createBrowserRouter([
     children: [{ index: true, element: <Home /> }],
   },
   {
-    path: "/new-meal",
+    path: "/meals/new",
     element: <NewMealPage />,
+  },
+  {
+    path: "/meals/:mealId",
+    children: [
+      { index: true, element: <EditMealPage /> },
+      {
+        path: "/meals/:mealId/edit",
+        element: <EditMealPage />,
+      },
+    ],
   },
 ]);
 

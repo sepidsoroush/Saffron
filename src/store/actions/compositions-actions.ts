@@ -50,6 +50,26 @@ export function fetchCompositionsByMealId(mealId: number) {
   };
 }
 
+export function deleteComposition(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(uiActions.setLoading(true));
+    try {
+      const { error } = await supabase
+        .from("compositions")
+        .delete()
+        .eq("id", id);
+      if (error) {
+        throw new Error(`Error deleting composition: ${error.message}`);
+      }
+      dispatch(compositionsActions.deleteItem(id));
+    } catch (error) {
+      console.error("Error deleting composition:", error);
+    } finally {
+      dispatch(uiActions.setLoading(false));
+    }
+  };
+}
+
 export function addComposition(composition: Composition) {
   return async (dispatch: Dispatch) => {
     try {

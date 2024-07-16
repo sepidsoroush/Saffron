@@ -18,7 +18,7 @@ function MealsTab() {
       </ul>
       <Button className="sticky bottom-0 p-2">
         <Link
-          to="/new-meal"
+          to="/meals/new"
           className="gap-1 w-full flex flex-row justify-center items-center"
         >
           <Plus size={18} />
