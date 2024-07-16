@@ -16,7 +16,7 @@ export interface Ingredient {
 export interface Schedule {
   id: number;
   day: WeekDay;
-  meal_id: number;
+  meal_id?: number;
 }
 
 export interface Composition {

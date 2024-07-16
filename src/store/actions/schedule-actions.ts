@@ -28,11 +28,15 @@ export function deleteSchedule(day: WeekDay) {
   return async (dispatch: Dispatch) => {
     dispatch(uiActions.setLoading(true));
     try {
-      const { error } = await supabase.from("schedule").delete().eq("day", day);
+      const { error } = await supabase
+        .from("schedule")
+        .update({ meal_id: null })
+        .eq("day", day)
+        .select();
       if (error) {
         throw new Error(`Error deleting schedule: ${error.message}`);
       }
-      dispatch(scheduleActions.deleteItem(day));
+      dispatch(scheduleActions.clearMealId(day));
     } catch (error) {
       console.error("Error deleting schedule:", error);
     } finally {

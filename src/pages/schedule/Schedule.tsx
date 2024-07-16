@@ -3,10 +3,15 @@ import { useEffect, useState } from "react";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { updateSchedule } from "@/store/actions/schedule-actions";
+import {
+  deleteSchedule,
+  updateSchedule,
+} from "@/store/actions/schedule-actions";
 
 import { Schedule, Meal } from "@/types";
 import { WeekDay } from "@/types/constants";
+
+import { X } from "lucide-react";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();
@@ -30,27 +35,40 @@ function SchedulePage() {
     dispatch(updateSchedule(day, mealId));
   };
 
+  const handleDeleteMeal = (day: WeekDay) => {
+    dispatch(deleteSchedule(day));
+  };
+
   return (
     <ul className="grid grid-rows-7">
-      {schedule.map((item) => {
-        const meal = mealsMap[item.meal_id];
-        return (
-          <li
-            key={item.id}
-            className="flex flex-row justify-between items-center border pr-2"
-          >
-            <span className="px-2 py-4">{item.day}</span>
-            {meal ? (
-              <span className="px-2 py-4">{meal.name}</span>
-            ) : (
-              <SelectMealComboBox
-                day={item.day}
-                onMealChange={handleMealChange}
-              />
-            )}
-          </li>
-        );
-      })}
+      {[...schedule]
+        .sort((a, b) => a.id - b.id)
+        .map((item) => {
+          const meal = item.meal_id ? mealsMap[item.meal_id] : undefined;
+          return (
+            <li
+              key={item.id}
+              className="flex flex-row justify-between items-center border pr-2"
+            >
+              <span className="px-2 py-4">{item.day}</span>
+              {meal ? (
+                <div className="flex flex-row flex-end items-center">
+                  <span className="px-2 py-4">{meal.name}</span>
+                  <X
+                    color="#ff4747"
+                    size={16}
+                    onClick={() => handleDeleteMeal(item.day)}
+                  />
+                </div>
+              ) : (
+                <SelectMealComboBox
+                  day={item.day}
+                  onMealChange={handleMealChange}
+                />
+              )}
+            </li>
+          );
+        })}
     </ul>
   );
 }
