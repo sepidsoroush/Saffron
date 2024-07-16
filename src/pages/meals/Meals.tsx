@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 
 import { Meal } from "@/types";
 
-function MealsTab() {
+function MealsPage() {
   const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
 
   return (
@@ -29,4 +29,4 @@ function MealsTab() {
   );
 }
 
-export default MealsTab;
+export default MealsPage;

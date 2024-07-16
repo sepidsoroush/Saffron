@@ -3,7 +3,7 @@ import { useAppSelector } from "@/store/hooks";
 import { Schedule, Meal } from "@/types";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
 
-function ScheduleTab() {
+function SchedulePage() {
   const schedule = useAppSelector<Schedule[]>(
     (state) => state.schedule.schedule
   );
@@ -34,4 +34,4 @@ function ScheduleTab() {
   );
 }
 
-export default ScheduleTab;
+export default SchedulePage;

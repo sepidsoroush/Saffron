@@ -1,28 +1,13 @@
 import { useAppSelector } from "@/store/hooks";
-// import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import NewIngredient from "@/components/ingredients/new-ingredient";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
-import { CardDescription } from "@/components/ui/card";
 
 import { Ingredient } from "@/types";
 
-function GroceryTab() {
+function IngredientsPage() {
   const ingredients = useAppSelector<Ingredient[]>(
     (state) => state.ingredients.ingredients
   );
-  // const isLoading = useAppSelector<boolean>((state) => state.ui.loading);
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full h-screen flex items-center place-content-center">
-  //       <LoadingSpinner
-  //         width={48}
-  //         height={48}
-  //         className="flex items-center place-content-center"
-  //       />
-  //     </div>
-  //   );
-  // }
 
   const availableIngredients = ingredients.filter((item) => item.available);
   const unavailableIngredients = ingredients.filter((item) => !item.available);
@@ -30,7 +15,6 @@ function GroceryTab() {
   return (
     <div className="flex flex-col h-screen">
       <ul className="flex-1 px-2">
-        <CardDescription>Grocery list</CardDescription>
         {unavailableIngredients.map((item) => (
           <IngredientItem key={item.id} ingredient={item} />
         ))}
@@ -45,4 +29,4 @@ function GroceryTab() {
   );
 }
 
-export default GroceryTab;
+export default IngredientsPage;
