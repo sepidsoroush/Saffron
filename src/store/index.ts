@@ -10,7 +10,7 @@ const store = configureStore({
     meals: mealsSlice.reducer,
     ingredients: ingredientsSlice.reducer,
     schedule: scheduleSlice.reducer,
-    composition: compositionsSlice.reducer,
+    compositions: compositionsSlice.reducer,
     ui: uiSlice.reducer,
   },
 });

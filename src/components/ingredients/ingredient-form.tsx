@@ -1,7 +1,10 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 import { useAppDispatch } from "@/store/hooks";
-import { updateIngredient, addIngredient } from "@/store/ingredients-actions";
+import {
+  updateIngredient,
+  addIngredient,
+} from "@/store/actions/ingredients-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Ingredient } from "@/types";
@@ -99,7 +102,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <li className="flex items-center space-x-2">
       <Checkbox
         checked={ingredient?.available || false}
         className={
@@ -131,7 +134,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
           {ingredient?.name}
         </p>
       )}
-    </div>
+    </li>
   );
 };
 
