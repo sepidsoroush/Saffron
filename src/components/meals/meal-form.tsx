@@ -192,7 +192,6 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
               <FormControl>
                 <Input placeholder="Meal name" {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
@@ -210,6 +209,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
                 placeholder="Select Ingredients"
                 variant="inverted"
                 animation={2}
+                maxCount={30}
               />
             </FormItem>
           )}
