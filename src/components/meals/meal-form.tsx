@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
-import ConfirmAlertDialog from "../shared/confirm-alert";
+import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 
 import { Meal, Ingredient, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
@@ -38,6 +38,8 @@ import {
   updateComposition,
   deleteComposition,
 } from "@/store/actions/compositions-actions";
+
+import { showErrorToast, showSuccessToast } from "@/lib/utils";
 
 type ActionType = "create" | "update";
 
@@ -111,10 +113,10 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
 
         Promise.all(compositionPromises)
           .then(() => {
-            console.log("All compositions added successfully");
+            showSuccessToast("New meal added successfully");
           })
           .catch((error) => {
-            console.error("Error adding compositions:", error);
+            showErrorToast(`${`Error adding new meal: ${error}`}`);
           });
       });
     } else if (actionType === "update") {
@@ -167,10 +169,10 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
 
         Promise.all([...addPromises, ...deletePromises, ...updatePromises])
           .then(() => {
-            console.log("All compositions updated successfully");
+            showSuccessToast("Selected meal updated successfully");
           })
           .catch((error) => {
-            console.error("Error updating compositions:", error);
+            showErrorToast(`${`Error updating selected meal: ${error}`}`);
           });
       });
     }
@@ -191,10 +193,11 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         await Promise.all(deleteCompositionPromises);
         // Delete the meal
         await dispatch(deleteMeal(mealToUpdate.id));
-        console.log("Meal and related compositions deleted!");
+        showSuccessToast("Meal and related compositions deleted!");
+
         navigate("/meals");
       } catch (error) {
-        console.error("Error deleting meal and compositions:", error);
+        showErrorToast(`${`Error deleting meal and compositions: ${error}`}`);
       }
     }
   };

@@ -12,6 +12,7 @@ import { Schedule, Meal } from "@/types";
 import { WeekDay } from "@/types/constants";
 
 import { X } from "lucide-react";
+import { showSuccessToast } from "@/lib/utils";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function SchedulePage() {
 
   const handleDeleteMeal = (day: WeekDay) => {
     dispatch(deleteSchedule(day));
+    showSuccessToast("Meal removed from weekly schedule!");
   };
 
   return (
