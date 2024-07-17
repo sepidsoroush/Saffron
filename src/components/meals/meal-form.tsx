@@ -31,7 +31,7 @@ import { cuisineTypeInfo, mealTypeInfo } from "@/__mocks/info";
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { addMeal, updateMeal } from "@/store/actions/meals-actions";
+import { addMeal, deleteMeal, updateMeal } from "@/store/actions/meals-actions";
 import {
   addComposition,
   updateComposition,
@@ -178,7 +178,18 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   }
 
   const onDelete = () => {
-    console.log("delete");
+    if (mealToUpdate) {
+      // delete meal
+      dispatch(deleteMeal(mealToUpdate.id));
+
+      // delete compositions related to that meal
+      const compositionsToDelete = compositionsData.filter(
+        (composition) => composition.meal_id === mealToUpdate.id
+      );
+      compositionsToDelete.forEach((composition) => {
+        dispatch(deleteComposition(composition.id));
+      });
+    }
   };
 
   return (
