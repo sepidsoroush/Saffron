@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "@/components/shared/header";
+import { Toaster } from "@/components/ui/toaster";
 
 import { useAppDispatch } from "@/store/hooks";
 import { fetchMeals } from "@/store/actions/meals-actions";
@@ -25,6 +26,7 @@ function RootLayout() {
         <main className="w-full px-2">
           <Outlet />
         </main>
+        <Toaster />
       </div>
     </React.Fragment>
   );
