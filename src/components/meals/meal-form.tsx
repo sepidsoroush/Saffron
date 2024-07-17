@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/ui/multi-select";
+import ConfirmAlertDialog from "../shared/confirm-alert";
 
 import { Meal, Ingredient, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
@@ -177,18 +178,24 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
     navigate("/meals");
   }
 
-  const onDelete = () => {
+  const onDelete = async () => {
     if (mealToUpdate) {
-      // delete meal
-      dispatch(deleteMeal(mealToUpdate.id));
-
-      // delete compositions related to that meal
-      const compositionsToDelete = compositionsData.filter(
-        (composition) => composition.meal_id === mealToUpdate.id
-      );
-      compositionsToDelete.forEach((composition) => {
-        dispatch(deleteComposition(composition.id));
-      });
+      try {
+        const compositionsToDelete = compositionsData.filter(
+          (c) => c.meal_id === mealToUpdate.id
+        );
+        // Delete all related compositions
+        const deleteCompositionPromises = compositionsToDelete.map((c) =>
+          dispatch(deleteComposition(c.id))
+        );
+        await Promise.all(deleteCompositionPromises);
+        // Delete the meal
+        await dispatch(deleteMeal(mealToUpdate.id));
+        console.log("Meal and related compositions deleted!");
+        navigate("/meals");
+      } catch (error) {
+        console.error("Error deleting meal and compositions:", error);
+      }
     }
   };
 
@@ -276,9 +283,11 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         />
         <div className="space-x-4 text-left">
           {actionType === "update" ? (
-            <Button variant="destructive" onClick={onDelete}>
-              Delete
-            </Button>
+            <ConfirmAlertDialog
+              onConfirm={onDelete}
+              triggerText="Delete"
+              descriptionText="This action cannot be undone. This will permanently delete the meal and remove its data from our servers."
+            />
           ) : null}
           <Button type="submit">
             {actionType === "create" ? "Add Meal" : "Update Meal"}
