@@ -62,6 +62,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   const compositionsData = useAppSelector<Composition[]>(
     (state) => state.compositions.compositions
   );
+  const mealsData = useAppSelector<Meal[]>((state) => state.meals.meals);
 
   const ingredientSelectOptions: SelectOption[] =
     ingredientDataAsSelectOptions(ingredientsData);
@@ -85,6 +86,17 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         : Math.floor(Math.random() * Math.pow(2, 20)),
       name: values.name,
     };
+
+    const mealExists = mealsData.some((m) => m.name === meal.name);
+
+    if (mealExists) {
+      form.setError("name", {
+        type: "manual",
+        message:
+          "Meal with this name already exists. Please choose a different name.",
+      });
+      return;
+    }
 
     if (actionType === "create") {
       dispatch(addMeal(meal)).then(() => {
