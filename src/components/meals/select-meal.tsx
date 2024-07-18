@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useAppSelector } from "@/store/hooks";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -12,7 +14,13 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerTitle,
+  DrawerDescription,
+} from "@/components/ui/drawer";
 import {
   Popover,
   PopoverContent,
@@ -62,6 +70,12 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
+        <DrawerTitle>
+          <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
+        </DrawerTitle>
+        <DrawerDescription>
+          <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
+        </DrawerDescription>
         <div className="mt-4 border-t">
           <MealList setOpen={setOpen} setSelectedMeal={setSelectedMeal} />
         </div>
