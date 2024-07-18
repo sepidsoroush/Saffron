@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import { useAppSelector } from "@/store/hooks";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/popover";
 import { Plus } from "lucide-react";
 
-import { Meal } from "@/types";
+import { Meal, Schedule } from "@/types";
 import { WeekDay } from "@/types/constants";
 
 type Props = {
@@ -78,6 +78,19 @@ function MealList({
   setSelectedMeal: (meal: Meal | null) => void;
 }) {
   const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
+  const schedule = useAppSelector<Schedule[]>(
+    (state) => state.schedule.schedule
+  );
+
+  const mealIdsInSchedule = useMemo(
+    () => schedule.map((item) => Number(item.meal_id)).filter(Boolean),
+    [schedule]
+  );
+
+  const filteredMeals = useMemo(
+    () => meals.filter((item) => !mealIdsInSchedule.includes(item.id)),
+    [meals, mealIdsInSchedule]
+  );
 
   return (
     <Command>
@@ -85,7 +98,7 @@ function MealList({
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {meals.map((item) => (
+          {filteredMeals.map((item) => (
             <CommandItem
               key={item.id}
               value={item.name}
