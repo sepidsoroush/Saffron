@@ -32,7 +32,7 @@ export const MealCard = ({ meal }: Props) => {
       <Card className="m-2">
         <CardTitle className="text-lg px-4 py-2">{meal.name}</CardTitle>
         <CardContent className="px-4 py-0">
-          <ul className="grid grid-cols-2">
+          <ul className="pb-2">
             {ingredientsInRecipe?.map((item) => (
               <IngredientListItem
                 key={item.id}

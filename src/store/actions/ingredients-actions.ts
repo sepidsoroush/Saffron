@@ -32,7 +32,7 @@ export function addIngredient(ingredient: Ingredient) {
         .insert([ingredient])
         .select();
       if (error) {
-        console.error("Error adding meal:", error);
+        console.error("Error adding ingredient:", error);
       }
       dispatch(ingredientsActions.addItem(ingredient));
     } catch (error) {
@@ -52,7 +52,7 @@ export function updateIngredient(id: number, ingredient: Ingredient) {
         .select();
 
       if (error) {
-        console.error("Error updating meal:", error);
+        console.error("Error updating ingredient:", error);
       }
       dispatch(ingredientsActions.updateItem({ id, ingredient }));
     } catch (error) {
@@ -72,11 +72,11 @@ export function deleteIngredient(id: number) {
         .delete()
         .eq("id", id);
       if (error) {
-        throw new Error(`Error deleting meal: ${error.message}`);
+        throw new Error(`Error deleting ingredient: ${error.message}`);
       }
       dispatch(ingredientsActions.deleteItem(id));
     } catch (error) {
-      console.error("Error deleting meal:", error);
+      console.error("Error deleting ingredient:", error);
     } finally {
       dispatch(uiActions.setLoading(false));
     }
