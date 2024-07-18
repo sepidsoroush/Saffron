@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { useAppSelector } from "@/store/hooks";
 
 import NewIngredient from "@/components/ingredients/new-ingredient";
@@ -18,59 +20,61 @@ function IngredientsPage() {
     (state) => state.compositions.compositions
   );
 
-  const mealIdsInSchedule = schedule.map((item) => {
-    return item.meal_id;
-  });
-
-  const filteredCompositions = compositionsData.filter(
-    (item) => !mealIdsInSchedule.includes(item.meal_id)
+  const mealIdsInSchedule = useMemo(
+    () => schedule.map((item) => Number(item.meal_id)).filter(Boolean),
+    [schedule]
   );
 
-  const ingredientIdsInSchedule = filteredCompositions.map((item) => {
-    return item.ingredient_id;
-  });
-
-  const filteredIngredients = ingredients.filter((item) =>
-    ingredientIdsInSchedule.includes(item.id)
+  const filteredCompositions = useMemo(
+    () =>
+      compositionsData.filter((item) =>
+        mealIdsInSchedule.includes(item.meal_id)
+      ),
+    [compositionsData, mealIdsInSchedule]
   );
 
-  const needToPurchace = filteredIngredients.filter((item) => !item.available);
+  const ingredientIdsInSchedule = useMemo(
+    () => filteredCompositions.map((item) => item.ingredient_id),
+    [filteredCompositions]
+  );
 
-  const noNeedToPurchace = ingredients
-    .filter((item) => !ingredientIdsInSchedule.includes(item.id))
-    .filter((item) => !item.available);
+  const needToPurchase = useMemo(
+    () =>
+      ingredients
+        .filter((item) => ingredientIdsInSchedule.includes(item.id))
+        .filter((item) => !item.available),
+    [ingredients, ingredientIdsInSchedule]
+  );
 
-  const availableIngredients = ingredients.filter((item) => item.available);
+  const noNeedToPurchase = useMemo(
+    () =>
+      ingredients
+        .filter((item) => !ingredientIdsInSchedule.includes(item.id))
+        .filter((item) => !item.available),
+    [ingredients, ingredientIdsInSchedule]
+  );
+
+  const availableIngredients = useMemo(
+    () => ingredients.filter((item) => item.available),
+    [ingredients]
+  );
 
   return (
     <div className="flex flex-col h-screen">
       <ul className="flex-1 px-2 space-y-2">
-        <Card>
-          <CardHeader className="text-red-600 font-bold">
-            Need to purchase for the weekly schedule
-          </CardHeader>
-          <CardContent>
-            {needToPurchace.map((item) => (
-              <IngredientItem key={item.id} ingredient={item} />
-            ))}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>No need to purchase</CardHeader>
-          <CardContent>
-            {noNeedToPurchace.map((item) => (
-              <IngredientItem key={item.id} ingredient={item} />
-            ))}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>Available Ingredients</CardHeader>
-          <CardContent>
-            {availableIngredients.map((item) => (
-              <IngredientItem key={item.id} ingredient={item} />
-            ))}
-          </CardContent>
-        </Card>
+        <IngredientCategoryCard
+          header="Need to purchase for the weekly schedule"
+          ingredients={needToPurchase}
+          className="text-red-600 font-bold"
+        />
+        <IngredientCategoryCard
+          header="No need to purchase"
+          ingredients={noNeedToPurchase}
+        />
+        <IngredientCategoryCard
+          header="Available Ingredients"
+          ingredients={availableIngredients}
+        />
       </ul>
       <div className="sticky bottom-0 p-2">
         <NewIngredient />
@@ -80,3 +84,24 @@ function IngredientsPage() {
 }
 
 export default IngredientsPage;
+
+interface CardProps {
+  header: string;
+  ingredients: Ingredient[];
+  className?: string;
+}
+
+const IngredientCategoryCard: React.FC<CardProps> = ({
+  header,
+  ingredients,
+  className,
+}) => (
+  <Card>
+    <CardHeader className={className}>{header}</CardHeader>
+    <CardContent>
+      {ingredients.map((ingredient) => (
+        <IngredientItem key={ingredient.id} ingredient={ingredient} />
+      ))}
+    </CardContent>
+  </Card>
+);
