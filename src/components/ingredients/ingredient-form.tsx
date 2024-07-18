@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useRef } from "react";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   updateIngredient,
   addIngredient,
@@ -8,6 +8,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Ingredient } from "@/types";
+import { showErrorToast } from "@/lib/utils";
 
 interface IngredientFormProps {
   ingredient?: Ingredient;
@@ -25,6 +26,10 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
   const [updatedName, setUpdatedName] = useState(ingredient?.name || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const ingredientsData = useAppSelector<Ingredient[]>(
+    (state) => state.ingredients.ingredients
+  );
+
   const startEditing = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -41,6 +46,20 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
       if (type === "create" && onFinish) {
         onFinish();
       }
+      return;
+    }
+
+    // Check if ingredient name already exists
+    const ingredientExists = ingredientsData.some(
+      (ing) => ing.name.toLowerCase() === trimmedName.toLowerCase()
+    );
+
+    if (ingredientExists) {
+      showErrorToast(
+        "Ingredient with this name already exists. Please choose a different name."
+      );
+      setIsEditing(true);
+
       return;
     }
 
