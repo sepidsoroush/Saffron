@@ -14,21 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { MultiSelect } from "@/components/ui/multi-select";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 
 import { Meal, Ingredient, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
-import { CuisineType, MealType } from "@/types/constants";
 
-import { cuisineTypeInfo, mealTypeInfo } from "@/__mocks/info";
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
@@ -58,8 +50,6 @@ const formSchema = z.object({
       message: "Name must not be longer than 250 characters.",
     }),
   ingredients: z.array(z.string()),
-  cuisine: z.enum(cuisineTypeInfo),
-  type: z.enum(mealTypeInfo),
 });
 
 const MealForm = ({ actionType, mealToUpdate }: Props) => {
@@ -85,8 +75,6 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             .filter((item) => item.meal_id === mealToUpdate.id)
             .map((item) => item.ingredient_id.toString())
         : [],
-      cuisine: cuisineTypeInfo[0] as CuisineType,
-      type: mealTypeInfo[1] as MealType,
     },
   });
 
@@ -96,8 +84,6 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         ? mealToUpdate.id
         : Math.floor(Math.random() * Math.pow(2, 20)),
       name: values.name,
-      cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
-      type: MealType[values.type as keyof typeof MealType],
     };
 
     if (actionType === "create") {
@@ -233,54 +219,6 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
                 animation={2}
                 maxCount={30}
               />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="cuisine"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cuisine</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a cuisine" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {cuisineTypeInfo.map((item) => (
-                    <SelectItem key={item} value={item}>
-                      {item}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Meal Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {mealTypeInfo.map((item) => (
-                    <SelectItem key={item} value={item}>
-                      {item}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
             </FormItem>
           )}
         />
