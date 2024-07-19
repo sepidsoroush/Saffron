@@ -1,19 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
-import { useAppSelector } from "@/store/hooks";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+
 import {
   Drawer,
   DrawerContent,
@@ -26,9 +18,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { MealList } from "./meal-list";
 import { Plus } from "lucide-react";
 
-import { Meal, Schedule } from "@/types";
+import { Meal } from "@/types";
 import { WeekDay } from "@/types/constants";
 
 type Props = {
@@ -81,53 +74,5 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
         </div>
       </DrawerContent>
     </Drawer>
-  );
-}
-
-function MealList({
-  setOpen,
-  setSelectedMeal,
-}: {
-  setOpen: (open: boolean) => void;
-  setSelectedMeal: (meal: Meal | null) => void;
-}) {
-  const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
-  const schedule = useAppSelector<Schedule[]>(
-    (state) => state.schedule.schedule
-  );
-
-  const mealIdsInSchedule = useMemo(
-    () => schedule.map((item) => Number(item.meal_id)).filter(Boolean),
-    [schedule]
-  );
-
-  const filteredMeals = useMemo(
-    () => meals.filter((item) => !mealIdsInSchedule.includes(item.id)),
-    [meals, mealIdsInSchedule]
-  );
-
-  return (
-    <Command>
-      <CommandInput placeholder="Search meal..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup>
-          {filteredMeals.map((item) => (
-            <CommandItem
-              key={item.id}
-              value={item.name}
-              onSelect={(value) => {
-                setSelectedMeal(
-                  meals.find((item) => item.name === value) || null
-                );
-                setOpen(false);
-              }}
-            >
-              {item.name}
-            </CommandItem>
-          ))}
-        </CommandGroup>
-      </CommandList>
-    </Command>
   );
 }

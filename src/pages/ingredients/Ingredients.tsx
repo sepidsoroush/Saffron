@@ -63,7 +63,7 @@ function IngredientsPage() {
     <div className="flex flex-col h-screen">
       <ul className="flex-1 px-2 space-y-2">
         <IngredientCategoryCard
-          header="Need to purchase for the weekly schedule"
+          header="Need to purchase for schedule"
           ingredients={needToPurchase}
           className="text-red-600 font-bold"
         />
