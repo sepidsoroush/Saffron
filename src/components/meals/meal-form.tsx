@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { MultiSelect } from "@/components/ui/multi-select";
+import { SelectIngredientComboBox } from "@/components/ingredients/select-ingredient";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 
 import { Meal, Ingredient, Composition } from "@/types";
@@ -87,18 +87,17 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       name: values.name,
     };
 
-    const mealExists = mealsData.some((m) => m.name === meal.name);
-
-    if (mealExists) {
-      form.setError("name", {
-        type: "manual",
-        message:
-          "Meal with this name already exists. Please choose a different name.",
-      });
-      return;
-    }
-
     if (actionType === "create") {
+      const mealExists = mealsData.some((m) => m.name === meal.name);
+
+      if (mealExists) {
+        form.setError("name", {
+          type: "manual",
+          message:
+            "Meal with this name already exists. Please choose a different name.",
+        });
+        return;
+      }
       dispatch(addMeal(meal)).then(() => {
         const compositionPromises = values.ingredients.map((ingredientId) => {
           const composition: Composition = {
@@ -222,13 +221,11 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Ingredients</FormLabel>
-              <MultiSelect
+              <SelectIngredientComboBox
                 options={ingredientSelectOptions}
                 onValueChange={field.onChange}
                 defaultValue={field.value}
                 placeholder="Select Ingredients"
-                variant="inverted"
-                animation={2}
                 maxCount={30}
               />
             </FormItem>
