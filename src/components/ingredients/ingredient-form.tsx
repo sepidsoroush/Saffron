@@ -49,6 +49,14 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
       return;
     }
 
+    // Check if the updated name is the same as the current name
+    if (type === "update" && ingredient && trimmedName === ingredient.name) {
+      if (onFinish) {
+        onFinish();
+      }
+      return;
+    }
+
     // Check if ingredient name already exists
     const ingredientExists = ingredientsData.some(
       (ing) => ing.name.toLowerCase() === trimmedName.toLowerCase()

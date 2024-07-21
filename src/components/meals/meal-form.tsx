@@ -87,17 +87,84 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       name: values.name,
     };
 
-    if (actionType === "create") {
-      const mealExists = mealsData.some((m) => m.name === meal.name);
+    // Check if the updated name is the same as the current name
+    if (
+      actionType === "update" &&
+      mealToUpdate &&
+      values.name === mealToUpdate.name
+    ) {
+      // Proceed with the update logic without checking for duplicate names
+      dispatch(updateMeal(meal.id, meal)).then(() => {
+        // Fetch existing compositions for the meal
+        const existingCompositions = compositionsData.filter(
+          (composition) => composition.meal_id === meal.id
+        );
 
-      if (mealExists) {
-        form.setError("name", {
-          type: "manual",
-          message:
-            "Meal with this name already exists. Please choose a different name.",
+        // Determine which compositions to add, update, or delete
+        const newIngredients = values.ingredients.map(Number);
+        const existingIngredientIds = existingCompositions.map(
+          (c) => c.ingredient_id
+        );
+
+        // Add new compositions
+        const addPromises = newIngredients.map((ingredientId) => {
+          if (!existingIngredientIds.includes(ingredientId)) {
+            const composition: Composition = {
+              id: Math.floor(Math.random() * Math.pow(2, 20)),
+              meal_id: meal.id,
+              ingredient_id: ingredientId,
+            };
+            return dispatch(addComposition(composition));
+          }
         });
-        return;
-      }
+
+        // Remove old compositions
+        const deletePromises = existingCompositions.map((composition) => {
+          if (!newIngredients.includes(composition.ingredient_id)) {
+            return dispatch(deleteComposition(composition.id));
+          }
+        });
+
+        // Update existing compositions if necessary
+        const updatePromises = existingCompositions.map((composition) => {
+          if (
+            newIngredients.includes(composition.ingredient_id) &&
+            composition.meal_id === meal.id
+          ) {
+            const updatedComposition: Composition = {
+              ...composition,
+              ingredient_id: composition.ingredient_id,
+            };
+            return dispatch(
+              updateComposition(composition.id, updatedComposition)
+            );
+          }
+        });
+
+        Promise.all([...addPromises, ...deletePromises, ...updatePromises])
+          .then(() => {
+            showSuccessToast("Selected meal updated successfully");
+          })
+          .catch((error) => {
+            showErrorToast(`${`Error updating selected meal: ${error}`}`);
+          });
+      });
+      navigate("/meals");
+      return;
+    }
+
+    const mealExists = mealsData.some((m) => m.name === meal.name);
+
+    if (mealExists) {
+      form.setError("name", {
+        type: "manual",
+        message:
+          "Meal with this name already exists. Please choose a different name.",
+      });
+      return;
+    }
+
+    if (actionType === "create") {
       dispatch(addMeal(meal)).then(() => {
         const compositionPromises = values.ingredients.map((ingredientId) => {
           const composition: Composition = {
