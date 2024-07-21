@@ -18,7 +18,7 @@ const IngredientListItem = ({ ingredient }: Props) => {
         checked={ingredient.available}
         className={cn(
           ingredient?.available
-            ? "data-[state=checked]:bg-gray-300 data-[state=checked]:border-gray-300 "
+            ? "data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
             : "",
           "cursor-not-allowed"
         )}
@@ -28,7 +28,7 @@ const IngredientListItem = ({ ingredient }: Props) => {
       <Label
         htmlFor={`ingredient-${ingredient.id}`}
         className={cn(
-          ingredient.available ? "text-gray-400 line-through" : "",
+          ingredient.available ? "text-gray-400" : "",
           "ml-1 text-sm font-light"
         )}
       >
