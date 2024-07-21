@@ -29,7 +29,7 @@ export const MealCard = ({ meal }: Props) => {
 
   return (
     <Link to={`/meals/${meal.id}`}>
-      <Card className="m-2">
+      <Card className="my-2">
         <CardTitle className="text-lg px-4 py-2">{meal.name}</CardTitle>
         <CardContent className="px-4 py-0">
           <ul className="pb-2">
