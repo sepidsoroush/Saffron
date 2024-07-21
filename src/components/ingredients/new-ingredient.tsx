@@ -15,7 +15,7 @@ const NewIngredient: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       {isCreating ? (
         <IngredientForm type="create" onFinish={finishCreatingHandler} />
       ) : (
