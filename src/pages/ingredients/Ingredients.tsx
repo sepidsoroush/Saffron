@@ -60,8 +60,8 @@ function IngredientsPage() {
   );
 
   return (
-    <div className="flex flex-col h-screen">
-      <ul className="flex-1 px-2 space-y-2">
+    <div className="flex flex-col justify-between">
+      <ul className="flex-1 px-2 space-y-2 gap-2 md:grid md:grid-cols-3 md:space-y-0 pb-[60px] md:pb-0 overflow-x-hidden">
         <IngredientCategoryCard
           header="Need to purchase for schedule"
           ingredients={needToPurchase}
@@ -76,7 +76,7 @@ function IngredientsPage() {
           ingredients={availableIngredients}
         />
       </ul>
-      <div className="sticky bottom-0 px-2">
+      <div className="fixed bottom-0 px-2 border-red-500 border bg-white  flex flex-col w-full">
         <div className="h-3 w-full bg-gradient-to-t from-gray-100 to-transparent"></div>
         <NewIngredient />
         <div className="h-2 w-full bg-white"></div>
