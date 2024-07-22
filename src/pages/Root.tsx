@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/navbar";
+import MobileNavbar from "@/components/layout/mobile-navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 import { useAppDispatch } from "@/store/hooks";
@@ -28,6 +29,9 @@ function RootLayout() {
         <main className="w-full px-2">
           <Outlet />
         </main>
+        <div className="fixed bottom-0 md:hidden bg-background/60 backdrop-blur-xl transition-all w-full">
+          <MobileNavbar />
+        </div>
         <Toaster />
       </div>
     </React.Fragment>
