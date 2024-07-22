@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "@/components/theme/ModeToggleMenu";
 import NewItem from "@/components/shared/new-Item";
 import NavbarItem from "./navbar-item";
 
@@ -20,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="grid grid-cols-3 md:grid-cols-1 gap-2 py-2">
+    <nav className="grid grid-cols-4 md:grid-cols-1 gap-2 py-2">
       <div className="hidden md:flex md:flex-row justify-start items-center  p-2">
         <Cookie size={20} />
         <span className="text-lg font-semibold ml-1">Bite Board</span>
@@ -34,8 +33,6 @@ const Navbar = () => {
         <NewItem onClick={newItemHandler} title="New Ingredient" />
         <NewItem onClick={newMealHandler} title="New Meal" />
       </div>
-
-      <ModeToggle />
     </nav>
   );
 };
