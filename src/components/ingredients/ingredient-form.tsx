@@ -134,7 +134,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
         checked={ingredient?.available || false}
         className={
           ingredient?.available
-            ? "data-[state=checked]:bg-gray-300 data-[state=checked]:border-gray-300"
+            ? "data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
             : ""
         }
         onClick={checkboxHandler}
@@ -151,11 +151,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
         />
       ) : (
         <p
-          className={
-            ingredient?.available
-              ? "text-gray-400 line-through font-normal"
-              : ""
-          }
+          className={ingredient?.available ? "text-gray-400 font-normal" : ""}
           onClick={handleLabelClick}
         >
           {ingredient?.name}

@@ -7,7 +7,7 @@ type Props = {
   backLink: string;
 };
 
-export function PageHeader({ title, backLink }: Props) {
+export function FormTitle({ title, backLink }: Props) {
   return (
     <div className="flex flex-row items-center justify-between max-w-full mb-4">
       <Link

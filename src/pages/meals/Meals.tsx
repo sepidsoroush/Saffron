@@ -1,34 +1,31 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { useAppSelector } from "@/store/hooks";
 import { MealCard } from "@/components/meals/meal-card";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+// import NewItem from "@/components/shared/new-Item";
 
 import { Meal } from "@/types";
+import { Header } from "@/components/layout/header";
 
 function MealsPage() {
+  const navigate = useNavigate();
+
   const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
 
+  const newItemHandler = () => {
+    navigate("/meals/new");
+  };
+
   return (
-    <div className="flex flex-col h-screen">
-      <ul className="flex-1 px-2">
+    <div className="flex flex-col min-h-screen">
+      <Header onClick={newItemHandler} actionTitle="New Meal">
+        Meals List
+      </Header>
+      <ul className="px-2 md:grid md:grid-cols-2 lg:grid-cols-3 gap-2 mb-[64px] md:mb-0">
         {meals.map((item) => (
           <MealCard key={item.id} meal={item} />
         ))}
       </ul>
-      <div className="sticky bottom-0 px-2 w-full">
-        <div className="h-3 w-full bg-gradient-to-t from-gray-100 to-transparent"></div>
-        <Button className="gap-1 w-full">
-          <Link
-            to="/meals/new"
-            className="gap-1 w-full flex flex-row justify-center items-center"
-          >
-            <Plus size={18} />
-            <span className="text-base font-light">New Meal</span>
-          </Link>
-        </Button>
-        <div className="h-2 w-full bg-white"></div>
-      </div>
     </div>
   );
 }

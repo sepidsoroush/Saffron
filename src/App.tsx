@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
+import Setting from "./pages/Setting";
 import NewMealPage from "./pages/meals/NewMeal";
 import EditMealPage from "./pages/meals/EditMeal";
 import MealsPage from "./pages/meals/Meals";
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/ingredients",
         element: <IngredientsPage />,
+      },
+      {
+        path: "/setting",
+        element: <Setting />,
       },
     ],
   },
