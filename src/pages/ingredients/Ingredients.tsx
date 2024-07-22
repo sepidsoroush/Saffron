@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { useAppSelector } from "@/store/hooks";
 
-import NewIngredient from "@/components/ingredients/new-ingredient";
+// import NewIngredient from "@/components/ingredients/new-ingredient";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
 
 import { Composition, Ingredient, Schedule } from "@/types";
@@ -76,7 +76,7 @@ function IngredientsPage() {
           ingredients={availableIngredients}
         />
       </ul>
-      <NewIngredient />
+      {/* <NewIngredient /> */}
     </div>
   );
 }

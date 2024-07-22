@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "@/components/shared/header";
+import Navbar from "@/components/layout/navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 import { useAppDispatch } from "@/store/hooks";
@@ -21,8 +21,10 @@ function RootLayout() {
 
   return (
     <React.Fragment>
-      <div className="flex flex-col">
-        <Header />
+      <div className="flex flex-col md:flex-row min-h-screen">
+        <aside className="sticky top-0 md:w-[220px] border-r bg-background/60 backdrop-blur-xl transition-all px-2">
+          <Navbar />
+        </aside>
         <main className="w-full px-2">
           <Outlet />
         </main>

@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 import { MealCard } from "@/components/meals/meal-card";
-import NewItem from "@/components/shared/new-Item";
+// import NewItem from "@/components/shared/new-Item";
 
 import { Meal } from "@/types";
 
 function MealsPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
 
-  const newItemHandler = () => {
-    navigate("/meals/new");
-  };
+  // const newItemHandler = () => {
+  //   navigate("/meals/new");
+  // };
 
   return (
     <div className="flex flex-col h-screen flex-1">
@@ -22,7 +22,7 @@ function MealsPage() {
           <MealCard key={item.id} meal={item} />
         ))}
       </ul>
-      <NewItem onClick={newItemHandler} title="New Meal" />
+      {/* <NewItem onClick={newItemHandler} title="New Meal" /> */}
     </div>
   );
 }
