@@ -6,6 +6,7 @@ import {
   updateSchedule,
 } from "@/store/actions/schedule-actions";
 
+import { Card } from "@/components/ui/card";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
 import { Header } from "@/components/layout/header";
 
@@ -45,17 +46,17 @@ function SchedulePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header>Weekly Schedule</Header>
-      <ul className="grid grid-rows-7 p-2">
+      <div className="h-[calc(100vh-150px)] p-2">
         {[...schedule]
           .sort((a, b) => a.id - b.id)
           .map((item) => {
             const meal = item.meal_id ? mealsMap[item.meal_id] : undefined;
             return (
-              <li
+              <Card
                 key={item.id}
-                className="flex flex-row justify-between items-center border pr-2"
+                className="flex flex-row justify-between items-center border mb-2 px-2"
               >
-                <span className="px-2 py-4">{item.day}</span>
+                <span className="py-4">{item.day}</span>
                 {meal ? (
                   <div className="flex flex-row flex-end items-center">
                     <span className="px-2 py-4">{meal.name}</span>
@@ -71,10 +72,10 @@ function SchedulePage() {
                     onMealChange={handleMealChange}
                   />
                 )}
-              </li>
+              </Card>
             );
           })}
-      </ul>
+      </div>
     </div>
   );
 }
