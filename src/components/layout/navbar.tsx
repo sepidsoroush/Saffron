@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import NavbarItem from "./navbar-item";
-import NewItem from "../shared/new-Item";
+
 import { Separator } from "@/components/ui/separator";
+import { ModeToggle } from "@/components/theme/ModeToggleMenu";
+import NewItem from "@/components/shared/new-Item";
+import NavbarItem from "./navbar-item";
 
 import { NAVBAR } from "@/lib/info";
 import { Cookie } from "lucide-react";
@@ -33,7 +35,7 @@ const Navbar = () => {
         <NewItem onClick={newMealHandler} title="New Meal" />
       </div>
 
-      {/* <ModeToggle /> */}
+      <ModeToggle />
     </nav>
   );
 };
