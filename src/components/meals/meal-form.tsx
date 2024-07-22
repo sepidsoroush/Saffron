@@ -14,10 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { SelectIngredientComboBox } from "@/components/ingredients/select-ingredient";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
-import { PageHeader } from "../shared/page-header";
+import { FormTitle } from "./form-title";
 
 import { Meal, Ingredient, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
@@ -269,7 +268,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
 
   return (
     <Form {...form}>
-      <PageHeader
+      <FormTitle
         backLink="/meals"
         title={
           actionType === "create" ? "Add a new meal" : "Edit selected meal"

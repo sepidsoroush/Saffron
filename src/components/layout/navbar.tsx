@@ -1,38 +1,41 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { Separator } from "@/components/ui/separator";
-import NewItem from "@/components/shared/new-Item";
+// import NewItem from "@/components/shared/new-Item";
 import NavbarItem from "./navbar-item";
 
 import { NAVBAR } from "@/lib/info";
 import { Cookie } from "lucide-react";
+import { Header } from "./header";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const newItemHandler = () => {
-    console.log("new ingredient");
-  };
+  // const newItemHandler = () => {
+  //   console.log("new ingredient");
+  // };
 
-  const newMealHandler = () => {
-    navigate("/meals/new");
-  };
+  // const newMealHandler = () => {
+  //   navigate("/meals/new");
+  // };
 
   return (
-    <nav className="hidden md:flex flex-col gap-2 py-2">
-      <div className="flex flex-row justify-start items-center p-2">
-        <Cookie size={20} />
-        <span className="text-lg font-semibold ml-1">Bite Board</span>
-      </div>
-      <Separator />
+    <nav className="hidden md:flex flex-col gap-2">
+      <Header>
+        <div className="flex flex-row justify-start items-center">
+          <Cookie size={20} />
+          <span className="ml-2">Bite Board</span>
+        </div>
+      </Header>
+
       {NAVBAR.map((item) => (
         <NavbarItem key={item.title} link={item} />
       ))}
       <Separator />
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col px-2">
         <NewItem onClick={newItemHandler} title="New Ingredient" />
         <NewItem onClick={newMealHandler} title="New Meal" />
-      </div>
+      </div> */}
     </nav>
   );
 };
