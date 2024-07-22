@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import IngredientForm from "./ingredient-form";
-import { CirclePlus } from "lucide-react";
+import NewItem from "@/components/shared/new-Item";
 
 const NewIngredient: React.FC = () => {
   const [isCreating, setIsCreating] = useState(false);
@@ -19,16 +19,7 @@ const NewIngredient: React.FC = () => {
       {isCreating ? (
         <IngredientForm type="create" onFinish={finishCreatingHandler} />
       ) : (
-        <Button
-          variant="ghost"
-          className="gap-1 justify-start"
-          onClick={newItemHandler}
-        >
-          <CirclePlus size={18} color="#059669" />
-          <span className="text-base font-medium text-emerald-600">
-            New Item
-          </span>
-        </Button>
+        <NewItem onClick={newItemHandler} title="New Item" />
       )}
     </div>
   );

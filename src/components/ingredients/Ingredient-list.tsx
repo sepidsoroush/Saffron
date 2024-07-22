@@ -7,7 +7,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import NewIngredient from "./new-ingredient";
+// import NewIngredient from "./new-ingredient";
 import { CheckIcon } from "lucide-react";
 
 import { SelectOption } from "@/types/common-ui";
@@ -28,9 +28,7 @@ export function IngredientList({
       <CommandInput placeholder="Filter status..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandItem>
-          <NewIngredient />
-        </CommandItem>
+        <CommandItem>{/* <NewIngredient /> */}</CommandItem>
         <CommandGroup>
           {options.map((option) => {
             const isSelected = selectedValues.includes(option.value);
