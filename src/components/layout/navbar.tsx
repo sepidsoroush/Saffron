@@ -1,7 +1,4 @@
-// import { useNavigate } from "react-router-dom";
-
 import { Separator } from "@/components/ui/separator";
-// import NewItem from "@/components/shared/new-Item";
 import NavbarItem from "./navbar-item";
 
 import { NAVBAR } from "@/lib/info";
@@ -9,16 +6,6 @@ import { Cookie } from "lucide-react";
 import { Header } from "./header";
 
 const Navbar = () => {
-  // const navigate = useNavigate();
-
-  // const newItemHandler = () => {
-  //   console.log("new ingredient");
-  // };
-
-  // const newMealHandler = () => {
-  //   navigate("/meals/new");
-  // };
-
   return (
     <nav className="hidden md:flex flex-col gap-2">
       <Header>
@@ -32,10 +19,6 @@ const Navbar = () => {
         <NavbarItem key={item.title} link={item} />
       ))}
       <Separator />
-      {/* <div className="flex flex-col px-2">
-        <NewItem onClick={newItemHandler} title="New Ingredient" />
-        <NewItem onClick={newMealHandler} title="New Meal" />
-      </div> */}
     </nav>
   );
 };

@@ -41,7 +41,7 @@ function IngredientsPage() {
     [filteredCompositions]
   );
 
-  const needToPurchase = useMemo(
+  const essentialItems = useMemo(
     () =>
       ingredients
         .filter((item) => ingredientIdsInSchedule.includes(item.id))
@@ -49,7 +49,7 @@ function IngredientsPage() {
     [ingredients, ingredientIdsInSchedule]
   );
 
-  const noNeedToPurchase = useMemo(
+  const needToPurchase = useMemo(
     () =>
       ingredients
         .filter((item) => !ingredientIdsInSchedule.includes(item.id))
@@ -74,17 +74,19 @@ function IngredientsPage() {
       {isCreating ? <NewIngredient setIsCreating={setIsCreating} /> : null}
       <ul className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
         <IngredientCategoryCard
-          header="Need to purchase for schedule"
-          ingredients={needToPurchase}
-          className="text-red-600 font-bold"
+          header="Essential items for schedule"
+          ingredients={essentialItems}
+          className="text-red-600 font-bold py-4"
         />
         <IngredientCategoryCard
-          header="No need to purchase"
-          ingredients={noNeedToPurchase}
+          header="Need to purchase"
+          ingredients={needToPurchase}
+          className="font-semibold py-4"
         />
         <IngredientCategoryCard
           header="Available Ingredients"
           ingredients={availableIngredients}
+          className="py-4"
         />
       </ul>
     </div>

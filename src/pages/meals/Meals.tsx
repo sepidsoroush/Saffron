@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 import { MealCard } from "@/components/meals/meal-card";
-// import NewItem from "@/components/shared/new-Item";
 
 import { Meal } from "@/types";
 import { Header } from "@/components/layout/header";

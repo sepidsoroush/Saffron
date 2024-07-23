@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import NewItem from "../shared/new-Item";
+import NewItem from "@/components/shared/new-Item";
 import { ChevronLeft } from "lucide-react";
 
 type Props = {

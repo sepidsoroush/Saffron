@@ -9,7 +9,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import NewItem from "../shared/new-Item";
+import NewItem from "@/components/shared/new-Item";
 import IngredientForm from "./ingredient-form";
 import { CheckIcon } from "lucide-react";
 

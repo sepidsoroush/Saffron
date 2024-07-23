@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import IngredientListItem from "../ingredients/ingredient-list-item";
+import IngredientListItem from "@/components/ingredients/ingredient-list-item";
 import { Meal, Composition, Ingredient } from "@/types";
 
 type Props = {

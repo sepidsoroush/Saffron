@@ -17,11 +17,6 @@ const scheduleSlice = createSlice({
     setItems(state, action: PayloadAction<{ schedule: Schedule[] }>) {
       state.schedule = action.payload.schedule;
     },
-    // deleteItem: (state, action: PayloadAction<string>) => {
-    //   state.schedule = state.schedule.filter(
-    //     (item) => item.day !== action.payload
-    //   );
-    // },
     clearMealId(state, action: PayloadAction<WeekDay>) {
       const index = state.schedule.findIndex(
         (item) => item.day === action.payload
