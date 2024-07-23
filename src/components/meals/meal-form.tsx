@@ -304,7 +304,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             </FormItem>
           )}
         />
-        <div className="space-x-4 text-center">
+        <div className="space-x-4 text-left">
           <Button variant="outline" onClick={() => navigate("/meals")}>
             Cancel
           </Button>

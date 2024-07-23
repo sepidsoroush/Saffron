@@ -11,7 +11,11 @@ const EditMealPage: React.FC = () => {
   const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
   const mealToUpdate = meals.find((item) => item.id === mealId);
 
-  return <MealForm actionType="update" mealToUpdate={mealToUpdate} />;
+  return (
+    <div className="p-4">
+      <MealForm actionType="update" mealToUpdate={mealToUpdate} />
+    </div>
+  );
 };
 
 export default EditMealPage;
