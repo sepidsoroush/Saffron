@@ -1,15 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { useAppSelector } from "@/store/hooks";
 
-// import NewIngredient from "@/components/ingredients/new-ingredient";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { Header } from "@/components/layout/header";
 
 import { Composition, Ingredient, Schedule } from "@/types";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import NewIngredient from "@/components/ingredients/new-ingredient";
 
 function IngredientsPage() {
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+
   const ingredients = useAppSelector<Ingredient[]>(
     (state) => state.ingredients.ingredients
   );
@@ -61,7 +63,7 @@ function IngredientsPage() {
   );
 
   const newItemHandler = () => {
-    console.log("click new Ingredient");
+    setIsCreating(true);
   };
 
   return (
@@ -69,6 +71,7 @@ function IngredientsPage() {
       <Header onClick={newItemHandler} actionTitle="New Item">
         Grocery List
       </Header>
+      {isCreating ? <NewIngredient setIsCreating={setIsCreating} /> : null}
       <ul className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
         <IngredientCategoryCard
           header="Need to purchase for schedule"
@@ -84,7 +87,6 @@ function IngredientsPage() {
           ingredients={availableIngredients}
         />
       </ul>
-      {/* <NewIngredient /> */}
     </div>
   );
 }
