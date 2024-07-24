@@ -42,7 +42,11 @@ export function IngredientList({
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandItem>
           {isCreating ? (
-            <IngredientForm type="create" onFinish={finishCreatingHandler} />
+            <IngredientForm
+              type="create"
+              onFinish={finishCreatingHandler}
+              category="ingredient"
+            />
           ) : (
             <NewItem onClick={newItemHandler} title="New Item" />
           )}

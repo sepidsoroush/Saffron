@@ -9,6 +9,7 @@ import { fetchMeals } from "@/store/meals/meals.actions";
 import { fetchIngredients } from "@/store/ingredients/ingredients.actions";
 import { fetchSchedule } from "@/store/schedule/schedule.actions";
 import { fetchCompositions } from "@/store/compositions/compositions.actions";
+import { fetchGroceries } from "@/store/groceries/groceries.actions";
 
 function RootLayout() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function RootLayout() {
     dispatch(fetchIngredients());
     dispatch(fetchSchedule());
     dispatch(fetchCompositions());
+    dispatch(fetchGroceries());
   }, [dispatch]);
 
   return (

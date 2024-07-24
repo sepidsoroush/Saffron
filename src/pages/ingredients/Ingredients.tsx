@@ -10,12 +10,11 @@ import {
   selectEssentialItemsLength,
 } from "@/store/ingredients/ingredients.selector";
 
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
 import NewIngredient from "@/components/ingredients/new-ingredient";
-import { IngredientItem } from "@/components/ingredients/ingredient-item";
+import { CategoryCard } from "@/components/shared/category-card";
 
-import { Ingredient } from "@/types";
 import { ChevronRight } from "lucide-react";
 
 function IngredientsPage() {
@@ -36,25 +35,30 @@ function IngredientsPage() {
       <Header onClick={newItemHandler} actionTitle="New Item">
         Grocery List
       </Header>
-      {isCreating ? <NewIngredient setIsCreating={setIsCreating} /> : null}
-      <ul className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
+      {isCreating ? (
+        <NewIngredient setIsCreating={setIsCreating} category="ingredient" />
+      ) : null}
+      <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
         {essentialItemsLength !== 0 ? (
-          <IngredientCategoryCard
+          <CategoryCard
             header="Essential items for schedule"
-            ingredients={essentialItems}
+            items={essentialItems}
             className="text-red-600 font-bold py-4"
+            category="ingredient"
           />
         ) : null}
 
-        <IngredientCategoryCard
+        <CategoryCard
           header="Need to purchase"
-          ingredients={needToPurchase}
+          items={needToPurchase}
           className="font-semibold py-4"
+          category="ingredient"
         />
-        <IngredientCategoryCard
+        <CategoryCard
           header="Available Ingredients"
-          ingredients={availableIngredients}
+          items={availableIngredients}
           className="py-4"
+          category="ingredient"
         />
         <Card>
           <CardHeader className="py-4">
@@ -72,30 +76,9 @@ function IngredientsPage() {
             </button>
           </CardHeader>
         </Card>
-      </ul>
+      </div>
     </div>
   );
 }
 
 export default IngredientsPage;
-
-interface CardProps {
-  header: string;
-  ingredients: Ingredient[];
-  className?: string;
-}
-
-const IngredientCategoryCard: React.FC<CardProps> = ({
-  header,
-  ingredients,
-  className,
-}) => (
-  <Card>
-    <CardHeader className={className}>{header}</CardHeader>
-    <CardContent>
-      {ingredients.map((ingredient) => (
-        <IngredientItem key={ingredient.id} ingredient={ingredient} />
-      ))}
-    </CardContent>
-  </Card>
-);
