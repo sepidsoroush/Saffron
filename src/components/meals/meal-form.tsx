@@ -18,18 +18,22 @@ import { SelectIngredientComboBox } from "@/components/ingredients/select-ingred
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { FormTitle } from "./form-title";
 
-import { Meal, Ingredient, Composition } from "@/types";
+import { Meal, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
 
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { addMeal, deleteMeal, updateMeal } from "@/store/actions/meals-actions";
+import { addMeal, deleteMeal, updateMeal } from "@/store/meals/meals.actions";
+
 import {
   addComposition,
   updateComposition,
   deleteComposition,
-} from "@/store/actions/compositions-actions";
+} from "@/store/compositions/compositions.actions";
+import { selectIngredients } from "@/store/ingredients/ingredients.selector";
+import { selectMeals } from "@/store/meals/meals.selector";
+import { selectCompositions } from "@/store/compositions/compositions.selector";
 
 import { showErrorToast, showSuccessToast } from "@/lib/utils";
 
@@ -56,13 +60,9 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const ingredientsData = useAppSelector<Ingredient[]>(
-    (state) => state.ingredients.ingredients
-  );
-  const compositionsData = useAppSelector<Composition[]>(
-    (state) => state.compositions.compositions
-  );
-  const mealsData = useAppSelector<Meal[]>((state) => state.meals.meals);
+  const ingredientsData = useAppSelector(selectIngredients);
+  const compositionsData = useAppSelector(selectCompositions);
+  const mealsData = useAppSelector(selectMeals);
 
   const ingredientSelectOptions: SelectOption[] =
     ingredientDataAsSelectOptions(ingredientsData);
@@ -304,7 +304,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             </FormItem>
           )}
         />
-        <div className="space-x-4 text-center">
+        <div className="space-x-4 text-left">
           <Button variant="outline" onClick={() => navigate("/meals")}>
             Cancel
           </Button>

@@ -9,7 +9,7 @@ type Props = {
 
 export function FormTitle({ title, backLink }: Props) {
   return (
-    <div className="flex flex-row items-center justify-between max-w-full mb-4">
+    <div className="flex flex-row items-center justify-between max-w-full mb-4 pb-2 border-b">
       <Link
         to={backLink}
         className="flex flex-row justify-between items-center text-sm absolute"

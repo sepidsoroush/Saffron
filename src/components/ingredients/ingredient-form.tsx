@@ -1,34 +1,35 @@
-import * as React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectIngredients } from "@/store/ingredients/ingredients.selector";
+import { selectGroceries } from "@/store/groceries/groceries.selector";
 import {
   updateIngredient,
   addIngredient,
-} from "@/store/actions/ingredients-actions";
+} from "@/store/ingredients/ingredients.actions";
+import { updateGrocery, addGrocery } from "@/store/groceries/groceries.actions";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Ingredient } from "@/types";
-import { showErrorToast } from "@/lib/utils";
+import { Ingredient, Grocery } from "@/types";
+import { cn, showErrorToast } from "@/lib/utils";
 
-interface IngredientFormProps {
-  ingredient?: Ingredient;
+type Props = {
+  ingredient?: Ingredient | Grocery;
   type: "update" | "create";
   onFinish?: () => void;
-}
+  category: "ingredient" | "grocery";
+};
 
-const IngredientForm: React.FC<IngredientFormProps> = ({
-  ingredient,
-  type,
-  onFinish,
-}) => {
+const IngredientForm = ({ ingredient, type, onFinish, category }: Props) => {
   const dispatch = useAppDispatch();
   const [isEditing, setIsEditing] = useState(type === "create");
   const [updatedName, setUpdatedName] = useState(ingredient?.name || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const ingredientsData = useAppSelector<Ingredient[]>(
-    (state) => state.ingredients.ingredients
-  );
+  const ingredientsData = useAppSelector(selectIngredients);
+  const groceriesData = useAppSelector(selectGroceries);
+
+  const data = category === "ingredient" ? ingredientsData : groceriesData;
 
   const startEditing = () => {
     setIsEditing(true);
@@ -49,7 +50,6 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
       return;
     }
 
-    // Check if the updated name is the same as the current name
     if (type === "update" && ingredient && trimmedName === ingredient.name) {
       if (onFinish) {
         onFinish();
@@ -57,14 +57,15 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
       return;
     }
 
-    // Check if ingredient name already exists
-    const ingredientExists = ingredientsData.some(
-      (ing) => ing.name.toLowerCase() === trimmedName.toLowerCase()
+    const itemExists = data.some(
+      (item) => item.name.toLowerCase() === trimmedName.toLowerCase()
     );
 
-    if (ingredientExists) {
+    if (itemExists) {
       showErrorToast(
-        "Ingredient with this name already exists. Please choose a different name."
+        `${
+          category.charAt(0).toUpperCase() + category.slice(1)
+        } with this name already exists. Please choose a different name.`
       );
       setIsEditing(true);
 
@@ -73,21 +74,31 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
 
     if (type === "update" && ingredient) {
       if (trimmedName !== ingredient.name) {
-        dispatch(
-          updateIngredient(ingredient.id, {
-            ...ingredient,
-            name: trimmedName,
-          })
-        );
+        const action =
+          category === "ingredient"
+            ? updateIngredient(ingredient.id, {
+                ...ingredient,
+                name: trimmedName,
+              })
+            : updateGrocery(ingredient.id, {
+                ...ingredient,
+                name: trimmedName,
+              });
+
+        dispatch(action);
       }
     } else {
-      dispatch(
-        addIngredient({
-          id: Math.floor(Math.random() * Math.pow(2, 20)),
-          name: trimmedName,
-          available: false,
-        })
-      );
+      const newItem = {
+        id: Math.floor(Math.random() * Math.pow(2, 20)),
+        name: trimmedName,
+        available: false,
+      };
+      const action =
+        category === "ingredient"
+          ? addIngredient(newItem)
+          : addGrocery(newItem);
+
+      dispatch(action);
       setUpdatedName("");
       if (onFinish) {
         onFinish();
@@ -95,11 +106,11 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdatedName(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       finishEditing();
     } else if (e.key === "Escape") {
@@ -119,17 +130,23 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
 
   const checkboxHandler = () => {
     if (type === "update" && ingredient) {
-      dispatch(
-        updateIngredient(ingredient.id, {
-          ...ingredient,
-          available: !ingredient.available,
-        })
-      );
+      const action =
+        category === "ingredient"
+          ? updateIngredient(ingredient.id, {
+              ...ingredient,
+              available: !ingredient.available,
+            })
+          : updateGrocery(ingredient.id, {
+              ...ingredient,
+              available: !ingredient.available,
+            });
+
+      dispatch(action);
     }
   };
 
   return (
-    <li className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2">
       <Checkbox
         checked={ingredient?.available || false}
         className={
@@ -151,13 +168,16 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
         />
       ) : (
         <p
-          className={ingredient?.available ? "text-gray-400 font-normal" : ""}
+          className={cn(
+            ingredient?.available ? "text-gray-400 font-normal" : "",
+            "w-full my-[6px] lg:text-base md:text-sm text-sm"
+          )}
           onClick={handleLabelClick}
         >
           {ingredient?.name}
         </p>
       )}
-    </li>
+    </div>
   );
 };
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+
 import { ChevronDown, XIcon, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -6,7 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerTitle,
+  DrawerDescription,
+} from "@/components/ui/drawer";
 import {
   Popover,
   PopoverContent,
@@ -58,7 +66,7 @@ export function SelectIngredientComboBox({
 
   const renderButtonContent = () =>
     selectedValues.length > 0 ? (
-      <div className="flex justify-between items-center w-full ">
+      <div className="flex justify-between items-center w-full">
         <div className="flex flex-wrap items-center">
           {selectedValues.slice(0, maxCount).map((value) => {
             const option = options.find((o) => o.value === value);
@@ -118,7 +126,7 @@ export function SelectIngredientComboBox({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={cn("w-full justify-start", className)}
+            className={cn("w-full justify-start h-max", className)}
           >
             {renderButtonContent()}
           </Button>
@@ -144,7 +152,14 @@ export function SelectIngredientComboBox({
           {renderButtonContent()}
         </Button>
       </DrawerTrigger>
+
       <DrawerContent>
+        <DrawerTitle>
+          <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
+        </DrawerTitle>
+        <DrawerDescription>
+          <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
+        </DrawerDescription>
         <div className="mt-4 border-t">
           <IngredientList
             options={options}

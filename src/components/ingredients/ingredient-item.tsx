@@ -1,10 +1,11 @@
 import IngredientForm from "./ingredient-form";
-import { Ingredient } from "@/types";
+import { Ingredient, Grocery } from "@/types";
 
 type Props = {
-  ingredient: Ingredient;
+  item: Ingredient | Grocery;
+  category: "ingredient" | "grocery";
 };
 
-export const IngredientItem = ({ ingredient }: Props) => {
-  return <IngredientForm type="update" ingredient={ingredient} />;
+export const IngredientItem = ({ item, category }: Props) => {
+  return <IngredientForm type="update" ingredient={item} category={category} />;
 };

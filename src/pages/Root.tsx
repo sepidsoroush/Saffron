@@ -5,10 +5,11 @@ import MobileNavbar from "@/components/layout/mobile-navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 import { useAppDispatch } from "@/store/hooks";
-import { fetchMeals } from "@/store/actions/meals-actions";
-import { fetchIngredients } from "@/store/actions/ingredients-actions";
-import { fetchSchedule } from "@/store/actions/schedule-actions";
-import { fetchCompositions } from "@/store/actions/compositions-actions";
+import { fetchMeals } from "@/store/meals/meals.actions";
+import { fetchIngredients } from "@/store/ingredients/ingredients.actions";
+import { fetchSchedule } from "@/store/schedule/schedule.actions";
+import { fetchCompositions } from "@/store/compositions/compositions.actions";
+import { fetchGroceries } from "@/store/groceries/groceries.actions";
 
 function RootLayout() {
   const dispatch = useAppDispatch();
@@ -18,12 +19,13 @@ function RootLayout() {
     dispatch(fetchIngredients());
     dispatch(fetchSchedule());
     dispatch(fetchCompositions());
+    dispatch(fetchGroceries());
   }, [dispatch]);
 
   return (
     <React.Fragment>
       <div className="flex flex-col md:flex-row h-screen overflow-hidden">
-        <aside className="sticky top-0 md:w-[220px] border-r bg-background/60 backdrop-blur-xl transition-all">
+        <aside className="sticky top-0 md:w-[200px] border-r bg-background/60 backdrop-blur-xl transition-all">
           <Navbar />
         </aside>
         <main className="w-full flex-1 overflow-y-auto">

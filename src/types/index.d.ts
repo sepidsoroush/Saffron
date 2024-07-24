@@ -24,3 +24,9 @@ export interface Composition {
   meal_id: number;
   ingredient_id: number;
 }
+
+export interface Grocery {
+  id: number;
+  name: string;
+  available: boolean;
+}

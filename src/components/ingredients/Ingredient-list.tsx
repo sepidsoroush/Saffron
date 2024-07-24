@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -7,7 +8,9 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-// import NewIngredient from "./new-ingredient";
+
+import NewItem from "@/components/shared/new-Item";
+import IngredientForm from "./ingredient-form";
 import { CheckIcon } from "lucide-react";
 
 import { SelectOption } from "@/types/common-ui";
@@ -23,12 +26,31 @@ export function IngredientList({
   selectedValues,
   toggleOption,
 }: Props) {
+  const [isCreating, setIsCreating] = useState(false);
+
+  const newItemHandler = () => {
+    setIsCreating(true);
+  };
+
+  const finishCreatingHandler = () => {
+    setIsCreating(false);
+  };
   return (
     <Command>
       <CommandInput placeholder="Filter status..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandItem>{/* <NewIngredient /> */}</CommandItem>
+        <CommandItem>
+          {isCreating ? (
+            <IngredientForm
+              type="create"
+              onFinish={finishCreatingHandler}
+              category="ingredient"
+            />
+          ) : (
+            <NewItem onClick={newItemHandler} title="New Item" />
+          )}
+        </CommandItem>
         <CommandGroup>
           {options.map((option) => {
             const isSelected = selectedValues.includes(option.value);

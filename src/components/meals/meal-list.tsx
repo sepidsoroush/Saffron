@@ -1,6 +1,5 @@
-import { useMemo } from "react";
-
 import { useAppSelector } from "@/store/hooks";
+import { selectMeals, selectFilteredMeals } from "@/store/meals/meals.selector";
 
 import {
   Command,
@@ -11,7 +10,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import { Meal, Schedule } from "@/types";
+import { Meal } from "@/types";
 
 type Props = {
   setOpen: (open: boolean) => void;
@@ -19,20 +18,8 @@ type Props = {
 };
 
 export function MealList({ setOpen, setSelectedMeal }: Props) {
-  const meals = useAppSelector<Meal[]>((state) => state.meals.meals);
-  const schedule = useAppSelector<Schedule[]>(
-    (state) => state.schedule.schedule
-  );
-
-  const mealIdsInSchedule = useMemo(
-    () => schedule.map((item) => Number(item.meal_id)).filter(Boolean),
-    [schedule]
-  );
-
-  const filteredMeals = useMemo(
-    () => meals.filter((item) => !mealIdsInSchedule.includes(item.id)),
-    [meals, mealIdsInSchedule]
-  );
+  const mealsData = useAppSelector(selectMeals);
+  const filteredMeals = useAppSelector(selectFilteredMeals);
 
   return (
     <Command>
@@ -46,7 +33,7 @@ export function MealList({ setOpen, setSelectedMeal }: Props) {
               value={item.name}
               onSelect={(value) => {
                 setSelectedMeal(
-                  meals.find((item) => item.name === value) || null
+                  mealsData.find((item) => item.name === value) || null
                 );
                 setOpen(false);
               }}

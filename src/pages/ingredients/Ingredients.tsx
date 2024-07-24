@@ -1,67 +1,33 @@
-import { useMemo } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 
-// import NewIngredient from "@/components/ingredients/new-ingredient";
-import { IngredientItem } from "@/components/ingredients/ingredient-item";
-import { Header } from "@/components/layout/header";
+import {
+  selectEssentialItems,
+  selectNeedToPurchase,
+  selectAvailableIngredients,
+  selectEssentialItemsLength,
+} from "@/store/ingredients/ingredients.selector";
 
-import { Composition, Ingredient, Schedule } from "@/types";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Header } from "@/components/layout/header";
+import NewIngredient from "@/components/ingredients/new-ingredient";
+import { CategoryCard } from "@/components/shared/category-card";
+
+import { ChevronRight } from "lucide-react";
 
 function IngredientsPage() {
-  const ingredients = useAppSelector<Ingredient[]>(
-    (state) => state.ingredients.ingredients
-  );
+  const navigate = useNavigate();
+  const [isCreating, setIsCreating] = useState<boolean>(false);
 
-  const schedule = useAppSelector<Schedule[]>(
-    (state) => state.schedule.schedule
-  );
-  const compositionsData = useAppSelector<Composition[]>(
-    (state) => state.compositions.compositions
-  );
-
-  const mealIdsInSchedule = useMemo(
-    () => schedule.map((item) => Number(item.meal_id)).filter(Boolean),
-    [schedule]
-  );
-
-  const filteredCompositions = useMemo(
-    () =>
-      compositionsData.filter((item) =>
-        mealIdsInSchedule.includes(item.meal_id)
-      ),
-    [compositionsData, mealIdsInSchedule]
-  );
-
-  const ingredientIdsInSchedule = useMemo(
-    () => filteredCompositions.map((item) => item.ingredient_id),
-    [filteredCompositions]
-  );
-
-  const needToPurchase = useMemo(
-    () =>
-      ingredients
-        .filter((item) => ingredientIdsInSchedule.includes(item.id))
-        .filter((item) => !item.available),
-    [ingredients, ingredientIdsInSchedule]
-  );
-
-  const noNeedToPurchase = useMemo(
-    () =>
-      ingredients
-        .filter((item) => !ingredientIdsInSchedule.includes(item.id))
-        .filter((item) => !item.available),
-    [ingredients, ingredientIdsInSchedule]
-  );
-
-  const availableIngredients = useMemo(
-    () => ingredients.filter((item) => item.available),
-    [ingredients]
-  );
+  const essentialItems = useAppSelector(selectEssentialItems);
+  const needToPurchase = useAppSelector(selectNeedToPurchase);
+  const availableIngredients = useAppSelector(selectAvailableIngredients);
+  const essentialItemsLength = useAppSelector(selectEssentialItemsLength);
 
   const newItemHandler = () => {
-    console.log("click new Ingredient");
+    setIsCreating(true);
   };
 
   return (
@@ -69,45 +35,52 @@ function IngredientsPage() {
       <Header onClick={newItemHandler} actionTitle="New Item">
         Grocery List
       </Header>
-      <ul className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
-        <IngredientCategoryCard
-          header="Need to purchase for schedule"
-          ingredients={needToPurchase}
-          className="text-red-600 font-bold"
+      {isCreating ? (
+        <NewIngredient setIsCreating={setIsCreating} category="ingredient" />
+      ) : null}
+      <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
+        {essentialItemsLength !== 0 ? (
+          <CategoryCard
+            header={`Essential items for schedule (${essentialItemsLength})`}
+            items={essentialItems}
+            className="text-red-600 font-bold py-4"
+            category="ingredient"
+          />
+        ) : null}
+
+        <CategoryCard
+          header="Need to purchase"
+          items={needToPurchase}
+          className="font-semibold py-4"
+          category="ingredient"
         />
-        <IngredientCategoryCard
-          header="No need to purchase"
-          ingredients={noNeedToPurchase}
-        />
-        <IngredientCategoryCard
-          header="Available Ingredients"
-          ingredients={availableIngredients}
-        />
-      </ul>
-      {/* <NewIngredient /> */}
+        <div className="flex flex-col space-y-2">
+          <CategoryCard
+            header="Available Ingredients"
+            items={availableIngredients}
+            className="py-4"
+            category="ingredient"
+          />
+          <Card>
+            <CardHeader className="py-4">
+              <button
+                className="flex flex-row justify-between items-center"
+                onClick={() => {
+                  navigate("/ingredients/others");
+                }}
+              >
+                <span>Other groceries</span>
+                <ChevronRight
+                  strokeWidth={3}
+                  className="h-4 w-4 text-emerald-500 transition-transform duration-200"
+                />
+              </button>
+            </CardHeader>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default IngredientsPage;
-
-interface CardProps {
-  header: string;
-  ingredients: Ingredient[];
-  className?: string;
-}
-
-const IngredientCategoryCard: React.FC<CardProps> = ({
-  header,
-  ingredients,
-  className,
-}) => (
-  <Card>
-    <CardHeader className={className}>{header}</CardHeader>
-    <CardContent>
-      {ingredients.map((ingredient) => (
-        <IngredientItem key={ingredient.id} ingredient={ingredient} />
-      ))}
-    </CardContent>
-  </Card>
-);
