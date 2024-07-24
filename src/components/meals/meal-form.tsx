@@ -25,13 +25,15 @@ import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { addMeal, deleteMeal, updateMeal } from "@/store/meals/meals.actions";
+
 import {
   addComposition,
   updateComposition,
   deleteComposition,
-} from "@/store/actions/compositions-actions";
+} from "@/store/compositions/compositions.actions";
 import { selectAllIngredients } from "@/store/ingredients/ingredients.selector";
 import { selectAllMeals } from "@/store/meals/meals.selector";
+import { selectAllCompositions } from "@/store/compositions/compositions.selector";
 
 import { showErrorToast, showSuccessToast } from "@/lib/utils";
 
@@ -59,10 +61,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   const dispatch = useAppDispatch();
 
   const ingredientsData = useAppSelector(selectAllIngredients);
-
-  const compositionsData = useAppSelector<Composition[]>(
-    (state) => state.compositions.compositions
-  );
+  const compositionsData = useAppSelector(selectAllCompositions);
   const mealsData = useAppSelector(selectAllMeals);
 
   const ingredientSelectOptions: SelectOption[] =

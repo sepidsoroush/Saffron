@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { fetchMeals } from "@/store/meals/meals.actions";
 import { fetchIngredients } from "@/store/ingredients/ingredients.actions";
 import { fetchSchedule } from "@/store/schedule/schedule.actions";
-import { fetchCompositions } from "@/store/compositions.ts/compositions.actions";
+import { fetchCompositions } from "@/store/compositions/compositions.actions";
 
 function RootLayout() {
   const dispatch = useAppDispatch();

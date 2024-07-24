@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import mealsSlice from "./meals/meals.slice";
 import ingredientsSlice from "./ingredients/ingredients.slice";
 import scheduleSlice from "./schedule/schedule.slice";
-import compositionsSlice from "./compositions.ts/compositions.slice";
+import compositionsSlice from "./compositions/compositions.slice";
 import uiSlice from "./ui/ui-slice";
 
 const store = configureStore({
