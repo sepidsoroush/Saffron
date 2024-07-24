@@ -9,7 +9,7 @@ export const selectCompositionsByMealId = createSelector(
   [
     selectCompositions,
     selectIngredients,
-    // @ts-expect-error :no-unused-variable
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (state: RootState, mealId: number) => mealId,
   ],
   (compositions, ingredients, mealId) => {
