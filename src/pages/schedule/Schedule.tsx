@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   deleteSchedule,
   updateSchedule,
-} from "@/store/actions/schedule-actions";
+} from "@/store/schedule/schedule.actions";
 import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
 
 import { Card } from "@/components/ui/card";
