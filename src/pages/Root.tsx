@@ -5,10 +5,10 @@ import MobileNavbar from "@/components/layout/mobile-navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 import { useAppDispatch } from "@/store/hooks";
-import { fetchMeals } from "@/store/actions/meals-actions";
-import { fetchIngredients } from "@/store/actions/ingredients-actions";
-import { fetchSchedule } from "@/store/actions/schedule-actions";
-import { fetchCompositions } from "@/store/actions/compositions-actions";
+import { fetchMeals } from "@/store/meals/meals.actions";
+import { fetchIngredients } from "@/store/ingredients/ingredients.actions";
+import { fetchSchedule } from "@/store/schedule/schedule.actions";
+import { fetchCompositions } from "@/store/compositions.ts/compositions.actions";
 
 function RootLayout() {
   const dispatch = useAppDispatch();

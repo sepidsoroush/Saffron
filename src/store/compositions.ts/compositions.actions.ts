@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import supabase from "@/config/supabaseConfig";
-import { compositionsActions } from "../features/composition-slice";
-import { uiActions } from "../features/ui-slice";
+import { compositionsActions } from "./compositions.slice";
+import { uiActions } from "../ui/ui-slice";
 import { Composition } from "@/types";
 
 export function fetchCompositions() {

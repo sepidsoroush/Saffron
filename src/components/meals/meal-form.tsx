@@ -24,7 +24,7 @@ import { SelectOption } from "@/types/common-ui";
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { addMeal, deleteMeal, updateMeal } from "@/store/actions/meals-actions";
+import { addMeal, deleteMeal, updateMeal } from "@/store/meals/meals.actions";
 import {
   addComposition,
   updateComposition,
