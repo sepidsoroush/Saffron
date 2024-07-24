@@ -66,7 +66,7 @@ export function SelectIngredientComboBox({
 
   const renderButtonContent = () =>
     selectedValues.length > 0 ? (
-      <div className="flex justify-between items-center w-full ">
+      <div className="flex justify-between items-center w-full">
         <div className="flex flex-wrap items-center">
           {selectedValues.slice(0, maxCount).map((value) => {
             const option = options.find((o) => o.value === value);
@@ -126,7 +126,7 @@ export function SelectIngredientComboBox({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={cn("w-full justify-start", className)}
+            className={cn("w-full justify-start h-max", className)}
           >
             {renderButtonContent()}
           </Button>
