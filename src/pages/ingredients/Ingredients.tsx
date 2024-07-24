@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 
@@ -15,8 +16,10 @@ import NewIngredient from "@/components/ingredients/new-ingredient";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
 
 import { Ingredient } from "@/types";
+import { ChevronRight } from "lucide-react";
 
 function IngredientsPage() {
+  const navigate = useNavigate();
   const [isCreating, setIsCreating] = useState<boolean>(false);
 
   const essentialItems = useAppSelector(selectEssentialItems);
@@ -53,6 +56,22 @@ function IngredientsPage() {
           ingredients={availableIngredients}
           className="py-4"
         />
+        <Card>
+          <CardHeader className="py-4">
+            <button
+              className="flex flex-row justify-between items-center"
+              onClick={() => {
+                navigate("/ingredients/others");
+              }}
+            >
+              <span>Other groceries</span>
+              <ChevronRight
+                strokeWidth={3}
+                className="h-4 w-4 text-emerald-500 transition-transform duration-200"
+              />
+            </button>
+          </CardHeader>
+        </Card>
       </ul>
     </div>
   );
