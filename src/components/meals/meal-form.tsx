@@ -31,9 +31,9 @@ import {
   updateComposition,
   deleteComposition,
 } from "@/store/compositions/compositions.actions";
-import { selectAllIngredients } from "@/store/ingredients/ingredients.selector";
-import { selectAllMeals } from "@/store/meals/meals.selector";
-import { selectAllCompositions } from "@/store/compositions/compositions.selector";
+import { selectIngredients } from "@/store/ingredients/ingredients.selector";
+import { selectMeals } from "@/store/meals/meals.selector";
+import { selectCompositions } from "@/store/compositions/compositions.selector";
 
 import { showErrorToast, showSuccessToast } from "@/lib/utils";
 
@@ -60,9 +60,9 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const ingredientsData = useAppSelector(selectAllIngredients);
-  const compositionsData = useAppSelector(selectAllCompositions);
-  const mealsData = useAppSelector(selectAllMeals);
+  const ingredientsData = useAppSelector(selectIngredients);
+  const compositionsData = useAppSelector(selectCompositions);
+  const mealsData = useAppSelector(selectMeals);
 
   const ingredientSelectOptions: SelectOption[] =
     ingredientDataAsSelectOptions(ingredientsData);

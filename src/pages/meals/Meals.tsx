@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
-import { selectAllMeals } from "@/store/meals/meals.selector";
+import { selectMeals } from "@/store/meals/meals.selector";
 
 import { MealCard } from "@/components/meals/meal-card";
 import { Header } from "@/components/layout/header";
@@ -9,7 +9,7 @@ import { Header } from "@/components/layout/header";
 function MealsPage() {
   const navigate = useNavigate();
 
-  const mealsData = useAppSelector(selectAllMeals);
+  const mealsData = useAppSelector(selectMeals);
 
   const newItemHandler = () => {
     navigate("/meals/new");

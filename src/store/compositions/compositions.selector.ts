@@ -1,14 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
-const selectCompositions = (state: RootState) =>
+export const selectCompositions = (state: RootState) =>
   state.compositions.compositions;
 const selectIngredients = (state: RootState) => state.ingredients.ingredients;
-
-export const selectAllCompositions = createSelector(
-  [selectCompositions],
-  (compositions) => compositions
-);
 
 export const selectCompositionsByMealId = createSelector(
   [

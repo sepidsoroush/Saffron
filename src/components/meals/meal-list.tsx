@@ -1,8 +1,5 @@
 import { useAppSelector } from "@/store/hooks";
-import {
-  selectAllMeals,
-  selectFilteredMeals,
-} from "@/store/meals/meals.selector";
+import { selectMeals, selectFilteredMeals } from "@/store/meals/meals.selector";
 
 import {
   Command,
@@ -21,7 +18,7 @@ type Props = {
 };
 
 export function MealList({ setOpen, setSelectedMeal }: Props) {
-  const mealsData = useAppSelector(selectAllMeals);
+  const mealsData = useAppSelector(selectMeals);
   const filteredMeals = useAppSelector(selectFilteredMeals);
 
   return (

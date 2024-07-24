@@ -1,15 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 
-const selectIngredients = (state: RootState) => state.ingredients.ingredients;
+export const selectIngredients = (state: RootState) =>
+  state.ingredients.ingredients;
 const selectSchedule = (state: RootState) => state.schedule.schedule;
 const selectCompositions = (state: RootState) =>
   state.compositions.compositions;
-
-export const selectAllIngredients = createSelector(
-  [selectIngredients],
-  (ingredients) => ingredients
-);
 
 export const selectMealIdsInSchedule = createSelector(
   [selectSchedule],

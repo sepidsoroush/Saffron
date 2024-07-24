@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { selectAllIngredients } from "@/store/ingredients/ingredients.selector";
+import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 import {
   updateIngredient,
   addIngredient,
@@ -28,7 +28,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
   const [updatedName, setUpdatedName] = useState(ingredient?.name || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const ingredientsData = useAppSelector(selectAllIngredients);
+  const ingredientsData = useAppSelector(selectIngredients);
 
   const startEditing = () => {
     setIsEditing(true);
