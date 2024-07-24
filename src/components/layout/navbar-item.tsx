@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
-import { selectEssentialItemsLength } from "@/store/features/ingredients-slice";
+import { selectEssentialItemsLength } from "@/store/ingredients/ingredients.selector";
 
 import { Badge } from "@/components/ui/badge";
 

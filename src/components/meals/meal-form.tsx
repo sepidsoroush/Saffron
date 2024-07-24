@@ -18,7 +18,7 @@ import { SelectIngredientComboBox } from "@/components/ingredients/select-ingred
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { FormTitle } from "./form-title";
 
-import { Meal, Ingredient, Composition } from "@/types";
+import { Meal, Composition } from "@/types";
 import { SelectOption } from "@/types/common-ui";
 
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
@@ -30,6 +30,7 @@ import {
   updateComposition,
   deleteComposition,
 } from "@/store/actions/compositions-actions";
+import { selectAllIngredients } from "@/store/ingredients/ingredients.selector";
 
 import { showErrorToast, showSuccessToast } from "@/lib/utils";
 
@@ -56,9 +57,8 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const ingredientsData = useAppSelector<Ingredient[]>(
-    (state) => state.ingredients.ingredients
-  );
+  const ingredientsData = useAppSelector(selectAllIngredients);
+
   const compositionsData = useAppSelector<Composition[]>(
     (state) => state.compositions.compositions
   );

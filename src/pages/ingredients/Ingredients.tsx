@@ -1,12 +1,13 @@
 import { useState } from "react";
 
 import { useAppSelector } from "@/store/hooks";
+
 import {
   selectEssentialItems,
   selectNeedToPurchase,
   selectAvailableIngredients,
   selectEssentialItemsLength,
-} from "@/store/features/ingredients-slice";
+} from "@/store/ingredients/ingredients.selector";
 
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
