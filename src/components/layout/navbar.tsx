@@ -1,9 +1,9 @@
 import { Separator } from "@/components/ui/separator";
 import NavbarItem from "./navbar-item";
+import { Header } from "./header";
 
 import { NAVBAR } from "@/lib/info";
 import { Cookie } from "lucide-react";
-import { Header } from "./header";
 
 const Navbar = () => {
   return (
