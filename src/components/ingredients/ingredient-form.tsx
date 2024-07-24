@@ -11,7 +11,7 @@ import { updateGrocery, addGrocery } from "@/store/groceries/groceries.actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Ingredient, Grocery } from "@/types";
-import { showErrorToast } from "@/lib/utils";
+import { cn, showErrorToast } from "@/lib/utils";
 
 type Props = {
   ingredient?: Ingredient | Grocery;
@@ -146,7 +146,7 @@ const IngredientForm = ({ ingredient, type, onFinish, category }: Props) => {
   };
 
   return (
-    <li className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2">
       <Checkbox
         checked={ingredient?.available || false}
         className={
@@ -168,13 +168,16 @@ const IngredientForm = ({ ingredient, type, onFinish, category }: Props) => {
         />
       ) : (
         <p
-          className={ingredient?.available ? "text-gray-400 font-normal" : ""}
+          className={cn(
+            ingredient?.available ? "text-gray-400 font-normal" : "",
+            "w-full my-[6px] lg:text-base md:text-sm text-sm"
+          )}
           onClick={handleLabelClick}
         >
           {ingredient?.name}
         </p>
       )}
-    </li>
+    </div>
   );
 };
 

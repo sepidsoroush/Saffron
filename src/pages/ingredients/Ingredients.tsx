@@ -41,7 +41,7 @@ function IngredientsPage() {
       <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
         {essentialItemsLength !== 0 ? (
           <CategoryCard
-            header="Essential items for schedule"
+            header={`Essential items for schedule (${essentialItemsLength})`}
             items={essentialItems}
             className="text-red-600 font-bold py-4"
             category="ingredient"
@@ -54,28 +54,30 @@ function IngredientsPage() {
           className="font-semibold py-4"
           category="ingredient"
         />
-        <CategoryCard
-          header="Available Ingredients"
-          items={availableIngredients}
-          className="py-4"
-          category="ingredient"
-        />
-        <Card>
-          <CardHeader className="py-4">
-            <button
-              className="flex flex-row justify-between items-center"
-              onClick={() => {
-                navigate("/ingredients/others");
-              }}
-            >
-              <span>Other groceries</span>
-              <ChevronRight
-                strokeWidth={3}
-                className="h-4 w-4 text-emerald-500 transition-transform duration-200"
-              />
-            </button>
-          </CardHeader>
-        </Card>
+        <div className="flex flex-col space-y-2">
+          <CategoryCard
+            header="Available Ingredients"
+            items={availableIngredients}
+            className="py-4"
+            category="ingredient"
+          />
+          <Card>
+            <CardHeader className="py-4">
+              <button
+                className="flex flex-row justify-between items-center"
+                onClick={() => {
+                  navigate("/ingredients/others");
+                }}
+              >
+                <span>Other groceries</span>
+                <ChevronRight
+                  strokeWidth={3}
+                  className="h-4 w-4 text-emerald-500 transition-transform duration-200"
+                />
+              </button>
+            </CardHeader>
+          </Card>
+        </div>
       </div>
     </div>
   );

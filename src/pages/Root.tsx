@@ -25,7 +25,7 @@ function RootLayout() {
   return (
     <React.Fragment>
       <div className="flex flex-col md:flex-row h-screen overflow-hidden">
-        <aside className="sticky top-0 md:w-[220px] border-r bg-background/60 backdrop-blur-xl transition-all">
+        <aside className="sticky top-0 md:w-[200px] border-r bg-background/60 backdrop-blur-xl transition-all">
           <Navbar />
         </aside>
         <main className="w-full flex-1 overflow-y-auto">

@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { IngredientItem } from "../ingredients/ingredient-item";
 import { Ingredient, Grocery } from "@/types";
+import { cn } from "@/lib/utils";
 
 type Props = {
   header: string;
@@ -16,8 +17,10 @@ export const CategoryCard: React.FC<Props> = ({
   category,
 }) => (
   <Card>
-    <CardHeader className={className}>{header}</CardHeader>
-    <CardContent>
+    <CardHeader className={cn("text-sm md:text-base", className)}>
+      {header}
+    </CardHeader>
+    <CardContent className="divide-y divide-gray-300">
       {items.map((item) => (
         <IngredientItem key={item.id} item={item} category={category} />
       ))}
