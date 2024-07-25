@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 import { selectCompositionsByMealId } from "@/store/compositions/compositions.selector";
+
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import IngredientListItem from "@/components/ingredients/ingredient-list-item";
 
 import { Meal } from "@/types";
