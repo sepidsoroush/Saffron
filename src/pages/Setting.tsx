@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/header";
 
 export default function Setting() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       <Header>Settings</Header>
 
       <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">

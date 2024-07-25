@@ -11,7 +11,7 @@ type Props = {
 
 export function Header({ backLink, onClick, actionTitle, children }: Props) {
   return (
-    <div className="flex flex-row items-center justify-between max-w-full p-4 sticky top-0 bg-background/60 backdrop-blur-xl transition-all border-b h-[72px]">
+    <div className="flex flex-row items-center justify-between w-full p-4 fixed top-0 z-10 bg-background/60 backdrop-blur-xl transition-all border-b h-[72px]">
       {backLink ? (
         <Link
           to={backLink}

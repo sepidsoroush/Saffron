@@ -5,12 +5,12 @@ import { NAVBAR } from "@/lib/info";
 
 const MobileNavbar = () => {
   return (
-    <nav className="grid grid-cols-4 gap-2 p-2 w-full">
+    <div className="grid grid-cols-4 gap-2 p-2 w-full border-t">
       <Separator className="hidden md:inline" />
       {NAVBAR.map((item) => (
         <NavbarItem key={item.title} link={item} />
       ))}
-    </nav>
+    </div>
   );
 };
 

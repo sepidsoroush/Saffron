@@ -7,7 +7,7 @@ import { Cookie } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="hidden md:flex flex-col gap-2">
+    <nav className="hidden md:flex flex-col gap-2 overflow-hidden">
       <Header>
         <div className="flex flex-row justify-start items-center">
           <Cookie size={20} />
@@ -15,9 +15,11 @@ const Navbar = () => {
         </div>
       </Header>
 
-      {NAVBAR.map((item) => (
-        <NavbarItem key={item.title} link={item} />
-      ))}
+      <div className="mt-[72px]">
+        {NAVBAR.map((item) => (
+          <NavbarItem key={item.title} link={item} />
+        ))}
+      </div>
       <Separator />
     </nav>
   );

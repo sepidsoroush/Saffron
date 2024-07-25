@@ -16,11 +16,11 @@ function MealsPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col overflow-y-auto">
       <Header onClick={newItemHandler} actionTitle="New Meal">
         Meals List
       </Header>
-      <ul className="px-2 md:grid md:grid-cols-2 lg:grid-cols-3 gap-2 mb-[64px] md:mb-0">
+      <ul className="px-2 md:grid md:grid-cols-2 lg:grid-cols-3 gap-2">
         {mealsData.map((item) => (
           <MealCard key={item.id} meal={item} />
         ))}

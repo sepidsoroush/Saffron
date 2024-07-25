@@ -31,14 +31,14 @@ function IngredientsPage() {
   };
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col justify-between overflow-y-auto">
       <Header onClick={newItemHandler} actionTitle="New Item">
         Grocery List
       </Header>
       {isCreating ? (
         <NewIngredient setIsCreating={setIsCreating} category="ingredient" />
       ) : null}
-      <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0 mb-[64px] md:mb-0">
+      <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
         {essentialItemsLength !== 0 ? (
           <CategoryCard
             header={`Essential items for schedule (${essentialItemsLength})`}

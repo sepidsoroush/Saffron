@@ -26,12 +26,12 @@ const NavbarItem = ({ link }: Props) => {
     >
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="flex flex-row justify-start items-center">
-          {link.icon && <link.icon size={18} className="mb-1 md:mr-2" />}
+          {link.icon && <link.icon size={20} className="mb-1 md:mr-2" />}
           {link.title === "Grocery list" && essentialItems !== 0 ? (
             <span className="h-1 w-1 rounded-full bg-red-600 -top-2 relative md:hidden"></span>
           ) : null}
         </div>
-        <span className="text-xs md:text-sm font-light md:font-medium">
+        <span className="text-[10px] md:text-sm font-light md:font-medium">
           {link.title}
         </span>
       </div>

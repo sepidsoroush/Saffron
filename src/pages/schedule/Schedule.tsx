@@ -29,9 +29,9 @@ function SchedulePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       <Header>Weekly Schedule</Header>
-      <div className="h-[calc(100vh-150px)] p-2">
+      <div className="p-2">
         {scheduleWithMeals
           .sort((a, b) => a.id - b.id)
           .map((item) => (
