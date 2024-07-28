@@ -35,27 +35,28 @@ function SchedulePage() {
         {scheduleWithMeals
           .sort((a, b) => a.id - b.id)
           .map((item) => (
-            <Card
-              key={item.id}
-              className="flex flex-row justify-between items-center border mb-2 px-2"
-            >
-              <span className="py-4">{item.day}</span>
-              {item.meal ? (
-                <div className="flex flex-row flex-end items-center">
-                  <span className="px-2 py-4">{item.meal.name}</span>
-                  <X
-                    color="#ff4747"
-                    size={16}
-                    onClick={() => handleDeleteMeal(item.day)}
+            <div key={item.id}>
+              <span className="text-xs text-gray-500">{item.day}</span>
+              <Card className="flex flex-row justify-center items-center border relative">
+                {item.meal ? (
+                  <>
+                    <div className="p-2">{item.meal.name}</div>
+                    <span className="top-0 right-0 absolute p-1">
+                      <X
+                        color="#ef4444"
+                        size={16}
+                        onClick={() => handleDeleteMeal(item.day)}
+                      />
+                    </span>
+                  </>
+                ) : (
+                  <SelectMealComboBox
+                    day={item.day}
+                    onMealChange={handleMealChange}
                   />
-                </div>
-              ) : (
-                <SelectMealComboBox
-                  day={item.day}
-                  onMealChange={handleMealChange}
-                />
-              )}
-            </Card>
+                )}
+              </Card>
+            </div>
           ))}
       </div>
     </div>

@@ -44,8 +44,8 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
     return (
       <Popover open={open} onOpenChange={setOpen} aria-describedby={undefined}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="justify-start">
-            <Plus />
+          <Button variant="ghost" className="w-full">
+            <Plus color="#9ca3af" size={18} />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0" align="start">
@@ -58,8 +58,8 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="justify-start">
-          <Plus />
+        <Button variant="ghost" className="w-full">
+          <Plus color="#9ca3af" size={18} />
         </Button>
       </DrawerTrigger>
       <DrawerContent>

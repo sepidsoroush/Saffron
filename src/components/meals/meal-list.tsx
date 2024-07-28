@@ -37,6 +37,7 @@ export function MealList({ setOpen, setSelectedMeal }: Props) {
                 );
                 setOpen(false);
               }}
+              className="text-base"
             >
               {item.name}
             </CommandItem>
