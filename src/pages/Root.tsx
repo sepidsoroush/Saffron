@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/navbar";
 import MobileNavbar from "@/components/layout/mobile-navbar";
 import { Toaster } from "@/components/ui/toaster";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { useAppDispatch } from "@/store/hooks";
 import { fetchMeals } from "@/store/meals/meals.actions";
@@ -18,10 +19,12 @@ import { Session } from "@supabase/supabase-js";
 function RootLayout() {
   const dispatch = useAppDispatch();
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      setLoading(false);
     });
 
     const {
@@ -42,6 +45,18 @@ function RootLayout() {
       dispatch(fetchGroceries());
     }
   }, [dispatch, session]);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center place-content-center">
+        <LoadingSpinner
+          width={48}
+          height={48}
+          className="flex items-center place-content-center"
+        />
+      </div>
+    );
+  }
 
   if (!session) {
     return <AuthPage />;
