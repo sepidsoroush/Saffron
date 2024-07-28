@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/navbar";
 import MobileNavbar from "@/components/layout/mobile-navbar";
@@ -11,16 +11,41 @@ import { fetchSchedule } from "@/store/schedule/schedule.actions";
 import { fetchCompositions } from "@/store/compositions/compositions.actions";
 import { fetchGroceries } from "@/store/groceries/groceries.actions";
 
+import AuthPage from "./Auth";
+import supabase from "@/config/supabaseConfig";
+import { Session } from "@supabase/supabase-js";
+
 function RootLayout() {
   const dispatch = useAppDispatch();
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    dispatch(fetchMeals());
-    dispatch(fetchIngredients());
-    dispatch(fetchSchedule());
-    dispatch(fetchCompositions());
-    dispatch(fetchGroceries());
-  }, [dispatch]);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (session) {
+      dispatch(fetchMeals());
+      dispatch(fetchIngredients());
+      dispatch(fetchSchedule());
+      dispatch(fetchCompositions());
+      dispatch(fetchGroceries());
+    }
+  }, [dispatch, session]);
+
+  if (!session) {
+    return <AuthPage />;
+  }
 
   return (
     <React.Fragment>
