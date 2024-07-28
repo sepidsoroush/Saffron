@@ -10,26 +10,44 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
 
 type Props = {
   onConfirm: () => void;
-  triggerText: string;
+  triggerText?: string;
+  triggerIcon?: ReactNode;
+  title: string;
   descriptionText: string;
+  variant:
+    | "link"
+    | "default"
+    | "ghost"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | null
+    | undefined;
 };
 
 const ConfirmAlertDialog = ({
   onConfirm,
   triggerText,
+  triggerIcon,
+  title,
   descriptionText,
+  variant,
 }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">{triggerText}</Button>
+        <Button variant={variant} className="px-2">
+          {triggerText}
+          {triggerIcon}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{descriptionText}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

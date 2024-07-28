@@ -312,7 +312,9 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             <ConfirmAlertDialog
               onConfirm={onDelete}
               triggerText="Delete"
+              title="Are you absolutely sure?"
               descriptionText="This action cannot be undone. This will permanently delete the meal and remove its data from our servers."
+              variant="destructive"
             />
           ) : null}
           <Button type="submit">
