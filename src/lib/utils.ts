@@ -5,7 +5,6 @@ import { Ingredient } from "@/types";
 import { Category, SelectOption } from "@/types/common-ui";
 
 import { toast } from "@/components/ui/use-toast";
-import { ReactNode } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

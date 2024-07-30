@@ -4,7 +4,7 @@ import { RootState } from "@/store";
 import { Meal } from "@/types";
 
 export const selectMeals = (state: RootState) => state.meals.meals;
-const selectSchedule = (state: RootState) => state.schedule.schedule;
+export const selectSchedule = (state: RootState) => state.schedule.schedule;
 
 export const selectMealIdsInSchedule = createSelector(
   [selectSchedule],

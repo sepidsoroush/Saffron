@@ -25,6 +25,9 @@ const scheduleSlice = createSlice({
         state.schedule[index].meal_id = undefined;
       }
     },
+    addItem(state, action: PayloadAction<Schedule>) {
+      state.schedule = state.schedule.concat(action.payload);
+    },
     updateItem(state, action: PayloadAction<{ day: WeekDay; mealId: number }>) {
       const { day, mealId } = action.payload;
       const index = state.schedule.findIndex((item) => item.day === day);

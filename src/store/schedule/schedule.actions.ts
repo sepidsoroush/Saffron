@@ -3,6 +3,7 @@ import supabase from "@/config/supabaseConfig";
 import { scheduleActions } from "./schedule.slice";
 import { uiActions } from "../ui/ui-slice";
 import { WeekDay } from "@/types/constants";
+import { Schedule } from "@/types";
 
 export function fetchSchedule() {
   return async (dispatch: Dispatch) => {
@@ -63,6 +64,23 @@ export function updateSchedule(day: WeekDay, mealId: number) {
       console.error("Unexpected error:", error);
     } finally {
       dispatch(uiActions.setLoading(false));
+    }
+  };
+}
+
+export function addSchedule(schedule: Schedule) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const { error } = await supabase
+        .from("schedule")
+        .insert([schedule])
+        .select();
+      if (error) {
+        console.error("Error adding schedule:", error);
+      }
+      dispatch(scheduleActions.addItem(schedule));
+    } catch (error) {
+      console.error("Unexpected error:", error);
     }
   };
 }
