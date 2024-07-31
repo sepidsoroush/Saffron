@@ -33,7 +33,7 @@ function OtherGroceriesPage() {
   };
 
   return (
-    <div className="flex flex-col justify-between overflow-y-auto">
+    <div className="flex flex-col justify-between overflow-y-auto mt-[72px]">
       <Header onClick={newItemHandler} actionTitle="New grocery">
         Other Groceries
       </Header>

@@ -30,7 +30,7 @@ export default function Setting() {
   };
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 mt-[72px]">
       <Header>Settings</Header>
       <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
         <Label>User</Label>

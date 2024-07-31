@@ -68,7 +68,7 @@ function RootLayout() {
         <aside className="md:w-[220px] fixed h-full border-r bg-background/60 backdrop-blur-xl transition-all">
           <Navbar />
         </aside>
-        <main className="w-full md:ml-[220px] my-[72px] md:mb-0 flex-1 overflow-auto">
+        <main className="w-full md:ml-[220px] md:mb-0 flex-1 overflow-auto">
           <Outlet />
         </main>
         <div className="fixed bottom-0 md:hidden bg-background/60 backdrop-blur-xl transition-all w-full">

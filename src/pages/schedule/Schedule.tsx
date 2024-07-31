@@ -59,7 +59,7 @@ function SchedulePage() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-[72px]">
       <Header>Weekly Schedule</Header>
       <div className="p-2">
         {completeSchedule

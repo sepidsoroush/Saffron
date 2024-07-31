@@ -40,7 +40,7 @@ function IngredientsPage() {
   };
 
   return (
-    <div className="flex flex-col justify-between overflow-y-auto">
+    <div className="flex flex-col justify-between overflow-y-auto my-[72px]">
       <Header onClick={newItemHandler} actionTitle="New Item">
         Grocery List
       </Header>
