@@ -28,6 +28,7 @@ function IngredientsPage() {
   const isLoading = useAppSelector(selectLoading);
 
   const newItemHandler = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setIsCreating(true);
   };
 
