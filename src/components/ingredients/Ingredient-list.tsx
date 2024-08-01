@@ -40,11 +40,7 @@ export function IngredientList({
       <CommandInput placeholder="Search Ingredient..." />
       <CommandItem className="border-b">
         {isCreating ? (
-          <IngredientForm
-            type="create"
-            onFinish={finishCreatingHandler}
-            category="ingredient"
-          />
+          <IngredientForm type="create" onFinish={finishCreatingHandler} />
         ) : (
           <NewItem onClick={newItemHandler} title="New Item" />
         )}

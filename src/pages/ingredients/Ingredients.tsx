@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "@/store/hooks";
 
@@ -12,17 +11,14 @@ import {
 } from "@/store/ingredients/ingredients.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
 import NewIngredient from "@/components/ingredients/new-ingredient";
 import { CategoryCard } from "@/components/shared/category-card";
 import NewItemButton from "@/components/shared/new-item-button";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 
-import { ChevronRight } from "lucide-react";
-
 function IngredientsPage() {
-  const navigate = useNavigate();
   const [isCreating, setIsCreating] = useState<boolean>(false);
 
   const essentialItems = useAppSelector(selectEssentialItems);
@@ -48,9 +44,7 @@ function IngredientsPage() {
       <Header onClick={newItemHandler} actionTitle="New Item">
         Grocery List
       </Header>
-      {isCreating ? (
-        <NewIngredient setIsCreating={setIsCreating} category="ingredient" />
-      ) : null}
+      {isCreating ? <NewIngredient setIsCreating={setIsCreating} /> : null}
       {numberOfIngredients === 0 && !isCreating ? (
         <Card className="border border-amber-200 text-amber-700 p-4 m-2">
           No item in the grocery shopping list. Start adding ingredients by
@@ -67,7 +61,6 @@ function IngredientsPage() {
               header={`Essential items for schedule (${essentialItemsLength})`}
               items={essentialItems}
               className="text-red-600 font-bold py-4"
-              category="ingredient"
             />
           ) : null}
           {needToPurchase.length !== 0 ? (
@@ -75,36 +68,16 @@ function IngredientsPage() {
               header="Need to purchase"
               items={needToPurchase}
               className="font-semibold py-4"
-              category="ingredient"
             />
           ) : null}
 
-          <div className="flex flex-col space-y-2">
-            {availableIngredients.length !== 0 ? (
-              <CategoryCard
-                header="Available Ingredients"
-                items={availableIngredients}
-                className="py-4"
-                category="ingredient"
-              />
-            ) : null}
-            <Card>
-              <CardHeader className="py-4">
-                <button
-                  className="flex flex-row justify-between items-center"
-                  onClick={() => {
-                    navigate("/ingredients/others");
-                  }}
-                >
-                  <span>Other groceries</span>
-                  <ChevronRight
-                    strokeWidth={3}
-                    className="h-4 w-4 text-emerald-500 transition-transform duration-200"
-                  />
-                </button>
-              </CardHeader>
-            </Card>
-          </div>
+          {availableIngredients.length !== 0 ? (
+            <CategoryCard
+              header="Available Ingredients"
+              items={availableIngredients}
+              className="py-4"
+            />
+          ) : null}
         </div>
       )}
 

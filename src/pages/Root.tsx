@@ -10,7 +10,6 @@ import { fetchMeals } from "@/store/meals/meals.actions";
 import { fetchIngredients } from "@/store/ingredients/ingredients.actions";
 import { fetchSchedule } from "@/store/schedule/schedule.actions";
 import { fetchCompositions } from "@/store/compositions/compositions.actions";
-import { fetchGroceries } from "@/store/groceries/groceries.actions";
 
 import AuthPage from "./Auth";
 import supabase from "@/config/supabaseConfig";
@@ -42,7 +41,6 @@ function RootLayout() {
       dispatch(fetchIngredients());
       dispatch(fetchSchedule());
       dispatch(fetchCompositions());
-      dispatch(fetchGroceries());
     }
   }, [dispatch, session]);
 

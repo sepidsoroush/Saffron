@@ -7,7 +7,6 @@ import NewMealPage from "./pages/meals/NewMeal";
 import EditMealPage from "./pages/meals/EditMeal";
 import MealsPage from "./pages/meals/Meals";
 import IngredientsPage from "./pages/ingredients/Ingredients";
-import OtherGroceriesPage from "./pages/ingredients/OtherGroceries";
 import SchedulePage from "./pages/schedule/Schedule";
 
 const router = createBrowserRouter([
@@ -33,13 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/ingredients",
-        children: [
-          { index: true, element: <IngredientsPage /> },
-          {
-            path: "/ingredients/others",
-            element: <OtherGroceriesPage />,
-          },
-        ],
+        element: <IngredientsPage />,
       },
       {
         path: "/setting",
