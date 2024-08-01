@@ -128,7 +128,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
   };
 
   return (
-    <li className="flex items-center space-x-2 w-full">
+    <li className="flex items-center space-x-2 w-full py-[6px]">
       <Checkbox
         checked={ingredient?.available || false}
         className={

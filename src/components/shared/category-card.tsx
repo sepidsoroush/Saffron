@@ -14,7 +14,7 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => (
     <CardHeader className={cn("text-sm md:text-base", className)}>
       {header}
     </CardHeader>
-    <CardContent className="divide-y divide-gray-300">
+    <CardContent className="divide-y divide-gray-100">
       {items.map((item) => (
         <IngredientItem key={item.id} item={item} />
       ))}
