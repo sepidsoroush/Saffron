@@ -17,6 +17,7 @@ import NewIngredient from "@/components/ingredients/new-ingredient";
 import { CategoryCard } from "@/components/shared/category-card";
 import NewItemButton from "@/components/shared/new-item-button";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
+import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
 
 function IngredientsPage() {
   const [isCreating, setIsCreating] = useState<boolean>(false);
@@ -46,11 +47,12 @@ function IngredientsPage() {
       </Header>
       {isCreating ? <NewIngredient setIsCreating={setIsCreating} /> : null}
       {numberOfIngredients === 0 && !isCreating ? (
-        <Card className="border border-amber-200 text-amber-700 p-4 m-2">
-          No item in the grocery shopping list. Start adding ingredients by
-          clicking on + button.
-        </Card>
-      ) : null}
+        <EmptyStateIngredients />
+      ) : // <Card className="border border-amber-200 text-amber-700 p-4 m-2">
+      //   No item in the grocery shopping list. Start adding ingredients by
+      //   clicking on + button.
+      // </Card>
+      null}
 
       {isLoading ? (
         <div className="px-2 flex flex-col">{renderSkeletons(6)}</div>

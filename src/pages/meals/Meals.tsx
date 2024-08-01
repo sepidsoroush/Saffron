@@ -8,6 +8,7 @@ import { MealCard } from "@/components/meals/meal-card";
 import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
 import { Header } from "@/components/layout/header";
 import NewItemButton from "@/components/shared/new-item-button";
+import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 
 function MealsPage() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function MealsPage() {
       <Header onClick={newItemHandler} actionTitle="New Meal">
         Meals List
       </Header>
+      {mealsData.length === 0 ? <EmptyStateMeals /> : null}
       <ul className="px-2 md:grid md:grid-cols-2 lg:grid-cols-3 gap-2">
         {isLoading
           ? renderSkeletons(3)
