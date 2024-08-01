@@ -8,6 +8,7 @@ import {
   selectNeedToPurchase,
   selectAvailableIngredients,
   selectEssentialItemsLength,
+  selectIngredientsLength,
 } from "@/store/ingredients/ingredients.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 
@@ -15,6 +16,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
 import NewIngredient from "@/components/ingredients/new-ingredient";
 import { CategoryCard } from "@/components/shared/category-card";
+import NewItemButton from "@/components/shared/new-item-button";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 
 import { ChevronRight } from "lucide-react";
@@ -27,6 +29,8 @@ function IngredientsPage() {
   const needToPurchase = useAppSelector(selectNeedToPurchase);
   const availableIngredients = useAppSelector(selectAvailableIngredients);
   const essentialItemsLength = useAppSelector(selectEssentialItemsLength);
+  const numberOfIngredients = useAppSelector(selectIngredientsLength);
+
   const isLoading = useAppSelector(selectLoading);
 
   const newItemHandler = () => {
@@ -47,6 +51,12 @@ function IngredientsPage() {
       {isCreating ? (
         <NewIngredient setIsCreating={setIsCreating} category="ingredient" />
       ) : null}
+      {numberOfIngredients === 0 && !isCreating ? (
+        <Card className="border border-amber-200 text-amber-700 p-4 m-2">
+          No item in the grocery shopping list. Start adding ingredients by
+          clicking on + button.
+        </Card>
+      ) : null}
 
       {isLoading ? (
         <div className="px-2 flex flex-col">{renderSkeletons(6)}</div>
@@ -60,20 +70,24 @@ function IngredientsPage() {
               category="ingredient"
             />
           ) : null}
-
-          <CategoryCard
-            header="Need to purchase"
-            items={needToPurchase}
-            className="font-semibold py-4"
-            category="ingredient"
-          />
-          <div className="flex flex-col space-y-2">
+          {needToPurchase.length !== 0 ? (
             <CategoryCard
-              header="Available Ingredients"
-              items={availableIngredients}
-              className="py-4"
+              header="Need to purchase"
+              items={needToPurchase}
+              className="font-semibold py-4"
               category="ingredient"
             />
+          ) : null}
+
+          <div className="flex flex-col space-y-2">
+            {availableIngredients.length !== 0 ? (
+              <CategoryCard
+                header="Available Ingredients"
+                items={availableIngredients}
+                className="py-4"
+                category="ingredient"
+              />
+            ) : null}
             <Card>
               <CardHeader className="py-4">
                 <button
@@ -93,6 +107,10 @@ function IngredientsPage() {
           </div>
         </div>
       )}
+
+      <div className="md:hidden inline-block bottom-20 right-5 fixed">
+        <NewItemButton onClick={newItemHandler} />
+      </div>
     </div>
   );
 }

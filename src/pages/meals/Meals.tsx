@@ -7,6 +7,7 @@ import { selectLoading } from "@/store/ui/ui.selector";
 import { MealCard } from "@/components/meals/meal-card";
 import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
 import { Header } from "@/components/layout/header";
+import NewItemButton from "@/components/shared/new-item-button";
 
 function MealsPage() {
   const navigate = useNavigate();
@@ -34,6 +35,9 @@ function MealsPage() {
           ? renderSkeletons(3)
           : mealsData.map((item) => <MealCard key={item.id} meal={item} />)}
       </ul>
+      <div className="md:hidden inline-block bottom-20 right-5 fixed">
+        <NewItemButton onClick={newItemHandler} />
+      </div>
     </div>
   );
 }

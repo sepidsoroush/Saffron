@@ -24,7 +24,7 @@ export function Header({ backLink, onClick, actionTitle, children }: Props) {
 
       <div className="text-2xl font-semibold text-left">{children}</div>
       {onClick && actionTitle ? (
-        <div className="text-right">
+        <div className="text-right hidden md:inline-block">
           <NewItem title={actionTitle} onClick={onClick} />
         </div>
       ) : null}

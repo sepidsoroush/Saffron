@@ -49,3 +49,8 @@ export const selectEssentialItemsLength = createSelector(
   [selectEssentialItems],
   (essentialItems) => essentialItems.length
 );
+
+export const selectIngredientsLength = createSelector(
+  [selectIngredients],
+  (items) => items.length
+);

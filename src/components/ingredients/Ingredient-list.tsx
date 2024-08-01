@@ -37,20 +37,21 @@ export function IngredientList({
   };
   return (
     <Command>
-      <CommandInput placeholder="Filter status..." />
+      <CommandInput placeholder="Search Ingredient..." />
+      <CommandItem className="border-b">
+        {isCreating ? (
+          <IngredientForm
+            type="create"
+            onFinish={finishCreatingHandler}
+            category="ingredient"
+          />
+        ) : (
+          <NewItem onClick={newItemHandler} title="New Item" />
+        )}
+      </CommandItem>
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandItem>
-          {isCreating ? (
-            <IngredientForm
-              type="create"
-              onFinish={finishCreatingHandler}
-              category="ingredient"
-            />
-          ) : (
-            <NewItem onClick={newItemHandler} title="New Item" />
-          )}
-        </CommandItem>
+
         <CommandGroup>
           {options.map((option) => {
             const isSelected = selectedValues.includes(option.value);

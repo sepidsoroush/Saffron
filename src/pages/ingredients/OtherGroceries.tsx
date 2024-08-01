@@ -62,7 +62,7 @@ function OtherGroceriesPage() {
             />
           ) : null}
           {numberOfGroceries === 0 && !isCreating ? (
-            <Card className="border border-red-200 text-red-700 p-4">
+            <Card className="border border-amber-200 text-amber-700 p-4">
               Add other types of groceries you usually have in your shopping
               cart, even if they're not recipe ingredients. This includes
               household items, personal care products, and drinks.
