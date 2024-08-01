@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 import {
@@ -12,23 +11,25 @@ import { Input } from "@/components/ui/input";
 import { Ingredient } from "@/types";
 import { showErrorToast, uniqueId } from "@/lib/utils";
 
-interface IngredientFormProps {
+interface Props {
   ingredient?: Ingredient;
   type: "update" | "create";
   onFinish?: () => void;
 }
 
-const IngredientForm: React.FC<IngredientFormProps> = ({
-  ingredient,
-  type,
-  onFinish,
-}) => {
+const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
   const dispatch = useAppDispatch();
   const [isEditing, setIsEditing] = useState(type === "create");
   const [updatedName, setUpdatedName] = useState(ingredient?.name || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const ingredientsData = useAppSelector(selectIngredients);
+
+  useEffect(() => {
+    if (type === "create" && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [type]);
 
   const startEditing = () => {
     setIsEditing(true);
@@ -94,11 +95,11 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdatedName(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       finishEditing();
     } else if (e.key === "Escape") {
