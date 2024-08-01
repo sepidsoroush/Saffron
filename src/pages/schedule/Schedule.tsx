@@ -13,8 +13,7 @@ import { Header } from "@/components/layout/header";
 import { WeekDay } from "@/types/constants";
 
 import { X } from "lucide-react";
-import { showSuccessToast } from "@/lib/utils";
-
+import { showSuccessToast, uniqueId } from "@/lib/utils";
 import { emptySchedule } from "@/lib/info";
 
 function SchedulePage() {
@@ -41,7 +40,7 @@ function SchedulePage() {
       )?.day_id;
       if (newScheduleId !== undefined) {
         const newSchedule = {
-          id: Math.floor(Math.random() * Math.pow(2, 20)),
+          id: uniqueId(),
           day_id: newScheduleId,
           day,
           meal_id: mealId,

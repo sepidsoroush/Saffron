@@ -35,7 +35,7 @@ import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 import { selectMeals } from "@/store/meals/meals.selector";
 import { selectCompositions } from "@/store/compositions/compositions.selector";
 
-import { showErrorToast, showSuccessToast } from "@/lib/utils";
+import { showErrorToast, showSuccessToast, uniqueId } from "@/lib/utils";
 
 type ActionType = "create" | "update";
 
@@ -81,9 +81,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const meal: Meal = {
-      id: mealToUpdate
-        ? mealToUpdate.id
-        : Math.floor(Math.random() * Math.pow(2, 20)),
+      id: mealToUpdate ? mealToUpdate.id : uniqueId(),
       name: values.name,
     };
 
@@ -110,7 +108,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         const addPromises = newIngredients.map((ingredientId) => {
           if (!existingIngredientIds.includes(ingredientId)) {
             const composition: Composition = {
-              id: Math.floor(Math.random() * Math.pow(2, 20)),
+              id: uniqueId(),
               meal_id: meal.id,
               ingredient_id: ingredientId,
             };
@@ -168,7 +166,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       dispatch(addMeal(meal)).then(() => {
         const compositionPromises = values.ingredients.map((ingredientId) => {
           const composition: Composition = {
-            id: Math.floor(Math.random() * Math.pow(2, 20)),
+            id: uniqueId(),
             meal_id: meal.id,
             ingredient_id: Number(ingredientId),
           };
@@ -200,7 +198,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         const addPromises = newIngredients.map((ingredientId) => {
           if (!existingIngredientIds.includes(ingredientId)) {
             const composition: Composition = {
-              id: Math.floor(Math.random() * Math.pow(2, 20)),
+              id: uniqueId(),
               meal_id: meal.id,
               ingredient_id: ingredientId,
             };

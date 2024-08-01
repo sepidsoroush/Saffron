@@ -1,3 +1,4 @@
+useNavigate;
 import { useAppSelector } from "@/store/hooks";
 import { selectMeals, selectFilteredMeals } from "@/store/meals/meals.selector";
 
@@ -11,6 +12,9 @@ import {
 } from "@/components/ui/command";
 
 import { Meal } from "@/types";
+import { useNavigate } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import { Button } from "../ui/button";
 
 type Props = {
   setOpen: (open: boolean) => void;
@@ -18,6 +22,7 @@ type Props = {
 };
 
 export function MealList({ setOpen, setSelectedMeal }: Props) {
+  const navigate = useNavigate();
   const mealsData = useAppSelector(selectMeals);
   const filteredMeals = useAppSelector(selectFilteredMeals);
 
@@ -25,7 +30,20 @@ export function MealList({ setOpen, setSelectedMeal }: Props) {
     <Command>
       <CommandInput placeholder="Search meal..." />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>
+          {mealsData.length === 0 ? (
+            <Button
+              variant="link"
+              className="flex flex-row justify-center items-center w-full whitespace-normal"
+              onClick={() => navigate("/meals")}
+            >
+              No meals available. Start creating meals first
+              <ArrowUpRight size={16} />
+            </Button>
+          ) : (
+            "No results found."
+          )}
+        </CommandEmpty>
         <CommandGroup>
           {filteredMeals.map((item) => (
             <CommandItem

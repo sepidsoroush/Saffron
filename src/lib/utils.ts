@@ -38,3 +38,7 @@ export const showErrorToast = (message: string) => {
     description: message,
   });
 };
+
+export const uniqueId = () => {
+  return Number(new Date().getTime().toString());
+};
