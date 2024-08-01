@@ -43,7 +43,6 @@ export function addIngredient(ingredient: Ingredient) {
 
 export function updateIngredient(id: number, ingredient: Ingredient) {
   return async (dispatch: Dispatch) => {
-    dispatch(uiActions.setLoading(true));
     try {
       const { error } = await supabase
         .from("ingredients")
@@ -57,8 +56,6 @@ export function updateIngredient(id: number, ingredient: Ingredient) {
       dispatch(ingredientsActions.updateItem({ id, ingredient }));
     } catch (error) {
       console.error("Unexpected error:", error);
-    } finally {
-      dispatch(uiActions.setLoading(false));
     }
   };
 }
