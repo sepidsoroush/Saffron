@@ -4,6 +4,7 @@ import { WeekDay } from "./constants";
 export interface Meal {
   id: number;
   name: string;
+  imageUrl?: string;
   // cuisine?: CuisineType;
   // type?: MealType;
 }

@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useAppSelector } from "@/store/hooks";
-import { selectCompositionsByMealId } from "@/store/compositions/compositions.selector";
-
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import IngredientListItem from "@/components/ingredients/ingredient-list-item";
+import { Card, CardTitle } from "@/components/ui/card";
 
 import { Meal } from "@/types";
 
@@ -14,26 +9,11 @@ type Props = {
 };
 
 export const MealCard = ({ meal }: Props) => {
-  const ingredientsInRecipe = useAppSelector((state) =>
-    selectCompositionsByMealId(state, meal.id)
-  );
-
   return (
     <Link to={`/meals/${meal.id}`}>
-      <Card className="my-2 overflow-x-hidden">
+      <Card className="my-2 overflow-x-hidden flex flex-row">
+        <img src={meal.imageUrl || "NoImages.png"} width={150} height={150} />
         <CardTitle className="text-lg px-4 py-2">{meal.name}</CardTitle>
-        <CardContent className="px-4 py-0">
-          <ScrollArea className="md:h-56 pb-4">
-            <ul className="pb-2">
-              {ingredientsInRecipe.map((comp) => (
-                <IngredientListItem
-                  key={comp.id}
-                  ingredient={comp.ingredient}
-                />
-              ))}
-            </ul>
-          </ScrollArea>
-        </CardContent>
       </Card>
     </Link>
   );

@@ -25,7 +25,7 @@ function MealsPage() {
     ));
 
   return (
-    <div className="flex flex-col overflow-y-auto mt-[72px]">
+    <div className="flex flex-col overflow-y-auto my-[72px]">
       <Header onClick={newItemHandler} actionTitle="New Meal">
         Meals List
       </Header>
