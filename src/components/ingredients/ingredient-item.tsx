@@ -1,8 +1,8 @@
 import IngredientForm from "./ingredient-form";
-import { Ingredient, Grocery } from "@/types";
+import { Ingredient } from "@/types";
 
 type Props = {
-  item: Ingredient | Grocery;
+  item: Ingredient;
 };
 
 export const IngredientItem = ({ item }: Props) => {

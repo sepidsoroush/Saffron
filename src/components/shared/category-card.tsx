@@ -1,11 +1,11 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { IngredientItem } from "../ingredients/ingredient-item";
-import { Ingredient, Grocery } from "@/types";
+import { Ingredient } from "@/types";
 import { cn } from "@/lib/utils";
 
 type Props = {
   header: string;
-  items: Ingredient[] | Grocery[];
+  items: Ingredient[];
   className?: string;
 };
 

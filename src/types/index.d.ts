@@ -1,10 +1,11 @@
-import { CuisineType, MealType, WeekDay } from "./constants";
+// import { CuisineType, MealType } from "./constants";
+import { WeekDay } from "./constants";
 
 export interface Meal {
   id: number;
   name: string;
-  cuisine?: CuisineType;
-  type?: MealType;
+  // cuisine?: CuisineType;
+  // type?: MealType;
 }
 
 export interface Ingredient {
@@ -25,10 +26,4 @@ export interface Composition {
   id: number;
   meal_id: number;
   ingredient_id: number;
-}
-
-export interface Grocery {
-  id: number;
-  name: string;
-  available: boolean;
 }
