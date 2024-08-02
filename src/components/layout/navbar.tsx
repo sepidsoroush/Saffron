@@ -8,7 +8,7 @@ import { Cookie } from "lucide-react";
 const Navbar = () => {
   return (
     <nav className="hidden md:flex flex-col gap-2 overflow-hidden">
-      <Header>
+      <Header className="md:w-[220px] border-r">
         <div className="flex flex-row justify-start items-center">
           <Cookie size={20} />
           <span className="ml-2">Bite Board</span>

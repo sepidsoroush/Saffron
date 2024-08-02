@@ -6,6 +6,7 @@ import Setting from "./pages/Setting";
 import NewMealPage from "./pages/meals/NewMeal";
 import EditMealPage from "./pages/meals/EditMeal";
 import MealsPage from "./pages/meals/Meals";
+import MealDetails from "./pages/meals/MealDetails";
 import IngredientsPage from "./pages/ingredients/Ingredients";
 import SchedulePage from "./pages/schedule/Schedule";
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
           },
           {
             path: "/meals/:mealId",
+            element: <MealDetails />,
+          },
+          {
+            path: "/meals/:mealId/edit",
             element: <EditMealPage />,
           },
         ],

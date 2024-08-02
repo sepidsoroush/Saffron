@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { selectMealById } from "@/store/meals/meals.selector";
 import MealForm from "@/components/meals/meal-form";
+import { FormTitle } from "@/components/meals/form-title";
 
 const EditMealPage: React.FC = () => {
   const location = useLocation();
@@ -11,9 +12,16 @@ const EditMealPage: React.FC = () => {
   const mealToUpdate = useAppSelector(selectMealById(mealId));
 
   return (
-    <div className="p-4">
-      <MealForm actionType="update" mealToUpdate={mealToUpdate} />
-    </div>
+    <>
+      <FormTitle
+        backLink={`/meals/${mealToUpdate?.id}`}
+        title="Edit selected meal"
+        className="px-4"
+      />
+      <div className="p-4">
+        <MealForm actionType="update" mealToUpdate={mealToUpdate} />
+      </div>
+    </>
   );
 };
 
