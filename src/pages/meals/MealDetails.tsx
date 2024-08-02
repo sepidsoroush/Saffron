@@ -30,17 +30,24 @@ const MealDetails: React.FC = () => {
         action={editMealHandler}
         className="px-4"
       />
-      <div className="p-4">
-        <img src="" />
-        <h1 className="text-2xl my-2">{mealToUpdate?.name}</h1>
-        {ingredientsInRecipe.length !== 0 ? (
-          <p className="text-gray-500 mb-2">Ingredients:</p>
-        ) : null}
-        <ul>
-          {ingredientsInRecipe.map((item) => (
-            <IngredientListItem key={item.id} ingredient={item.ingredient} />
-          ))}
-        </ul>
+      <div className="flex flex-col md:flex-row">
+        <img
+          src={mealToUpdate?.imageUrl || "NoImages.png"}
+          width={150}
+          height={150}
+          className="w-full md:w-[300px] md:h-[300px] md:rounded-xl md:m-4 object-cover"
+        />
+        <div className="p-4 mb-[72px]">
+          <h1 className="text-2xl mb-2">{mealToUpdate?.name}</h1>
+          {ingredientsInRecipe.length !== 0 ? (
+            <p className="text-gray-500 mb-2">Ingredients:</p>
+          ) : null}
+          <ul>
+            {ingredientsInRecipe.map((item) => (
+              <IngredientListItem key={item.id} ingredient={item.ingredient} />
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );
