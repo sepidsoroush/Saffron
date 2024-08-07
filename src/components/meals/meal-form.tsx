@@ -35,6 +35,7 @@ import { selectMeals } from "@/store/meals/meals.selector";
 import { selectCompositions } from "@/store/compositions/compositions.selector";
 
 import { showErrorToast, showSuccessToast, uniqueId } from "@/lib/utils";
+import MealImage from "./meal-image";
 
 type ActionType = "create" | "update";
 
@@ -53,6 +54,7 @@ const formSchema = z.object({
       message: "Name must not be longer than 250 characters.",
     }),
   ingredients: z.array(z.string()),
+  imageUrl: z.string().optional(),
 });
 
 const MealForm = ({ actionType, mealToUpdate }: Props) => {
@@ -75,6 +77,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             .filter((item) => item.meal_id === mealToUpdate.id)
             .map((item) => item.ingredient_id.toString())
         : [],
+      imageUrl: mealToUpdate ? mealToUpdate.imageUrl : "",
     },
   });
 
@@ -82,6 +85,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
     const meal: Meal = {
       id: mealToUpdate ? mealToUpdate.id : uniqueId(),
       name: values.name,
+      imageUrl: values.imageUrl,
     };
 
     // Check if the updated name is the same as the current name
@@ -266,6 +270,22 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Meal Image</FormLabel>
+              <FormControl>
+                <MealImage
+                  onImageChange={field.onChange}
+                  currentImage={field.value}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="name"
