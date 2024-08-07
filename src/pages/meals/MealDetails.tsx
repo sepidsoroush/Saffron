@@ -6,6 +6,7 @@ import { selectCompositionsByMealId } from "@/store/compositions/compositions.se
 
 import IngredientListItem from "@/components/ingredients/ingredient-list-item";
 import { FormTitle } from "@/components/meals/form-title";
+import NoImageMeal from "@/components/meals/no-image-meal";
 
 const MealDetails: React.FC = () => {
   const location = useLocation();
@@ -31,12 +32,17 @@ const MealDetails: React.FC = () => {
         className="px-4"
       />
       <div className="flex flex-col md:flex-row">
-        <img
-          src={mealToUpdate?.imageUrl || "NoImages.png"}
-          width={150}
-          height={150}
-          className="w-full md:w-[300px] md:h-[300px] md:rounded-xl md:m-4 object-cover"
-        />
+        {mealToUpdate?.imageUrl ? (
+          <img
+            src={mealToUpdate?.imageUrl}
+            alt={mealToUpdate?.name}
+            width={150}
+            height={150}
+            className="w-full md:w-[300px] md:h-[300px] md:rounded-xl md:m-4 object-cover"
+          />
+        ) : (
+          <NoImageMeal />
+        )}
         <div className="p-4 mb-[72px]">
           <h1 className="text-2xl mb-2">{mealToUpdate?.name}</h1>
           {ingredientsInRecipe.length !== 0 ? (

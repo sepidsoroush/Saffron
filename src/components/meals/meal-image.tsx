@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CookingPot } from "lucide-react";
+import NoImageMeal from "./no-image-meal";
 
 type Props = {
   onImageChange: (base64: string) => void;
@@ -49,9 +49,7 @@ const MealImage = ({ onImageChange, currentImage }: Props) => {
           <AvatarFallback>Meal Image</AvatarFallback>
         </Avatar>
       ) : (
-        <div className="w-[150px] h-[150px] rounded-full bg-gray-300">
-          <CookingPot size={150} color="#ffffff" className="p-8" />
-        </div>
+        <NoImageMeal />
       )}
       <>
         {uploading ? (
