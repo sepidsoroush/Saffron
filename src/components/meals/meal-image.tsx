@@ -42,7 +42,7 @@ const MealImage = ({ onImageChange, currentImage }: Props) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center">
       {preview ? (
         <Avatar className="w-full h-[300px] rounded-sm bg-gray-300">
           <AvatarImage src={preview} />
@@ -53,7 +53,7 @@ const MealImage = ({ onImageChange, currentImage }: Props) => {
           <CookingPot size={150} color="#ffffff" className="p-8" />
         </div>
       )}
-      <div style={{ width: 300 }}>
+      <>
         {uploading ? (
           <Label className="inline-block text-center">Uploading ...</Label>
         ) : preview ? (
@@ -65,8 +65,8 @@ const MealImage = ({ onImageChange, currentImage }: Props) => {
             Delete image
           </Button>
         ) : (
-          <Label className="inline-block text-center" htmlFor="image">
-            Set new image
+          <Label className="inline-block mt-2" htmlFor="image">
+            Add Image
           </Label>
         )}
         <Input
@@ -77,7 +77,7 @@ const MealImage = ({ onImageChange, currentImage }: Props) => {
           onChange={imageUploadHandler}
           className="hidden absolute"
         />
-      </div>
+      </>
     </div>
   );
 };

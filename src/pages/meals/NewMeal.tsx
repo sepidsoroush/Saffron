@@ -6,7 +6,7 @@ const NewMealPage: React.FC = () => {
   return (
     <>
       <FormTitle backLink="/meals" title="Add a new meal" className="px-4" />
-      <div className="p-4">
+      <div className="p-4 mb-[72px]">
         <MealForm actionType="create" />
       </div>
     </>

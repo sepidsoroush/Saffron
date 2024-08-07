@@ -275,7 +275,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Meal Image</FormLabel>
+              {/* <FormLabel>Meal Image</FormLabel> */}
               <FormControl>
                 <MealImage
                   onImageChange={field.onChange}
