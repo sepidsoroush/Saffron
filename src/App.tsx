@@ -1,5 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import AuthPage from "./pages/Auth";
+import MarketingPage from "./pages/Marketing";
+import ProtectedRoute from "./pages/ProtectedRoute";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
 import Setting from "./pages/Setting";
@@ -13,35 +16,46 @@ import SchedulePage from "./pages/schedule/Schedule";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <MarketingPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <AuthPage />,
+  },
+  {
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <SchedulePage /> },
       {
-        path: "/meals",
+        path: "schedule",
+        element: <ProtectedRoute element={<SchedulePage />} />,
+      },
+      {
+        path: "meals",
         children: [
-          { index: true, element: <MealsPage /> },
+          { index: true, element: <ProtectedRoute element={<MealsPage />} /> },
           {
-            path: "/meals/new",
-            element: <NewMealPage />,
+            path: "new",
+            element: <ProtectedRoute element={<NewMealPage />} />,
           },
           {
-            path: "/meals/:mealId",
-            element: <MealDetails />,
+            path: ":mealId",
+            element: <ProtectedRoute element={<MealDetails />} />,
           },
           {
-            path: "/meals/:mealId/edit",
-            element: <EditMealPage />,
+            path: ":mealId/edit",
+            element: <ProtectedRoute element={<EditMealPage />} />,
           },
         ],
       },
       {
-        path: "/ingredients",
-        element: <IngredientsPage />,
+        path: "ingredients",
+        element: <ProtectedRoute element={<IngredientsPage />} />,
       },
       {
-        path: "/setting",
-        element: <Setting />,
+        path: "setting",
+        element: <ProtectedRoute element={<Setting />} />,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/navbar";
 import MobileNavbar from "@/components/layout/mobile-navbar";
@@ -11,29 +11,11 @@ import { fetchIngredients } from "@/store/ingredients/ingredients.actions";
 import { fetchSchedule } from "@/store/schedule/schedule.actions";
 import { fetchCompositions } from "@/store/compositions/compositions.actions";
 
-import AuthPage from "./Auth";
-import supabase from "@/config/supabaseConfig";
-import { Session } from "@supabase/supabase-js";
+import { useAuth } from "@/hooks/useAuth";
 
 function RootLayout() {
   const dispatch = useAppDispatch();
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { session, loading } = useAuth();
 
   useEffect(() => {
     if (session) {
@@ -54,10 +36,6 @@ function RootLayout() {
         />
       </div>
     );
-  }
-
-  if (!session) {
-    return <AuthPage />;
   }
 
   return (

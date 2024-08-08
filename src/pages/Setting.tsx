@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import supabase from "@/config/supabaseConfig";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/theme/ModeToggleMenu";
@@ -7,26 +8,13 @@ import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { LogOut } from "lucide-react";
 
-import supabase from "@/config/supabaseConfig";
-
 export default function Setting() {
-  const [userEmail, setUserEmail] = useState<string | undefined>("");
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) {
-        setUserEmail(user.email);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const logoutHandler = async () => {
     await supabase.auth.signOut();
+    navigate("/");
   };
 
   return (
@@ -34,7 +22,7 @@ export default function Setting() {
       <Header>Settings</Header>
       <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
         <Label>User</Label>
-        <div className="text-gray-600">{userEmail}</div>
+        <div className="text-gray-600">{user?.email}</div>
       </Card>
       <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
         <Label>Log out</Label>
