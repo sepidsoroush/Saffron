@@ -1,12 +1,18 @@
-import { Schedule } from "@/types";
-import { WeekDay } from "@/types/constants";
-
-export const emptySchedule: Schedule[] = [
-  { day_id: 1, day: WeekDay.Monday, meal_id: undefined },
-  { day_id: 2, day: WeekDay.Tuesday, meal_id: undefined },
-  { day_id: 3, day: WeekDay.Wednesday, meal_id: undefined },
-  { day_id: 4, day: WeekDay.Thursday, meal_id: undefined },
-  { day_id: 5, day: WeekDay.Friday, meal_id: undefined },
-  { day_id: 6, day: WeekDay.Saturday, meal_id: undefined },
-  { day_id: 7, day: WeekDay.Sunday, meal_id: undefined },
+export const featuresInfo = [
+  {
+    image: "/schedule.svg",
+    title: "Custom meal plans",
+    description: "Plan your meals for the entire week in minutes.",
+  },
+  {
+    image: "/cup.svg",
+    title: "Personalized recipes",
+    description: "You can create custom foods and recipes based on your diet.",
+  },
+  {
+    image: "/list.svg",
+    title: "Smart grocery lists",
+    description:
+      "Our digital pantry takes into account what you have in your kitchen to reduce food waste and save money.",
+  },
 ];

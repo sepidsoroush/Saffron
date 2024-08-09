@@ -1,4 +1,4 @@
-import Docs from "./docs.svg";
+import Docs from "/docs.svg";
 
 export default function EmptyStateIngredients() {
   return (

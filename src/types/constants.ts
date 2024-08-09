@@ -1,3 +1,4 @@
+import { Schedule } from ".";
 // export enum CuisineType {
 //   Persian = "Persian",
 //   Italian = "Italian",
@@ -25,3 +26,13 @@ export enum WeekDay {
   Saturday = "Saturday",
   Sunday = "Sunday",
 }
+
+export const emptySchedule: Schedule[] = [
+  { day_id: 1, day: WeekDay.Monday, meal_id: undefined },
+  { day_id: 2, day: WeekDay.Tuesday, meal_id: undefined },
+  { day_id: 3, day: WeekDay.Wednesday, meal_id: undefined },
+  { day_id: 4, day: WeekDay.Thursday, meal_id: undefined },
+  { day_id: 5, day: WeekDay.Friday, meal_id: undefined },
+  { day_id: 6, day: WeekDay.Saturday, meal_id: undefined },
+  { day_id: 7, day: WeekDay.Sunday, meal_id: undefined },
+];

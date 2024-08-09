@@ -30,3 +30,9 @@ export interface SiteConfig {
     github: string;
   };
 }
+
+export interface FeatureInfo {
+  image: string;
+  title: string;
+  description: string;
+}

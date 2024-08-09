@@ -1,4 +1,4 @@
-import Cup from "./cup.svg";
+import Cup from "/cup.svg";
 
 export default function EmptyStateMeals() {
   return (

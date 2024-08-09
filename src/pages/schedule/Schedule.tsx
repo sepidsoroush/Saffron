@@ -14,7 +14,7 @@ import { WeekDay } from "@/types/constants";
 
 import { X } from "lucide-react";
 import { showSuccessToast, uniqueId } from "@/lib/utils";
-import { emptySchedule } from "@/lib/info";
+import { emptySchedule } from "@/types/constants";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();

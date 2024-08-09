@@ -1,15 +1,18 @@
 import CallToAction from "@/components/marketing/cta";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { MarketingNavbar } from "@/components/marketing/marketing-navbar";
+import { Features } from "@/components/marketing/features";
 
 export default function MarketingPage() {
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <main className="w-full md:ml-[220px] md:mb-0 flex-1 overflow-auto">
       <MarketingNavbar />
-      <section className="flex-1 space-y-4">
-        <CallToAction />
-      </section>
+
+      <CallToAction />
+
+      <Features />
+
       <SiteFooter />
-    </div>
+    </main>
   );
 }
