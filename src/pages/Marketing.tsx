@@ -5,13 +5,10 @@ import { Features } from "@/components/marketing/features";
 
 export default function MarketingPage() {
   return (
-    <main className="w-full md:ml-[220px] md:mb-0 flex-1 overflow-auto">
+    <main className="w-full  flex-1 overflow-y-auto overflow-x-hidden">
       <MarketingNavbar />
-
       <CallToAction />
-
       <Features />
-
       <SiteFooter />
     </main>
   );

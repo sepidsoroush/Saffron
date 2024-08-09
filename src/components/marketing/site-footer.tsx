@@ -3,7 +3,7 @@ import { footerLinks, contactLinks } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t w-full container mx-auto py-4 flex flex-row justify-between items-center gap-2">
+    <footer className="border-t w-full p-4 flex flex-row justify-between items-center">
       <div className="flex flex-row justify-between items-center gap-4">
         {footerLinks.map((item) => (
           <Link
