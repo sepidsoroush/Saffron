@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import NavbarItem from "./navbar-item";
 
-import { NAVBAR } from "@/lib/info";
+import { NAVBAR } from "@/lib/site";
 
 const MobileNavbar = () => {
   return (

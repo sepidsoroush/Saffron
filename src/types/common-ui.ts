@@ -16,5 +16,17 @@ export interface SelectOption {
 export interface NavItem {
   title: string;
   href: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
+}
+
+export interface SiteConfig {
+  name: string;
+  description: string;
+  url: string;
+  ogImage: string;
+  mailSupport: string;
+  links: {
+    twitter: string;
+    github: string;
+  };
 }

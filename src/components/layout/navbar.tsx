@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import NavbarItem from "./navbar-item";
 import { Header } from "./header";
 
-import { NAVBAR } from "@/lib/info";
+import { NAVBAR } from "@/lib/site";
 import { Cookie } from "lucide-react";
 
 const Navbar = () => {
