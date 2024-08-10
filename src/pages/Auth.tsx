@@ -33,7 +33,7 @@ const AuthPage = () => {
             <Auth
               supabaseClient={supabase}
               appearance={{ theme: ThemeSupa }}
-              providers={["google", "github"]}
+              providers={["google"]}
             />
           </div>
         </div>
