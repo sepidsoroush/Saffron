@@ -5,7 +5,7 @@ import { Features } from "@/components/marketing/features";
 
 export default function MarketingPage() {
   return (
-    <main className="w-full  flex-1 overflow-y-auto overflow-x-hidden">
+    <main className="w-full overflow-y-auto overflow-x-hidden min-h-screen text-center">
       <MarketingNavbar />
       <CallToAction />
       <Features />

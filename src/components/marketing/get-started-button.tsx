@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-export function GetStartedButton() {
+type Props = {
+  title: string;
+  icon?: boolean;
+};
+
+export function GetStartedButton({ title, icon }: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -22,8 +26,8 @@ export function GetStartedButton() {
       className={cn(buttonVariants({ size: "lg" }))}
       onClick={handleOnClick}
     >
-      <span className="mr-1 font-light">Get started for free</span>
-      <ArrowRight size={16} strokeWidth={1.5} />
+      <span className="mr-1 font-light">{title}</span>
+      {icon && <ArrowRight size={16} strokeWidth={1.5} />}
     </Button>
   );
 }

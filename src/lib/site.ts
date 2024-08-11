@@ -23,12 +23,6 @@ export const footerLinks: NavItem[] = [
   { title: "Blog", href: "#" },
 ];
 
-export const contactLinks: NavItem[] = [
-  { title: "Twitter", href: "https://twitter.com/iamsepid", icon: Twitter },
-  { title: "Github", href: "https://github.com/sepidsoroush", icon: Github },
-  { title: "Email", href: "mailto:s.soroush2012@gmail.com", icon: Mail },
-];
-
 const site_url = import.meta.env.VITE_APP_URL;
 
 export const siteConfig: SiteConfig = {

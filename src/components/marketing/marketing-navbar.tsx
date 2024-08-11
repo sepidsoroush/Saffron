@@ -12,7 +12,7 @@ export const MarketingNavbar = () => {
     <nav className="sticky top-0 z-30 flex h-16 w-full items-center gap-10 border-b bg-background/60 px-4 backdrop-blur-xl transition-all">
       <Link to="/" className="flex items-center space-x-2">
         <Cookie />
-        <span className="inline-block font-urban text-xl font-bold">
+        <span className="inline-block text-xl font-bold">
           {siteConfig.name}
         </span>
       </Link>

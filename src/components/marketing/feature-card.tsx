@@ -7,22 +7,16 @@ type Props = {
 
 export const FeatureCard = ({ info }: Props) => {
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="max-w-[310px]">
       <img
         src={info.image}
         alt={info.title}
-        className="h-28 rounded-xl object-fill"
+        className="h-28 rounded-xl object-fill mx-auto "
       />
-      <h2
-        className="animate-fade-up font-urban font-extrabold leading-normal tracking-tight text-2xl md:text-3xl md:leading-loose bg-gradient-to-r from-slate-900 to-slate-600 text-transparent bg-clip-text"
-        style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
-      >
+      <h2 className="mb-2 text-2xl text-center font-bold">
         <Balancer>{info.title}</Balancer>
       </h2>
-      <p
-        className="mt-4 mb-8 md:w-1/2 animate-fade-up leading-normal animate-fade-in text-lg md:text-xl tracking-tight  [--animation-delay:400ms] font-extralight bg-gradient-to-r from-slate-600 via-slate-500 to-slate-600 text-transparent bg-clip-text"
-        style={{ animationDelay: "0.45s", animationFillMode: "forwards" }}
-      >
+      <p className="mb-4 text-slate-500 text-center text-lg">
         <Balancer>{info.description}</Balancer>
       </p>
     </div>
