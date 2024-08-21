@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/navbar";
 import MobileNavbar from "@/components/layout/mobile-navbar";
+import ScrollToTop from "@/components/layout/scroll-top";
 import { Toaster } from "@/components/ui/toaster";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
@@ -40,6 +41,8 @@ function RootLayout() {
 
   return (
     <React.Fragment>
+      <ScrollToTop />
+
       <div className="flex">
         <aside className="md:w-[220px] fixed h-full border-r bg-background/60 backdrop-blur-xl transition-all">
           <Navbar />
