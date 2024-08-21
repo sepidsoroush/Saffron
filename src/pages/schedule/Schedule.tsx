@@ -8,6 +8,7 @@ import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
 
 import { Card } from "@/components/ui/card";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
+import { MealCard } from "@/components/meals/meal-card";
 import { Header } from "@/components/layout/header";
 
 import { WeekDay } from "@/types/constants";
@@ -15,6 +16,7 @@ import { WeekDay } from "@/types/constants";
 import { X } from "lucide-react";
 import { showSuccessToast, uniqueId } from "@/lib/utils";
 import { emptySchedule } from "@/types/constants";
+import { Link } from "react-router-dom";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();
@@ -58,7 +60,7 @@ function SchedulePage() {
   };
 
   return (
-    <div className="flex flex-col mt-[72px]">
+    <div className="flex flex-col my-[72px]">
       <Header>Weekly Schedule</Header>
       <div className="p-2">
         {completeSchedule
@@ -69,7 +71,12 @@ function SchedulePage() {
               <Card className="flex flex-row justify-center items-center border relative">
                 {item.meal_id ? (
                   <>
-                    <div className="p-2">{item.meal?.name}</div>
+                    <Link
+                      to={`/meals/${item.meal_id}`}
+                      className="p-2 hover:underline"
+                    >
+                      {item.meal?.name}
+                    </Link>
                     <span className="top-0 right-0 absolute p-1">
                       <X
                         color="#ef4444"
