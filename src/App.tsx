@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import AuthPage from "./pages/Auth";
-import MarketingPage from "./pages/Marketing";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
@@ -12,11 +11,12 @@ import MealsPage from "./pages/meals/Meals";
 import MealDetails from "./pages/meals/MealDetails";
 import IngredientsPage from "./pages/ingredients/Ingredients";
 import SchedulePage from "./pages/schedule/Schedule";
+import RedirectToProperPage from "./pages/Redirect";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MarketingPage />,
+    element: <RedirectToProperPage />,
     errorElement: <ErrorPage />,
   },
   {
