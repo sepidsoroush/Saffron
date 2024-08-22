@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { deleteIngredient } from "@/store/ingredients/ingredients.actions";
+import { deleteComposition } from "@/store/compositions/compositions.actions";
+import { selectCompositions } from "@/store/compositions/compositions.selector";
 
-import IngredientForm from "./ingredient-form";
 import { Button } from "@/components/ui/button";
+import IngredientForm from "./ingredient-form";
+
 import { Ingredient } from "@/types";
-import { cn } from "@/lib/utils";
+import { cn, showErrorToast, showSuccessToast } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
 
 type Props = {
@@ -11,6 +16,9 @@ type Props = {
 };
 
 export const IngredientItem = ({ item }: Props) => {
+  const dispatch = useAppDispatch();
+  const compositionsData = useAppSelector(selectCompositions);
+
   const [dragging, setDragging] = useState<boolean>(false);
   const [dragStartX, setDragStartX] = useState<number>(0);
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
@@ -73,8 +81,24 @@ export const IngredientItem = ({ item }: Props) => {
     };
   }, [handleClickOutside, handleEscapeKey]);
 
-  const deleteHandler = () => {
-    console.log(item.name);
+  const deleteHandler = async () => {
+    try {
+      const compositionsToDelete = compositionsData.filter(
+        (c) => c.ingredient_id === item.id
+      );
+      // Delete all related compositions
+      const deleteCompositionPromises = compositionsToDelete.map((c) =>
+        dispatch(deleteComposition(c.id))
+      );
+      await Promise.all(deleteCompositionPromises);
+      // Delete the ingredient
+      await dispatch(deleteIngredient(item.id));
+      showSuccessToast("Ingredient in all recipes deleted!");
+    } catch (error) {
+      showErrorToast(
+        `${`Error deleting ingredient and compositions: ${error}`}`
+      );
+    }
   };
 
   return (
@@ -98,15 +122,15 @@ export const IngredientItem = ({ item }: Props) => {
         <IngredientForm type="update" ingredient={item} />
       </div>
 
-      {deleteVisible && (
+      {deleteVisible ? (
         <Button
           variant="destructive"
           onClick={deleteHandler}
-          className="right-0 top-0 bottom-0 mt-[2px] absolute"
+          className="right-0 top-0 bottom-0  absolute"
         >
-          <Trash2 size={14} />
+          <Trash2 size={16} />
         </Button>
-      )}
+      ) : null}
     </div>
   );
 };
