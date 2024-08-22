@@ -12,6 +12,7 @@ import {
 import NewItem from "@/components/shared/new-Item";
 import IngredientForm from "./ingredient-form";
 import { CheckIcon } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { SelectOption } from "@/types/common-ui";
 
@@ -85,23 +86,30 @@ export function IngredientList({
             .map((option) => {
               const isSelected = selectedValues.includes(option.value);
               return (
-                <CommandItem
+                <motion.div
                   key={option.value}
-                  onSelect={() => handleToggleOption(option.value)}
-                  className="cursor-pointer"
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
                 >
-                  <div
-                    className={cn(
-                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                      isSelected
-                        ? "bg-primary text-primary-foreground"
-                        : "opacity-50 [&_svg]:invisible"
-                    )}
+                  <CommandItem
+                    onSelect={() => handleToggleOption(option.value)}
+                    className="cursor-pointer"
                   >
-                    <CheckIcon className="h-4 w-4" />
-                  </div>
-                  <span>{option.label}</span>
-                </CommandItem>
+                    <div
+                      className={cn(
+                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                        isSelected
+                          ? "bg-primary text-primary-foreground"
+                          : "opacity-50 [&_svg]:invisible"
+                      )}
+                    >
+                      <CheckIcon className="h-4 w-4" />
+                    </div>
+                    <span>{option.label}</span>
+                  </CommandItem>
+                </motion.div>
               );
             })}
         </CommandGroup>
