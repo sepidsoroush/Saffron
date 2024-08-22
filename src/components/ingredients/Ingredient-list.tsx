@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -26,7 +26,18 @@ export function IngredientList({
   selectedValues,
   toggleOption,
 }: Props) {
-  const [isCreating, setIsCreating] = useState(false);
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
+    options.length
+  );
+
+  useEffect(() => {
+    if (options.length > prevOptionsLength) {
+      const newIngredient = options[options.length - 1];
+      toggleOption(newIngredient.value);
+    }
+    setPrevOptionsLength(options.length);
+  }, [options, prevOptionsLength, toggleOption]);
 
   const newItemHandler = () => {
     setIsCreating(true);
