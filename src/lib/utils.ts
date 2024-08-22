@@ -39,6 +39,10 @@ export const showErrorToast = (message: string) => {
   });
 };
 
-export const uniqueId = () => {
-  return Number(new Date().getTime().toString());
-};
+export function uniqueId() {
+  const timestamp = Date.now(); // Get the current timestamp
+  const randomNumber = Math.floor(Math.random() * 1000); // Generate a small random number
+  const uniqueId = Number(timestamp * 1000 + randomNumber); // Combine timestamp and random number
+
+  return uniqueId;
+}
