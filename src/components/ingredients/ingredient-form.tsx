@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Ingredient } from "@/types";
 import { showErrorToast, uniqueId } from "@/lib/utils";
 
+import { motion } from "framer-motion";
+
 interface Props {
   ingredient?: Ingredient;
   type: "update" | "create";
@@ -128,7 +130,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
   };
 
   return (
-    <li className="flex items-center space-x-2 w-full py-[8px]">
+    <motion.li layout className="flex items-center space-x-2 w-full py-[8px]">
       <Checkbox
         checked={ingredient?.available || false}
         className={
@@ -155,7 +157,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
           {ingredient?.name}
         </p>
       )}
-    </li>
+    </motion.li>
   );
 };
 export default IngredientForm;

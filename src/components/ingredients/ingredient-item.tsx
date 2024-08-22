@@ -10,6 +10,7 @@ import IngredientForm from "./ingredient-form";
 import { Ingredient } from "@/types";
 import { cn, showErrorToast, showSuccessToast } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 type Props = {
   item: Ingredient;
@@ -102,9 +103,13 @@ export const IngredientItem = ({ item }: Props) => {
   };
 
   return (
-    <div
+    <motion.div
+      layout
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 20 }}
       ref={itemRef}
-      className="relative overflow-hidden flex flex-row items-center"
+      className="relative overflow-hidden flex flex-row items-center justify-between"
       onTouchStart={handleDragStart}
       onTouchMove={handleDragMove}
       onTouchEnd={handleDragEnd}
@@ -123,14 +128,16 @@ export const IngredientItem = ({ item }: Props) => {
       </div>
 
       {deleteVisible ? (
-        <Button
-          variant="destructive"
-          onClick={deleteHandler}
-          className="right-0 top-0 bottom-0  absolute"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
         >
-          <Trash2 size={16} />
-        </Button>
+          <Button variant="destructive" onClick={deleteHandler}>
+            <Trash2 size={16} />
+          </Button>
+        </motion.div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
