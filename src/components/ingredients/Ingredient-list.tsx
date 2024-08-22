@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -30,6 +30,9 @@ export function IngredientList({
   const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
     options.length
   );
+  const [scrollTop, setScrollTop] = useState<number>(0);
+
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (options.length > prevOptionsLength) {
@@ -39,6 +42,19 @@ export function IngredientList({
     setPrevOptionsLength(options.length);
   }, [options, prevOptionsLength, toggleOption]);
 
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = scrollTop;
+    }
+  }, [scrollTop, options, selectedValues]);
+
+  const handleToggleOption = (value: string) => {
+    if (listRef.current) {
+      setScrollTop(listRef.current.scrollTop);
+    }
+    toggleOption(value);
+  };
+
   const newItemHandler = () => {
     setIsCreating(true);
   };
@@ -46,6 +62,7 @@ export function IngredientList({
   const finishCreatingHandler = () => {
     setIsCreating(false);
   };
+
   return (
     <Command>
       <CommandInput placeholder="Search Ingredient..." />
@@ -56,32 +73,37 @@ export function IngredientList({
           <NewItem onClick={newItemHandler} title="New Item" />
         )}
       </CommandItem>
-      <CommandList>
+      <CommandList ref={listRef}>
         <CommandEmpty>No results found.</CommandEmpty>
-
         <CommandGroup>
-          {options.map((option) => {
-            const isSelected = selectedValues.includes(option.value);
-            return (
-              <CommandItem
-                key={option.value}
-                onSelect={() => toggleOption(option.value)}
-                className="cursor-pointer"
-              >
-                <div
-                  className={cn(
-                    "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                    isSelected
-                      ? "bg-primary text-primary-foreground"
-                      : "opacity-50 [&_svg]:invisible"
-                  )}
+          {options
+            .sort((a, b) => {
+              const aSelected = selectedValues.includes(a.value);
+              const bSelected = selectedValues.includes(b.value);
+              return aSelected === bSelected ? 0 : aSelected ? -1 : 1;
+            })
+            .map((option) => {
+              const isSelected = selectedValues.includes(option.value);
+              return (
+                <CommandItem
+                  key={option.value}
+                  onSelect={() => handleToggleOption(option.value)}
+                  className="cursor-pointer"
                 >
-                  <CheckIcon className="h-4 w-4" />
-                </div>
-                <span>{option.label}</span>
-              </CommandItem>
-            );
-          })}
+                  <div
+                    className={cn(
+                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                      isSelected
+                        ? "bg-primary text-primary-foreground"
+                        : "opacity-50 [&_svg]:invisible"
+                    )}
+                  >
+                    <CheckIcon className="h-4 w-4" />
+                  </div>
+                  <span>{option.label}</span>
+                </CommandItem>
+              );
+            })}
         </CommandGroup>
       </CommandList>
     </Command>
