@@ -86,6 +86,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       id: mealToUpdate ? mealToUpdate.id : uniqueId(),
       name: values.name,
       imageUrl: values.imageUrl,
+      liked: false,
     };
 
     // Check if the updated name is the same as the current name

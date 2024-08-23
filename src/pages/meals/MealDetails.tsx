@@ -7,6 +7,7 @@ import { selectCompositionsByMealId } from "@/store/compositions/compositions.se
 import IngredientListItem from "@/components/ingredients/ingredient-list-item";
 import { FormTitle } from "@/components/meals/form-title";
 import NoImageMeal from "@/components/meals/no-image-meal";
+import { FavoriteMeal } from "@/components/meals/favorite-meal";
 
 const MealDetails: React.FC = () => {
   const location = useLocation();
@@ -44,7 +45,10 @@ const MealDetails: React.FC = () => {
           <NoImageMeal />
         )}
         <div className="p-4 mb-[72px]">
-          <h1 className="text-2xl mb-2">{mealToUpdate?.name}</h1>
+          <div className="flex flex-row justify-between items-center mb-2">
+            <h1 className="text-3xl">{mealToUpdate?.name}</h1>
+            {mealToUpdate && <FavoriteMeal meal={mealToUpdate} />}
+          </div>
           {ingredientsInRecipe.length !== 0 ? (
             <p className="text-gray-500 mb-2">Ingredients:</p>
           ) : null}
