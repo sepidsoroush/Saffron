@@ -14,21 +14,28 @@ import { motion } from "framer-motion";
 
 type Props = {
   item: Ingredient;
+  deleteVisible: boolean;
+  onActivate: () => void;
+  onDeactivate: () => void;
 };
 
-export const IngredientItem = ({ item }: Props) => {
+export const IngredientItem = ({
+  item,
+  deleteVisible,
+  onActivate,
+  onDeactivate,
+}: Props) => {
   const dispatch = useAppDispatch();
   const compositionsData = useAppSelector(selectCompositions);
 
   const [dragging, setDragging] = useState<boolean>(false);
   const [dragStartX, setDragStartX] = useState<number>(0);
-  const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLDivElement>(null);
 
   const resetItem = useCallback(() => {
-    setDeleteVisible(false);
-  }, []);
+    onDeactivate();
+  }, [onDeactivate]);
 
   const handleDragStart = (e: React.TouchEvent | React.MouseEvent) => {
     const startX = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -41,9 +48,9 @@ export const IngredientItem = ({ item }: Props) => {
     const currentX = "touches" in e ? e.touches[0].clientX : e.clientX;
 
     if (dragStartX - currentX > 50) {
-      setDeleteVisible(true);
+      onActivate();
     } else if (currentX - dragStartX > 50) {
-      resetItem();
+      onDeactivate();
     }
   };
 
