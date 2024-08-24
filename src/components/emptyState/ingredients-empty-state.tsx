@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { selectBulkIngredients } from "@/store/ingredients/ingredients.selector";
 import { fetchBulkIngredients } from "@/store/ingredients/ingredients.actions";
+import { addIngredient } from "@/store/ingredients/ingredients.actions";
+
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,14 +22,16 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { CheckIcon } from "lucide-react";
-import { cn, ingredientDataAsSelectOptions } from "@/lib/utils";
+import { cn, ingredientDataAsSelectOptions, uniqueId } from "@/lib/utils";
 import { SelectOption } from "@/types/common-ui";
 import Docs from "/docs.svg";
 
 // Main component for empty state and ingredient selection
 export default function EmptyStateIngredients() {
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
   const dispatch = useAppDispatch();
 
   const bulkIngredients = useAppSelector(selectBulkIngredients);
@@ -54,9 +58,34 @@ export default function EmptyStateIngredients() {
 
   const deselectAll = () => setSelectedValues([]);
 
-  const submitSelected = () => {
-    console.log(selectedValues);
-    setOpen(false);
+  const submitSelected = async () => {
+    setIsLoading(true);
+    try {
+      await Promise.all(
+        selectedValues.map((value) => {
+          const option = ingredientSelectOptions.find(
+            (opt) => opt.value === value
+          );
+          if (!option) {
+            throw new Error(`Ingredient with value ${value} not found.`);
+          }
+
+          return dispatch(
+            addIngredient({
+              id: uniqueId(),
+              name: option.label,
+              available: false,
+              public_ingredient_id: Number(option.value),
+            })
+          );
+        })
+      );
+    } catch (error) {
+      console.error("Error adding ingredients:", error);
+    } finally {
+      setIsLoading(false);
+      setOpen(false);
+    }
   };
 
   return (
@@ -85,6 +114,7 @@ export default function EmptyStateIngredients() {
               onSelectAll={selectAll}
               onDeselectAll={deselectAll}
               onSubmit={submitSelected}
+              isLoading={isLoading}
             />
           </div>
         </DrawerContent>
@@ -101,6 +131,7 @@ interface IngredientListProps {
   onSelectAll: () => void;
   onDeselectAll: () => void;
   onSubmit: () => void;
+  isLoading: boolean;
 }
 
 // Component for displaying and managing ingredient selection
@@ -111,6 +142,7 @@ function IngredientList({
   onSelectAll,
   onDeselectAll,
   onSubmit,
+  isLoading,
 }: IngredientListProps) {
   const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
     options.length
@@ -173,7 +205,7 @@ function IngredientList({
           disabled={selectedValues.length === 0}
         >
           <Button variant="ghost" className="text-emerald-600 font-semibold">
-            Done
+            {isLoading ? "Adding..." : "Done"}
           </Button>
         </CommandItem>
       </div>

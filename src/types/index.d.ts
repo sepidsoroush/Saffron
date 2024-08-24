@@ -14,6 +14,7 @@ export interface Ingredient {
   id: number;
   name: string;
   available: boolean;
+  public_ingredient_id?: number;
 }
 
 export interface Schedule {
