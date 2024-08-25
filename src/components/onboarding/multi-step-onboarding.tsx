@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import BulkIngredients from "./bulk-ingredients";
 import BulkMeals from "./bulk-meals";
-import CompletedUnboarding from "./completed-unboarding";
+import CompletedOnboarding from "./completed-onboarding";
 import StepperIndicator from "./stepper-indicator";
 
 function getStepContent(step: number) {
@@ -14,14 +14,14 @@ function getStepContent(step: number) {
     case 2:
       return <BulkMeals />;
     case 3:
-      return <CompletedUnboarding />;
+      return <CompletedOnboarding />;
 
     default:
       return "Unknown step";
   }
 }
 
-const MultiStepUnboarding = () => {
+const MultiStepOnboarding = () => {
   const [activeStep, setActiveStep] = useState(1);
 
   const handleNext = async () => {
@@ -65,4 +65,4 @@ const MultiStepUnboarding = () => {
   );
 };
 
-export default MultiStepUnboarding;
+export default MultiStepOnboarding;

@@ -1,5 +1,5 @@
 import Docs from "/docs.svg";
-import UnboardingTrigger from "../unboarding/unboarding-trigger";
+import OnboardingTrigger from "../onboarding/onboarding-trigger";
 
 export default function EmptyStateIngredients() {
   return (
@@ -9,7 +9,7 @@ export default function EmptyStateIngredients() {
       <p className="text-[#4A4A4A] font-light">
         Start creating your grocery shopping list
       </p>
-      <UnboardingTrigger />
+      <OnboardingTrigger />
     </section>
   );
 }

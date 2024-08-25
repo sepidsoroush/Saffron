@@ -22,7 +22,7 @@ type Props = {
   onDeselectAll: () => void;
 };
 
-export default function UnboardingList({
+export default function OnboardingList({
   options,
   selectedValues,
   onToggleOption,

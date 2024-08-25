@@ -13,9 +13,9 @@ import {
   DrawerDescription,
 } from "@/components/ui/drawer";
 
-import MultiStepUnboarding from "./multi-step-unboarding";
+import MultiStepOnboarding from "./multi-step-onboarding";
 
-export default function UnboardingTrigger() {
+export default function OnboardingTrigger() {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -40,7 +40,7 @@ export default function UnboardingTrigger() {
           <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
         </DrawerDescription>
         <div className="mt-4 border-t">
-          <MultiStepUnboarding />
+          <MultiStepOnboarding />
         </div>
       </DrawerContent>
     </Drawer>

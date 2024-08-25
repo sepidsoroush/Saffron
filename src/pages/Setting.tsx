@@ -7,7 +7,7 @@ import { ModeToggle } from "@/components/theme/ModeToggleMenu";
 import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { LogOut, CloudDownload } from "lucide-react";
-import UnboardingTrigger from "@/components/unboarding/unboarding-trigger";
+import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
 
 export default function Setting() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function Setting() {
       </Card>
       <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-14">
         <Label>
-          <UnboardingTrigger />
+          <OnboardingTrigger />
         </Label>
 
         <CloudDownload size={20} className="m-2" />

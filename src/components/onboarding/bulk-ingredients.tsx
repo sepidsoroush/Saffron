@@ -5,7 +5,7 @@ import { selectBulkIngredients } from "@/store/ingredients/ingredients.selector"
 import { fetchBulkIngredients } from "@/store/ingredients/ingredients.actions";
 import { addIngredient } from "@/store/ingredients/ingredients.actions";
 
-import UnboardingList from "./unboarding-list";
+import OnboardingList from "./onboarding-list";
 import { ingredientDataAsSelectOptions, uniqueId } from "@/lib/utils";
 import { SelectOption } from "@/types/common-ui";
 
@@ -67,7 +67,7 @@ export default function BulkIngredients() {
   };
 
   return (
-    <UnboardingList
+    <OnboardingList
       options={ingredientSelectOptions}
       selectedValues={selectedValues}
       onToggleOption={toggleOption}
