@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-
 import { selectBulkIngredients } from "@/store/ingredients/ingredients.selector";
 import { fetchBulkIngredients } from "@/store/ingredients/ingredients.actions";
-import { addIngredient } from "@/store/ingredients/ingredients.actions";
-
 import OnboardingList from "./onboarding-list";
-import { ingredientDataAsSelectOptions, uniqueId } from "@/lib/utils";
+import { ingredientDataAsSelectOptions } from "@/lib/utils";
 import { SelectOption } from "@/types/common-ui";
 
-export default function BulkIngredients() {
-  const dispatch = useAppDispatch();
+interface BulkIngredientsProps {
+  ingredients: string[];
+  setIngredients: Dispatch<SetStateAction<string[]>>;
+}
 
+export default function BulkIngredients({
+  ingredients,
+  setIngredients,
+}: BulkIngredientsProps) {
+  const dispatch = useAppDispatch();
   const bulkIngredients = useAppSelector(selectBulkIngredients);
   const ingredientSelectOptions: SelectOption[] =
     ingredientDataAsSelectOptions(bulkIngredients);
-
-  const [selectedValues, setSelectedValues] = useState<string[]>(
-    ingredientSelectOptions.map((option) => option.value)
-  );
 
   useEffect(() => {
     if (bulkIngredients.length === 0) {
@@ -27,49 +27,25 @@ export default function BulkIngredients() {
   }, [bulkIngredients, dispatch]);
 
   const toggleOption = (value: string) => {
-    setSelectedValues((prevSelected) =>
-      prevSelected.includes(value)
-        ? prevSelected.filter((v) => v !== value)
-        : [...prevSelected, value]
+    setIngredients((prevIngredients) =>
+      prevIngredients.includes(value)
+        ? prevIngredients.filter((v) => v !== value)
+        : [...prevIngredients, value]
     );
   };
 
   const selectAll = () => {
-    setSelectedValues(ingredientSelectOptions.map((option) => option.value));
+    setIngredients(ingredientSelectOptions.map((option) => option.value));
   };
 
-  const deselectAll = () => setSelectedValues([]);
-
-  const submitSelected = async () => {
-    try {
-      await Promise.all(
-        selectedValues.map((value) => {
-          const option = ingredientSelectOptions.find(
-            (opt) => opt.value === value
-          );
-          if (!option) {
-            throw new Error(`Ingredient with value ${value} not found.`);
-          }
-
-          return dispatch(
-            addIngredient({
-              id: uniqueId(),
-              name: option.label,
-              available: false,
-              public_ingredient_id: Number(option.value),
-            })
-          );
-        })
-      );
-    } catch (error) {
-      console.error("Error adding ingredients:", error);
-    }
+  const deselectAll = () => {
+    setIngredients([]);
   };
 
   return (
     <OnboardingList
       options={ingredientSelectOptions}
-      selectedValues={selectedValues}
+      selectedValues={ingredients}
       onToggleOption={toggleOption}
       onSelectAll={selectAll}
       onDeselectAll={deselectAll}
