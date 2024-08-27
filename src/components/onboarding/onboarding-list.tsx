@@ -20,6 +20,7 @@ type Props = {
   onToggleOption: (value: string) => void;
   onSelectAll: () => void;
   onDeselectAll: () => void;
+  onSubmit: () => void;
 };
 
 export default function OnboardingList({
@@ -28,6 +29,7 @@ export default function OnboardingList({
   onToggleOption,
   onSelectAll,
   onDeselectAll,
+  onSubmit,
 }: Props) {
   const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
     options.length
@@ -42,31 +44,9 @@ export default function OnboardingList({
   }, [options, prevOptionsLength, onToggleOption]);
 
   return (
-    <Command className=" h-[calc(100vh-200px)]">
-      <div className="flex flex-row justify-between items-center border-b">
-        {selectedValues.length !== options.length ? (
-          <CommandItem
-            onSelect={onSelectAll}
-            className="p-0 cursor-pointer"
-            disabled={selectedValues.length === options.length}
-          >
-            <Button variant="ghost">Select All</Button>
-          </CommandItem>
-        ) : (
-          <CommandItem
-            onSelect={onDeselectAll}
-            className="p-0 cursor-pointer"
-            disabled={selectedValues.length === 0}
-          >
-            <Button variant="ghost">Deselect All</Button>
-          </CommandItem>
-        )}
-        <div className="pr-2 text-sm text-gray-700">
-          {selectedValues.length} selected
-        </div>
-      </div>
+    <Command>
+      <CommandInput placeholder="Search Items..." />
       <CommandList className="border-b">
-        <CommandInput placeholder="Search Items..." />
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
           {options.map((option) => (
@@ -91,6 +71,31 @@ export default function OnboardingList({
           ))}
         </CommandGroup>
       </CommandList>
+      <div className="grid grid-cols-3 items-center border-b">
+        {selectedValues.length !== options.length ? (
+          <CommandItem
+            onSelect={onSelectAll}
+            className="p-0 cursor-pointer"
+            disabled={selectedValues.length === options.length}
+          >
+            <Button variant="ghost">Select All</Button>
+          </CommandItem>
+        ) : (
+          <CommandItem
+            onSelect={onDeselectAll}
+            className="p-0 cursor-pointer"
+            disabled={selectedValues.length === 0}
+          >
+            <Button variant="ghost">Deselect All</Button>
+          </CommandItem>
+        )}
+        <Button className="text-center" onClick={onSubmit}>
+          import
+        </Button>
+        <div className="pr-2 text-sm text-gray-700 text-right">
+          {selectedValues.length} selected
+        </div>
+      </div>
     </Command>
   );
 }

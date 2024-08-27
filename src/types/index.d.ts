@@ -6,7 +6,6 @@ export interface Meal {
   name: string;
   imageUrl?: string;
   liked: boolean;
-  public_meal_id?: number;
   // cuisine?: CuisineType;
   // type?: MealType;
 }
@@ -15,7 +14,7 @@ export interface Ingredient {
   id: number;
   name: string;
   available: boolean;
-  public_ingredient_id?: number;
+  isImported: boolean;
 }
 
 export interface Schedule {

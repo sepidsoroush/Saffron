@@ -59,7 +59,7 @@ export const selectIngredientsLength = createSelector(
 export const selectBulkIngredients = (state: RootState) =>
   state.ingredients.bulkIngredients;
 
-export const selectBulkIngredientById = (ingredientId: number) =>
-  createSelector([selectBulkIngredients], (ingredients) =>
-    ingredients.find((ing) => ing.id === ingredientId)
-  );
+// export const selectBulkIngredientById = (ingredientId: number) =>
+//   createSelector([selectBulkIngredients], (ingredients) =>
+//     ingredients.find((ing) => ing.id === ingredientId)
+//   );

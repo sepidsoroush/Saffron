@@ -39,5 +39,3 @@ export const selectScheduleWithMeals = createSelector(
       meal: entry.meal_id ? mealsMap[entry.meal_id] : undefined,
     }))
 );
-
-export const selectBulkMeals = (state: RootState) => state.meals.bulkMeals;

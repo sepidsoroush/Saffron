@@ -13,7 +13,7 @@ import {
   DrawerDescription,
 } from "@/components/ui/drawer";
 
-import MultiStepOnboarding from "./multi-step-onboarding";
+import BulkIngredients from "./bulk-ingredients";
 
 export default function OnboardingTrigger() {
   const [open, setOpen] = useState(false);
@@ -39,9 +39,7 @@ export default function OnboardingTrigger() {
         <DrawerDescription>
           <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
         </DrawerDescription>
-        <div className="mt-4 border-t">
-          <MultiStepOnboarding />
-        </div>
+        <BulkIngredients />
       </DrawerContent>
     </Drawer>
   );

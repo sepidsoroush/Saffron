@@ -4,13 +4,11 @@ import { Composition } from "@/types";
 export interface CompositionsState {
   compositions: Composition[];
   selectedCompositions: Composition[];
-  bulkCompositions: Composition[];
 }
 
 const initialState: CompositionsState = {
   compositions: [],
   selectedCompositions: [],
-  bulkCompositions: [],
 };
 
 const compositionsSlice = createSlice({
@@ -40,12 +38,6 @@ const compositionsSlice = createSlice({
     },
     findItemsByMealId: (state, action: PayloadAction<Composition[]>) => {
       state.selectedCompositions = action.payload;
-    },
-    setBulkItems(
-      state,
-      action: PayloadAction<{ compositions: Composition[] }>
-    ) {
-      state.bulkCompositions = action.payload.compositions;
     },
   },
 });
