@@ -6,6 +6,7 @@ export interface Meal {
   name: string;
   imageUrl?: string;
   liked: boolean;
+  public_meal_id?: number;
   // cuisine?: CuisineType;
   // type?: MealType;
 }
