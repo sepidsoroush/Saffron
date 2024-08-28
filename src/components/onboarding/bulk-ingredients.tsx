@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { useAppSelector, useAppDispatch } from "@/store/hooks";
-
-import { selectBulkIngredients } from "@/store/ingredients/ingredients.selector";
+import { useAppDispatch } from "@/store/hooks";
 import { addIngredient } from "@/store/ingredients/ingredients.actions";
 
 import OnboardingList from "./onboarding-list";
 import { ingredientDataAsSelectOptions, uniqueId } from "@/lib/utils";
 import { SelectOption } from "@/types/common-ui";
+import { Ingredient } from "@/types";
 
-export default function BulkIngredients() {
+type Props = {
+  ingredients: Ingredient[];
+};
+
+export default function BulkIngredients({ ingredients }: Props) {
   const dispatch = useAppDispatch();
 
-  const bulkIngredients = useAppSelector(selectBulkIngredients);
   const ingredientSelectOptions: SelectOption[] =
-    ingredientDataAsSelectOptions(bulkIngredients);
+    ingredientDataAsSelectOptions(ingredients);
 
   const [selectedValues, setSelectedValues] = useState<string[]>(
     ingredientSelectOptions.map((option) => option.value)
