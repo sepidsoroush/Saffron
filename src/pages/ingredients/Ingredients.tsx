@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { useAppSelector } from "@/store/hooks";
 import {
-  selectEssentialItems,
-  selectNeedToPurchase,
-  selectAvailableIngredients,
-  selectEssentialItemsLength,
   selectIngredientsLength,
+  selectIngredients,
 } from "@/store/ingredients/ingredients.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 
@@ -15,7 +12,7 @@ import { CategoryCard } from "@/components/shared/category-card";
 import NewItemButton from "@/components/shared/new-item-button";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
-import { Ingredient } from "@/types";
+import { CategoryType } from "@/types/constants";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -27,29 +24,15 @@ function SkeletonList({ count }: { count: number }) {
   );
 }
 
-function Category({
-  header,
-  items,
-  className,
-}: {
-  header: string;
-  items: Ingredient[];
-  className: string;
-}) {
-  return items.length > 0 ? (
-    <CategoryCard header={header} items={items} className={className} />
-  ) : null;
-}
-
 function IngredientsPage() {
   const [isCreating, setIsCreating] = useState<boolean>(false);
 
-  const essentialItems = useAppSelector(selectEssentialItems);
-  const needToPurchase = useAppSelector(selectNeedToPurchase);
-  const availableIngredients = useAppSelector(selectAvailableIngredients);
-  const essentialItemsLength = useAppSelector(selectEssentialItemsLength);
+  const allIngredients = useAppSelector(selectIngredients);
   const numberOfIngredients = useAppSelector(selectIngredientsLength);
   const isLoading = useAppSelector(selectLoading);
+
+  const getIngredientsByCategory = (category: string) =>
+    allIngredients.filter((ingredient) => ingredient.category === category);
 
   const handleNewItemClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -70,21 +53,19 @@ function IngredientsPage() {
         <EmptyStateIngredients />
       ) : (
         <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
-          <Category
-            header={`Essential items for schedule (${essentialItemsLength})`}
-            items={essentialItems}
-            className="text-red-600 font-bold py-4"
-          />
-          <Category
-            header="Need to purchase"
-            items={needToPurchase}
-            className="font-semibold py-4"
-          />
-          <Category
-            header="Available Ingredients"
-            items={availableIngredients}
-            className="py-4"
-          />
+          {Object.values(CategoryType).map((category) => {
+            const categoryItems = getIngredientsByCategory(category);
+            const numberOfIngredientsInCategory = categoryItems.length;
+
+            return numberOfIngredientsInCategory !== 0 ? (
+              <CategoryCard
+                key={category}
+                header={category}
+                items={categoryItems}
+                className="py-4"
+              />
+            ) : null;
+          })}
         </div>
       )}
 

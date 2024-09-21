@@ -33,19 +33,6 @@ export const selectEssentialItems = createSelector(
       .filter((item) => !item.available)
 );
 
-export const selectNeedToPurchase = createSelector(
-  [selectIngredients, selectIngredientIdsInSchedule],
-  (ingredients, ingredientIdsInSchedule) =>
-    ingredients
-      .filter((item) => !ingredientIdsInSchedule.includes(item.id))
-      .filter((item) => !item.available)
-);
-
-export const selectAvailableIngredients = createSelector(
-  [selectIngredients],
-  (ingredients) => ingredients.filter((item) => item.available)
-);
-
 export const selectEssentialItemsLength = createSelector(
   [selectEssentialItems],
   (essentialItems) => essentialItems.length
@@ -56,10 +43,10 @@ export const selectIngredientsLength = createSelector(
   (items) => items.length
 );
 
+export const selectIngredientsByCategory = (category: string) =>
+  createSelector([selectIngredients], (ingredients) =>
+    ingredients.filter((ing) => ing.category === category)
+  );
+
 export const selectBulkIngredients = (state: RootState) =>
   state.ingredients.bulkIngredients;
-
-// export const selectBulkIngredientById = (ingredientId: number) =>
-//   createSelector([selectBulkIngredients], (ingredients) =>
-//     ingredients.find((ing) => ing.id === ingredientId)
-//   );

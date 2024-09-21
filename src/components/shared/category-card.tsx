@@ -3,6 +3,8 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { IngredientItem } from "../ingredients/ingredient-item";
 import { Ingredient } from "@/types";
 import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
 
 type Props = {
   header: string;
@@ -12,6 +14,7 @@ type Props = {
 
 export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const handleActivate = (id: number) => {
     setActiveItemId(id);
@@ -21,22 +24,46 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
     setActiveItemId(null);
   };
 
+  const toggleHeader = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <Card>
-      <CardHeader className={cn("text-sm md:text-base", className)}>
+      <CardHeader
+        className={cn(
+          "text-base font-bold md:text-lg flex flex-row justify-between items-center w-full",
+          className
+        )}
+      >
         {header}
+        <motion.button
+          onClick={toggleHeader}
+          className="text-lime-600"
+          animate={{ rotate: isOpen ? -90 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ChevronDown />
+        </motion.button>
       </CardHeader>
-      <CardContent className="divide-y divide-gray-100">
-        {items.map((item) => (
-          <IngredientItem
-            key={item.id}
-            item={item}
-            deleteVisible={activeItemId === item.id}
-            onActivate={() => handleActivate(item.id)}
-            onDeactivate={handleDeactivate}
-          />
-        ))}
-      </CardContent>
+      <motion.div
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0.5 }}
+        exit={{ height: 0, opacity: 0 }}
+        transition={{ height: { duration: 0.5 }, opacity: { duration: 0.3 } }}
+        style={{ overflow: "hidden" }}
+      >
+        <CardContent className="divide-y divide-gray-100">
+          {items.map((item) => (
+            <IngredientItem
+              key={item.id}
+              item={item}
+              deleteVisible={activeItemId === item.id}
+              onActivate={() => handleActivate(item.id)}
+              onDeactivate={handleDeactivate}
+            />
+          ))}
+        </CardContent>
+      </motion.div>
     </Card>
   );
 };

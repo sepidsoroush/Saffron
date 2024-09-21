@@ -15,6 +15,7 @@ export interface Ingredient {
   name: string;
   available: boolean;
   isImported: boolean;
+  category?: string;
 }
 
 export interface Schedule {

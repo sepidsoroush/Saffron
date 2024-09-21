@@ -52,6 +52,7 @@ export default function BulkIngredients({ ingredients }: Props) {
               name: option.label,
               available: false,
               isImported: true,
+              category: option.category,
             })
           );
         })

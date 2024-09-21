@@ -36,3 +36,20 @@ export const emptySchedule: Schedule[] = [
   { day_id: 6, day: WeekDay.Saturday, meal_id: undefined },
   { day_id: 7, day: WeekDay.Sunday, meal_id: undefined },
 ];
+
+export enum CategoryType {
+  Produce = "Vegetables & Fruits",
+  Meat = "Meat, Chicken & Seafood",
+  Dairy = "Dairy, Eggs & Cheese",
+  Oils = "Oils, Sauces & Condiments",
+  Bakery = "Breads, Cakes & Cereals",
+  Beverage = "Coffee, Wine & Spirits",
+  Spices = "Spices, Seasonings & Baking Items",
+  Grains = "Pasta, Rice & Grains",
+  Canned = "Canned Foods & Soups",
+  Frozen = "Frozen Foods",
+  Snacks = "Snacks & Candy",
+  Household = "Household Items",
+  Personal = "Personal Care & Health",
+  Other = "Others",
+}
