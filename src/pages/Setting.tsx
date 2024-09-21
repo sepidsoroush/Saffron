@@ -21,7 +21,7 @@ export default function Setting() {
   return (
     <div className="flex flex-col space-y-2 mt-[72px]">
       <Header>Settings</Header>
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
+      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-16">
         <Label>User</Label>
         <div className="text-gray-600">{user?.email}</div>
       </Card>

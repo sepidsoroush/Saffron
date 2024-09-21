@@ -36,7 +36,9 @@ export default function OnboardingTrigger() {
   return (
     <Drawer open={open} onOpenChange={(open) => setOpen(open)}>
       <DrawerTrigger asChild>
-        <Button variant="link">Import Data</Button>
+        <Button variant="link" className="px-0 mx-0">
+          Import Data
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerTitle>
