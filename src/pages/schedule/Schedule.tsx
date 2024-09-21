@@ -8,7 +8,6 @@ import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
 
 import { Card } from "@/components/ui/card";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
-import { MealCard } from "@/components/meals/meal-card";
 import { Header } from "@/components/layout/header";
 
 import { WeekDay } from "@/types/constants";
@@ -69,7 +68,7 @@ function SchedulePage() {
             <div key={item.day_id}>
               <span className="text-xs text-gray-500">{item.day}</span>
               <Card className="flex flex-row justify-center items-center border relative">
-                {item.meal_id ? (
+                {item.meal ? (
                   <>
                     <Link
                       to={`/meals/${item.meal_id}`}
