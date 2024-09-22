@@ -3,7 +3,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { IngredientItem } from "../ingredients/ingredient-item";
 import { Ingredient } from "@/types";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -31,10 +31,10 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
         <motion.button
           onClick={toggleHeader}
           className="text-lime-600"
-          animate={{ rotate: isOpen ? -90 : 0 }}
+          animate={{ rotate: isOpen ? 0 : 90 }}
           transition={{ duration: 0.2 }}
         >
-          <ChevronDown />
+          <ChevronRight />
         </motion.button>
       </CardHeader>
       <motion.div
