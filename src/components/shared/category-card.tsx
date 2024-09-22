@@ -44,9 +44,11 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
         style={{ overflow: "hidden" }}
       >
         <CardContent className="divide-y divide-gray-100">
-          {items.map((item) => (
-            <IngredientItem key={item.id} item={item} />
-          ))}
+          {items
+            .sort((a, b) => Number(a.available) - Number(b.available))
+            .map((item) => (
+              <IngredientItem key={item.id} item={item} />
+            ))}
         </CardContent>
       </motion.div>
     </Card>
