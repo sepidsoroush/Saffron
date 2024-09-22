@@ -13,16 +13,7 @@ type Props = {
 };
 
 export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
-  const [activeItemId, setActiveItemId] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(true);
-
-  const handleActivate = (id: number) => {
-    setActiveItemId(id);
-  };
-
-  const handleDeactivate = () => {
-    setActiveItemId(null);
-  };
 
   const toggleHeader = () => {
     setIsOpen(!isOpen);
@@ -54,13 +45,7 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
       >
         <CardContent className="divide-y divide-gray-100">
           {items.map((item) => (
-            <IngredientItem
-              key={item.id}
-              item={item}
-              deleteVisible={activeItemId === item.id}
-              onActivate={() => handleActivate(item.id)}
-              onDeactivate={handleDeactivate}
-            />
+            <IngredientItem key={item.id} item={item} />
           ))}
         </CardContent>
       </motion.div>

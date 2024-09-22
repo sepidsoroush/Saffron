@@ -14,28 +14,21 @@ import { motion } from "framer-motion";
 
 type Props = {
   item: Ingredient;
-  deleteVisible: boolean;
-  onActivate: () => void;
-  onDeactivate: () => void;
 };
 
-export const IngredientItem = ({
-  item,
-  deleteVisible,
-  onActivate,
-  onDeactivate,
-}: Props) => {
+export const IngredientItem = ({ item }: Props) => {
   const dispatch = useAppDispatch();
   const compositionsData = useAppSelector(selectCompositions);
 
   const [dragging, setDragging] = useState<boolean>(false);
   const [dragStartX, setDragStartX] = useState<number>(0);
+  const [active, setActive] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLDivElement>(null);
 
   const resetItem = useCallback(() => {
-    onDeactivate();
-  }, [onDeactivate]);
+    setActive(false);
+  }, []);
 
   const handleDragStart = (e: React.TouchEvent | React.MouseEvent) => {
     const startX = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -48,15 +41,15 @@ export const IngredientItem = ({
     const currentX = "touches" in e ? e.touches[0].clientX : e.clientX;
 
     if (dragStartX - currentX > 50) {
-      onActivate();
+      setActive(true);
     } else if (currentX - dragStartX > 50) {
-      onDeactivate();
+      setActive(false);
     }
   };
 
   const handleDragEnd = () => {
     setDragging(false);
-    if (!deleteVisible) {
+    if (!active) {
       resetItem();
     }
   };
@@ -112,7 +105,6 @@ export const IngredientItem = ({
   return (
     <motion.div
       layout
-      // initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 20 }}
       ref={itemRef}
@@ -127,14 +119,14 @@ export const IngredientItem = ({
     >
       <div
         className={cn("relative transition-colors duration-400 ease-in-out", {
-          "text-gray-400": deleteVisible,
-          "text-black": !deleteVisible,
+          "text-gray-400": active,
+          "text-black": !active,
         })}
       >
         <IngredientForm type="update" ingredient={item} />
       </div>
 
-      {deleteVisible ? (
+      {active && (
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -144,7 +136,7 @@ export const IngredientItem = ({
             <Trash2 size={16} />
           </Button>
         </motion.div>
-      ) : null}
+      )}
     </motion.div>
   );
 };
