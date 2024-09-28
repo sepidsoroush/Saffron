@@ -33,7 +33,9 @@ const AuthPage = () => {
             <Auth
               supabaseClient={supabase}
               appearance={{ theme: ThemeSupa }}
-              providers={["google"]}
+              providers={["google", "apple", "facebook"]}
+              onlyThirdPartyProviders={true}
+              // redirectTo={`${window.location.origin}`}
             />
           </div>
         </div>
