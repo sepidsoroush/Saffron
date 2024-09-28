@@ -11,12 +11,6 @@ export const selectMealIdsInSchedule = createSelector(
   (schedule) => schedule.map((item) => Number(item.meal_id)).filter(Boolean)
 );
 
-export const selectFilteredMeals = createSelector(
-  [selectMeals, selectMealIdsInSchedule],
-  (meals, mealIdsInSchedule) =>
-    meals.filter((meal) => !mealIdsInSchedule.includes(meal.id))
-);
-
 export const selectMealById = (mealId: number) =>
   createSelector([selectMeals], (meals) =>
     meals.find((meal) => meal.id === mealId)
