@@ -4,7 +4,7 @@ import AuthPage from "./pages/Auth";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
-import Setting from "./pages/Setting";
+import Setting from "./pages/setting/Setting";
 import NewMealPage from "./pages/meals/NewMeal";
 import EditMealPage from "./pages/meals/EditMeal";
 import MealsPage from "./pages/meals/Meals";
@@ -12,6 +12,8 @@ import MealDetails from "./pages/meals/MealDetails";
 import IngredientsPage from "./pages/ingredients/Ingredients";
 import SchedulePage from "./pages/schedule/Schedule";
 import RedirectToProperPage from "./pages/Redirect";
+import Notifications from "./pages/setting/Notifications";
+import Reminders from "./pages/setting/Reminders";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +57,22 @@ const router = createBrowserRouter([
       },
       {
         path: "setting",
-        element: <ProtectedRoute element={<Setting />} />,
+        children: [
+          { index: true, element: <ProtectedRoute element={<Setting />} /> },
+          {
+            path: "notifications",
+            children: [
+              {
+                index: true,
+                element: <ProtectedRoute element={<Notifications />} />,
+              },
+              {
+                path: "reminders",
+                element: <ProtectedRoute element={<Reminders />} />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

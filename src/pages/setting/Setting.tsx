@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import supabase from "@/config/supabaseConfig";
 import { Label } from "@/components/ui/label";
@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/theme/ModeToggleMenu";
 import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
-import { LogOut, CloudDownload } from "lucide-react";
+import { LogOut, CloudDownload, Bell } from "lucide-react";
 import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
 
 export default function Setting() {
@@ -46,6 +46,15 @@ export default function Setting() {
         </Label>
 
         <CloudDownload size={20} className="m-2" />
+      </Card>
+      <Card className=" m-2  min-h-16">
+        <Link
+          to="/setting/notifications"
+          className="flex flex-row justify-between items-center px-4 py-2"
+        >
+          <Label>Notifications</Label>
+          <Bell size={20} className="m-2" />
+        </Link>
       </Card>
     </div>
   );
