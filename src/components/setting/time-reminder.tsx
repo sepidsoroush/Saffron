@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { ChevronDown } from "lucide-react";
 import TimePicker from "./time-picker";
+import { useReminder } from "@/context/ReminderContext";
 
 type Props = {
   isDisabled: boolean;
@@ -16,7 +17,7 @@ type Props = {
 
 const TimeReminder = ({ isDisabled }: Props) => {
   const [open, setOpen] = useState(false);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const { selectedTime, setTime } = useReminder();
 
   const handleOpenChange = (state: boolean) => {
     if (!isDisabled) {
@@ -25,10 +26,11 @@ const TimeReminder = ({ isDisabled }: Props) => {
   };
 
   const handleTimeSet = (hour: number, minute: number) => {
+    // Format the time as HH:MM and set it in the context
     const formattedTime = `${hour < 10 ? `0${hour}` : hour}:${
       minute < 10 ? `0${minute}` : minute
     }`;
-    setSelectedTime(formattedTime);
+    setTime(formattedTime);
     setOpen(false);
   };
 
@@ -53,7 +55,7 @@ const TimeReminder = ({ isDisabled }: Props) => {
         <DrawerDescription>
           <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
         </DrawerDescription>
-        <div className="h-96 mt-4">
+        <div className="h-52 mt-4">
           <TimePicker onTimeSet={handleTimeSet} />
         </div>
       </DrawerContent>

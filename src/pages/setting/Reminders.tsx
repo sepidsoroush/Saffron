@@ -1,16 +1,11 @@
-import { useState } from "react";
-
+import { useReminder } from "@/context/ReminderContext";
 import { FormTitle } from "@/components/meals/form-title";
 import { Switch } from "@/components/ui/switch";
 import WeeklyReminder from "@/components/setting/weekly-reminder";
 import TimeReminder from "@/components/setting/time-reminder";
 
 const Reminders = () => {
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
-
-  const activeReminderHandler = () => {
-    setIsDisabled(!isDisabled);
-  };
+  const { isReminderEnabled, toggleReminder } = useReminder();
 
   return (
     <>
@@ -23,11 +18,11 @@ const Reminders = () => {
         <p className="text-sm font-medium leading-none">
           Remind me to make a meal plan
         </p>
-        <Switch onClick={activeReminderHandler} />
+        <Switch checked={isReminderEnabled} onClick={() => toggleReminder()} />
       </div>
 
-      <TimeReminder isDisabled={isDisabled} />
-      <WeeklyReminder isDisabled={isDisabled} />
+      <TimeReminder isDisabled={!isReminderEnabled} />
+      <WeeklyReminder isDisabled={!isReminderEnabled} />
     </>
   );
 };

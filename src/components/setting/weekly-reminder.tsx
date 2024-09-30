@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useReminder } from "@/context/ReminderContext";
+
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import {
   Drawer,
@@ -10,7 +12,7 @@ import {
 
 import { Check, ChevronDown } from "lucide-react";
 
-import { emptySchedule, WeekDay } from "@/types/constants";
+import { emptySchedule } from "@/types/constants";
 
 type Props = {
   isDisabled: boolean;
@@ -18,7 +20,7 @@ type Props = {
 
 const WeeklyReminder = ({ isDisabled }: Props) => {
   const [open, setOpen] = useState(false);
-  const [selectedDay, setSelectedDay] = useState<WeekDay | null>(null);
+  const { selectedDay, setDay } = useReminder();
 
   const handleOpenChange = (state: boolean) => {
     if (!isDisabled) {
@@ -52,7 +54,7 @@ const WeeklyReminder = ({ isDisabled }: Props) => {
             <div
               key={item.day_id}
               onClick={() => {
-                setSelectedDay(item.day);
+                setDay(item.day);
                 setOpen(false);
               }}
               className="flex flex-row justify-start py-3 px-4"

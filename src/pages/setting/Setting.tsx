@@ -47,10 +47,10 @@ export default function Setting() {
 
         <CloudDownload size={20} className="m-2" />
       </Card>
-      <Card className=" m-2  min-h-16">
+      <Card className="m-2">
         <Link
           to="/setting/notifications"
-          className="flex flex-row justify-between items-center px-4 py-2"
+          className="flex flex-row justify-between items-center px-4 py-2 min-h-14"
         >
           <Label>Notifications</Label>
           <Bell size={20} className="m-2" />

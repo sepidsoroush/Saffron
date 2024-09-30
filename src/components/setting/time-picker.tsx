@@ -66,7 +66,7 @@ const CustomTimePicker: React.FC<{
 
 const TimePicker: React.FC<TimePickerProps> = ({ onTimeSet }) => {
   const [valueGroups, setValueGroups] = useState({
-    hour: 12,
+    hour: 9,
     minute: 30,
   });
 
