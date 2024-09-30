@@ -13,8 +13,8 @@ const CustomTimePicker: React.FC<{
   const hours = Array.from({ length: 24 }, (_, i) =>
     i < 10 ? `0${i}` : `${i}`
   );
-  const minutes = Array.from({ length: 60 }, (_, i) =>
-    i < 10 ? `0${i}` : `${i}`
+  const minutes = Array.from({ length: 12 }, (_, i) =>
+    i * 5 < 10 ? `0${i * 5}` : `${i * 5}`
   );
 
   return (
