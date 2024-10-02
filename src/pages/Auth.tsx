@@ -35,7 +35,7 @@ const AuthPage = () => {
               appearance={{ theme: ThemeSupa }}
               providers={["google", "apple", "facebook"]}
               onlyThirdPartyProviders={true}
-              // redirectTo={`${window.location.origin}`}
+              redirectTo={`${window.location.origin}`}
             />
           </div>
         </div>

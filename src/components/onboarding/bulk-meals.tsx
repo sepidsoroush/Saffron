@@ -1,27 +1,38 @@
 import { useState } from "react";
+
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addIngredient } from "@/store/ingredients/ingredients.actions";
 import { addMeal } from "@/store/meals/meals.actions";
 import { addComposition } from "@/store/compositions/compositions.actions";
-import { uiActions } from "@/store/ui/ui-slice";
-import { selectLoading } from "@/store/ui/ui.selector";
 import { selectIngredients } from "@/store/ingredients/ingredients.selector";
+import { selectMeals } from "@/store/meals/meals.selector";
+
 import OnboardingList from "./onboarding-list";
-import { LoadingSpinner } from "../ui/loading-spinner";
+
 import { uniqueId } from "@/lib/utils";
 import { Ingredient, Meal } from "@/types";
 
+import jsonIngredients from "@/__mock/ingredients.json";
+import jsonMeals from "@/__mock/meals.json";
+
 type Props = {
-  meals: Meal[];
-  bulkIngredients: Ingredient[];
+  goToNextStep: () => void;
 };
 
-export default function BulkMeals({ meals, bulkIngredients }: Props) {
+export default function BulkMeals({ goToNextStep }: Props) {
   const dispatch = useAppDispatch();
-  const loading = useAppSelector(selectLoading);
   const currentIngredients = useAppSelector(selectIngredients);
+
+  const bulkMeals: Meal[] = jsonMeals;
+  const bulkIngredients: Ingredient[] = jsonIngredients;
+  const currentMealsData = useAppSelector(selectMeals);
+
+  const remainingMeals = bulkMeals.filter(
+    (item) => !currentMealsData.find((rm) => rm.name === item.name)
+  );
+
   const [selectedValues, setSelectedValues] = useState<number[]>(
-    meals.map((option) => option.id)
+    remainingMeals.map((option) => option.id)
   );
 
   const toggleOption = (value: number) => {
@@ -33,16 +44,14 @@ export default function BulkMeals({ meals, bulkIngredients }: Props) {
   };
 
   const selectAll = () => {
-    setSelectedValues(meals.map((option) => option.id));
+    setSelectedValues(remainingMeals.map((option) => option.id));
   };
 
   const deselectAll = () => setSelectedValues([]);
 
   const submitSelected = async () => {
     try {
-      dispatch(uiActions.setLoading(true));
-
-      const selectedMeals = meals.filter((meal) =>
+      const selectedMeals = remainingMeals.filter((meal) =>
         selectedValues.includes(meal.id)
       );
 
@@ -111,24 +120,18 @@ export default function BulkMeals({ meals, bulkIngredients }: Props) {
     } catch (error) {
       console.error("Error submitting meals and ingredients:", error);
     } finally {
-      dispatch(uiActions.setLoading(false));
+      goToNextStep();
     }
   };
 
   return (
-    <div>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <OnboardingList
-          options={meals}
-          selectedValues={selectedValues}
-          onToggleOption={toggleOption}
-          onSelectAll={selectAll}
-          onDeselectAll={deselectAll}
-          onSubmit={submitSelected}
-        />
-      )}
-    </div>
+    <OnboardingList
+      options={remainingMeals}
+      selectedValues={selectedValues}
+      onToggleOption={toggleOption}
+      onSelectAll={selectAll}
+      onDeselectAll={deselectAll}
+      onSubmit={submitSelected}
+    />
   );
 }

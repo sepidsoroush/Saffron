@@ -1,78 +1,82 @@
-export default {};
-// import { useState } from "react";
-// import { useAppDispatch } from "@/store/hooks";
-// import { addIngredient } from "@/store/ingredients/ingredients.actions";
+import { useState } from "react";
 
-// import OnboardingList from "./onboarding-list";
-// import { ingredientDataAsSelectOptions, uniqueId } from "@/lib/utils";
-// import { SelectOption } from "@/types/common-ui";
-// import { Ingredient } from "@/types";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { addIngredient } from "@/store/ingredients/ingredients.actions";
+import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 
-// type Props = {
-//   ingredients: Ingredient[];
-// };
+import OnboardingList from "./onboarding-list";
+import { uniqueId } from "@/lib/utils";
+import { Ingredient } from "@/types";
+import jsonIngredients from "@/__mock/ingredients.json";
 
-// export default function BulkIngredients({ ingredients }: Props) {
-//   const dispatch = useAppDispatch();
+type Props = {
+  goToNextStep: () => void;
+};
 
-//   const ingredientSelectOptions: SelectOption[] =
-//     ingredientDataAsSelectOptions(ingredients);
+export default function BulkIngredients({ goToNextStep }: Props) {
+  const dispatch = useAppDispatch();
+  const bulkIngredients: Ingredient[] = jsonIngredients;
 
-//   const [selectedValues, setSelectedValues] = useState<string[]>(
-//     ingredientSelectOptions.map((option) => option.value)
-//   );
+  const currentIngredientsData = useAppSelector(selectIngredients);
+  const remainingIngredients = bulkIngredients.filter(
+    (item) => !currentIngredientsData.find((rm) => rm.name === item.name)
+  );
 
-//   const toggleOption = (value: string) => {
-//     setSelectedValues((prevSelected) =>
-//       prevSelected.includes(value)
-//         ? prevSelected.filter((v) => v !== value)
-//         : [...prevSelected, value]
-//     );
-//   };
+  const [selectedValues, setSelectedValues] = useState<number[]>(
+    remainingIngredients.map((option) => option.id)
+  );
 
-//   const selectAll = () => {
-//     setSelectedValues(ingredientSelectOptions.map((option) => option.value));
-//   };
+  const toggleOption = (value: number) => {
+    setSelectedValues((prevSelected) =>
+      prevSelected.includes(value)
+        ? prevSelected.filter((v) => v !== value)
+        : [...prevSelected, value]
+    );
+  };
 
-//   const deselectAll = () => setSelectedValues([]);
+  const selectAll = () => {
+    setSelectedValues(remainingIngredients.map((option) => option.id));
+  };
 
-//   const submitSelected = async () => {
-//     try {
-//       await Promise.all(
-//         selectedValues.map((value) => {
-//           const option = ingredientSelectOptions.find(
-//             (opt) => opt.value === value
-//           );
-//           if (!option) {
-//             throw new Error(`Ingredient with value ${value} not found.`);
-//           }
+  const deselectAll = () => setSelectedValues([]);
 
-//           return dispatch(
-//             addIngredient({
-//               id: uniqueId(),
-//               name: option.label,
-//               available: false,
-//               isImported: true,
-//               category: option.category,
-//             })
-//           );
-//         })
-//       );
-//     } catch (error) {
-//       console.error("Error adding ingredients:", error);
-//     }
-//   };
+  const submitSelected = async () => {
+    try {
+      await Promise.all(
+        selectedValues.map((value) => {
+          const option = remainingIngredients.find((opt) => opt.id === value);
+          if (!option) {
+            throw new Error(`Ingredient with value ${value} not found.`);
+          }
+          return dispatch(
+            addIngredient({
+              ...option,
+              id: uniqueId(),
+              name: option?.name,
+              available: false,
+              isImported: true,
+              category: option?.category,
+            })
+          );
+        })
+      );
+    } catch (error) {
+      console.error("Error adding ingredients:", error);
+    } finally {
+      goToNextStep();
+    }
+  };
 
-//   return (
-//     <div>
-//       <OnboardingList
-//         options={ingredientSelectOptions}
-//         selectedValues={selectedValues}
-//         onToggleOption={toggleOption}
-//         onSelectAll={selectAll}
-//         onDeselectAll={deselectAll}
-//         onSubmit={submitSelected}
-//       />
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <OnboardingList
+        options={remainingIngredients}
+        selectedValues={selectedValues}
+        onToggleOption={toggleOption}
+        onSelectAll={selectAll}
+        onDeselectAll={deselectAll}
+        onSubmit={submitSelected}
+      />
+    </div>
+  );
+}
