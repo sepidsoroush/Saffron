@@ -45,7 +45,7 @@ export default function OnboardingTrigger() {
           <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
         </DrawerDescription>
         {remainingMeals.length !== 0 ? (
-          <BulkMeals meals={remainingMeals} ingredients={bulkIngredients} />
+          <BulkMeals meals={remainingMeals} bulkIngredients={bulkIngredients} />
         ) : (
           <div className="h-[calc(100vh-180px)] flex flex-col justify-center items-center">
             <AnimatedCheckIcon
