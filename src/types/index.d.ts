@@ -5,7 +5,8 @@ export interface Meal {
   id: number;
   name: string;
   imageUrl?: string;
-  liked: boolean;
+  liked?: boolean;
+  ingredientIds?: number[];
   // cuisine?: CuisineType;
   // type?: MealType;
 }
@@ -13,8 +14,8 @@ export interface Meal {
 export interface Ingredient {
   id: number;
   name: string;
-  available: boolean;
-  isImported: boolean;
+  available?: boolean;
+  isImported?: boolean;
   category?: string;
 }
 

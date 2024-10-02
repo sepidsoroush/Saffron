@@ -12,12 +12,12 @@ import {
 } from "@/components/ui/command";
 import { CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SelectOption } from "@/types/common-ui";
+import { Meal } from "@/types";
 
 type Props = {
-  options: SelectOption[];
-  selectedValues: string[];
-  onToggleOption: (value: string) => void;
+  options: Meal[];
+  selectedValues: number[];
+  onToggleOption: (value: number) => void;
   onSelectAll: () => void;
   onDeselectAll: () => void;
   onSubmit: () => void;
@@ -38,7 +38,7 @@ export default function OnboardingList({
   useEffect(() => {
     if (options.length > prevOptionsLength) {
       const newItem = options[options.length - 1];
-      onToggleOption(newItem.value);
+      onToggleOption(newItem.id);
     }
     setPrevOptionsLength(options.length);
   }, [options, prevOptionsLength, onToggleOption]);
@@ -49,26 +49,32 @@ export default function OnboardingList({
       <CommandList className="border-b">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {options.map((option) => (
-            <div key={option.value}>
+          <div className="grid grid-cols-2">
+            {options.map((option) => (
               <CommandItem
-                onSelect={() => onToggleOption(option.value)}
-                className="cursor-pointer"
+                key={option.id}
+                onSelect={() => onToggleOption(option.id)}
+                className="cursor-pointer flex flex-col items-start"
               >
                 <div
                   className={cn(
-                    "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                    selectedValues.includes(option.value)
+                    "mr-2 flex h-6 w-6 items-center justify-center rounded-full border border-primary absolute right-4 top-4",
+                    selectedValues.includes(option.id)
                       ? "bg-primary text-primary-foreground"
                       : "opacity-50 [&_svg]:invisible"
                   )}
                 >
                   <CheckIcon className="h-4 w-4" />
                 </div>
-                <span>{option.label}</span>
+                <img
+                  src={option.imageUrl}
+                  alt={option.name}
+                  className="h-40 w-40 rounded-xl object-cover border border-gray-200"
+                />
+                <span>{option.name}</span>
               </CommandItem>
-            </div>
-          ))}
+            ))}
+          </div>
         </CommandGroup>
       </CommandList>
       <div className="grid grid-cols-3 items-center border-b">
@@ -90,7 +96,7 @@ export default function OnboardingList({
           </CommandItem>
         )}
         <Button className="text-center" onClick={onSubmit}>
-          import
+          Add
         </Button>
         <div className="pr-2 text-sm text-gray-700 text-right">
           {selectedValues.length} selected

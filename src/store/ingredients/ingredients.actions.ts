@@ -79,25 +79,3 @@ export function deleteIngredient(id: number) {
     }
   };
 }
-
-export function fetchBulkIngredients() {
-  return async (dispatch: Dispatch) => {
-    dispatch(uiActions.setLoading(true));
-    try {
-      const { data, error } = await supabase
-        .from("public_ingredients")
-        .select("*");
-      if (error) {
-        console.error("Error fetching bulk ingredients:", error);
-      }
-      if (data === null) {
-        throw new Error("Data returned from Supabase is null");
-      }
-      dispatch(ingredientsActions.setBulkItems({ ingredients: data }));
-    } catch (error) {
-      console.error("Unexpected error:", error);
-    } finally {
-      dispatch(uiActions.setLoading(false));
-    }
-  };
-}

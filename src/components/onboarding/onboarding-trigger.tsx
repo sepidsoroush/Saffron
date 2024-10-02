@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { selectBulkIngredients } from "@/store/ingredients/ingredients.selector";
-import { selectIngredients } from "@/store/ingredients/ingredients.selector";
-import { fetchBulkIngredients } from "@/store/ingredients/ingredients.actions";
+import { useState } from "react";
+import { useAppSelector } from "@/store/hooks";
 
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
@@ -14,24 +11,24 @@ import {
   DrawerDescription,
 } from "@/components/ui/drawer";
 
-import BulkIngredients from "./bulk-ingredients";
+// import BulkIngredients from "./bulk-ingredients";
 import AnimatedCheckIcon from "./animated-check-icon";
+import jsonIngredients from "@/__mock/ingredients.json";
+import jsonMeals from "@/__mock/meals.json";
+import { Ingredient, Meal } from "@/types";
+import BulkMeals from "./bulk-meals";
+import { selectMeals } from "@/store/meals/meals.selector";
 
 export default function OnboardingTrigger() {
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
 
-  const bulkIngredients = useAppSelector(selectBulkIngredients);
-  const ingredientsData = useAppSelector(selectIngredients);
+  const bulkMeals: Meal[] = jsonMeals;
+  const bulkIngredients: Ingredient[] = jsonIngredients;
+  const currentMealsData = useAppSelector(selectMeals);
 
-  const remainingIngredients = bulkIngredients.filter(
-    (item) => !ingredientsData.find((rm) => rm.name === item.name)
+  const remainingMeals = bulkMeals.filter(
+    (item) => !currentMealsData.find((rm) => rm.name === item.name)
   );
-  useEffect(() => {
-    if (bulkIngredients.length === 0) {
-      dispatch(fetchBulkIngredients());
-    }
-  }, [bulkIngredients, dispatch]);
 
   return (
     <Drawer open={open} onOpenChange={(open) => setOpen(open)}>
@@ -47,12 +44,12 @@ export default function OnboardingTrigger() {
         <DrawerDescription>
           <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
         </DrawerDescription>
-        {remainingIngredients.length !== 0 ? (
-          <BulkIngredients ingredients={remainingIngredients} />
+        {remainingMeals.length !== 0 ? (
+          <BulkMeals meals={remainingMeals} ingredients={bulkIngredients} />
         ) : (
           <div className="h-[calc(100vh-180px)] flex flex-col justify-center items-center">
             <AnimatedCheckIcon
-              isVisible={remainingIngredients.length === 0}
+              isVisible={remainingMeals.length === 0}
               initial={true}
             />
             <p className="tetx-lg font-semibold">

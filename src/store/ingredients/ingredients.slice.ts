@@ -3,14 +3,10 @@ import { Ingredient } from "@/types";
 
 export interface IngredientsState {
   ingredients: Ingredient[];
-  bulkIngredients: Ingredient[];
-  selectedIngredientId: number | null;
 }
 
 const initialState: IngredientsState = {
   ingredients: [],
-  bulkIngredients: [],
-  selectedIngredientId: null,
 };
 
 const ingredientsSlice = createSlice({
@@ -39,12 +35,6 @@ const ingredientsSlice = createSlice({
       if (index !== -1) {
         state.ingredients[index] = ingredient;
       }
-    },
-    setBulkItems(state, action: PayloadAction<{ ingredients: Ingredient[] }>) {
-      state.bulkIngredients = action.payload.ingredients;
-    },
-    selectIngredient(state, action: PayloadAction<number | null>) {
-      state.selectedIngredientId = action.payload;
     },
   },
 });

@@ -47,6 +47,3 @@ export const selectIngredientsByCategory = (category: string) =>
   createSelector([selectIngredients], (ingredients) =>
     ingredients.filter((ing) => ing.category === category)
   );
-
-export const selectBulkIngredients = (state: RootState) =>
-  state.ingredients.bulkIngredients;

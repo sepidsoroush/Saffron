@@ -7,7 +7,6 @@ export interface Domain {
 export interface SelectOption {
   value: string;
   label: string;
-  category?: string;
 }
 
 export interface NavItem {
