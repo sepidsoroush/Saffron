@@ -1,19 +1,21 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addIngredient } from "@/store/ingredients/ingredients.actions";
-import { addMeal } from "@/store/meals/meals.actions";
+import {
+  addIngredient,
+  fetchBulkIngredients,
+} from "@/store/ingredients/ingredients.actions";
+import { addMeal, fetchBulkMeals } from "@/store/meals/meals.actions";
 import { addComposition } from "@/store/compositions/compositions.actions";
-import { selectIngredients } from "@/store/ingredients/ingredients.selector";
-import { selectMeals } from "@/store/meals/meals.selector";
+import {
+  selectIngredients,
+  selectBulkIngredients,
+} from "@/store/ingredients/ingredients.selector";
+import { selectBulkMeals, selectMeals } from "@/store/meals/meals.selector";
 
 import OnboardingList from "./onboarding-list";
 
 import { uniqueId } from "@/lib/utils";
-import { Ingredient, Meal } from "@/types";
-
-import jsonIngredients from "@/__mock/ingredients.json";
-import jsonMeals from "@/__mock/meals.json";
 
 type Props = {
   goToNextStep: () => void;
@@ -24,8 +26,8 @@ export default function BulkMeals({ goToNextStep, onChangeAmount }: Props) {
   const dispatch = useAppDispatch();
   const currentIngredients = useAppSelector(selectIngredients);
 
-  const bulkMeals: Meal[] = jsonMeals;
-  const bulkIngredients: Ingredient[] = jsonIngredients;
+  const bulkMeals = useAppSelector(selectBulkMeals);
+  const bulkIngredients = useAppSelector(selectBulkIngredients);
   const currentMealsData = useAppSelector(selectMeals);
 
   const remainingMeals = bulkMeals.filter(
@@ -35,6 +37,15 @@ export default function BulkMeals({ goToNextStep, onChangeAmount }: Props) {
   const [selectedValues, setSelectedValues] = useState<number[]>(
     remainingMeals.map((option) => option.id)
   );
+
+  useEffect(() => {
+    if (bulkMeals.length === 0) {
+      dispatch(fetchBulkMeals());
+    }
+    if (bulkIngredients.length === 0) {
+      dispatch(fetchBulkIngredients());
+    }
+  }, [bulkMeals, bulkIngredients, dispatch]);
 
   const toggleOption = (value: number) => {
     setSelectedValues((prevSelected) =>

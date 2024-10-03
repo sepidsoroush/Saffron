@@ -3,6 +3,8 @@ import { RootState } from "@/store";
 
 export const selectIngredients = (state: RootState) =>
   state.ingredients.ingredients;
+export const selectBulkIngredients = (state: RootState) =>
+  state.ingredients.bulkIngredients;
 
 const selectSchedule = (state: RootState) => state.schedule.schedule;
 const selectCompositions = (state: RootState) =>

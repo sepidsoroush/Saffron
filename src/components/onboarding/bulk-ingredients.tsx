@@ -1,13 +1,17 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addIngredient } from "@/store/ingredients/ingredients.actions";
-import { selectIngredients } from "@/store/ingredients/ingredients.selector";
+import {
+  addIngredient,
+  fetchBulkIngredients,
+} from "@/store/ingredients/ingredients.actions";
+import {
+  selectIngredients,
+  selectBulkIngredients,
+} from "@/store/ingredients/ingredients.selector";
 
 import OnboardingList from "./onboarding-list";
 import { uniqueId } from "@/lib/utils";
-import { Ingredient } from "@/types";
-import jsonIngredients from "@/__mock/ingredients.json";
 
 type Props = {
   goToNextStep: () => void;
@@ -19,7 +23,7 @@ export default function BulkIngredients({
   onChangeAmount,
 }: Props) {
   const dispatch = useAppDispatch();
-  const bulkIngredients: Ingredient[] = jsonIngredients;
+  const bulkIngredients = useAppSelector(selectBulkIngredients);
 
   const currentIngredientsData = useAppSelector(selectIngredients);
   const remainingIngredients = bulkIngredients.filter(
@@ -29,6 +33,12 @@ export default function BulkIngredients({
   const [selectedValues, setSelectedValues] = useState<number[]>(
     remainingIngredients.map((option) => option.id)
   );
+
+  useEffect(() => {
+    if (bulkIngredients.length === 0) {
+      dispatch(fetchBulkIngredients());
+    }
+  }, [bulkIngredients, dispatch]);
 
   const toggleOption = (value: number) => {
     setSelectedValues((prevSelected) =>

@@ -5,6 +5,7 @@ import { Meal } from "@/types";
 
 export const selectMeals = (state: RootState) => state.meals.meals;
 export const selectSchedule = (state: RootState) => state.schedule.schedule;
+export const selectBulkMeals = (state: RootState) => state.meals.bulkMeals;
 
 export const selectMealIdsInSchedule = createSelector(
   [selectSchedule],

@@ -76,3 +76,23 @@ export function updateMeal(id: number, meal: Meal) {
     }
   };
 }
+
+export function fetchBulkMeals() {
+  return async (dispatch: Dispatch) => {
+    dispatch(uiActions.setLoading(true));
+    try {
+      const { data, error } = await supabase.from("public_meals").select("*");
+      if (error) {
+        console.error("Error fetching bulk meals:", error);
+      }
+      if (data === null) {
+        throw new Error("Data returned from Supabase is null");
+      }
+      dispatch(mealsActions.setBulkItems({ meals: data }));
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    } finally {
+      dispatch(uiActions.setLoading(false));
+    }
+  };
+}

@@ -45,7 +45,7 @@ export default function OnboardingList({
 
   // Helper to check if the options are of type Meal
   const isMeal = (option: Meal | Ingredient): option is Meal => {
-    return "imageUrl" in option;
+    return (option as Meal).imageUrl !== undefined;
   };
 
   return (
@@ -55,7 +55,7 @@ export default function OnboardingList({
       <CommandList className="border-b">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {isMeal(options[0]) ? (
+          {options.length > 0 && isMeal(options[0]) ? (
             <div className="grid grid-cols-2">
               {options.map((option) => (
                 <CommandItem
