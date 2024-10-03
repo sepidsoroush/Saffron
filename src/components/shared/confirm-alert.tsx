@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -10,9 +12,9 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { ReactNode } from "react";
 
 type Props = {
+  className?: string;
   onConfirm: () => void;
   triggerText?: string;
   triggerIcon?: ReactNode;
@@ -36,11 +38,12 @@ const ConfirmAlertDialog = ({
   title,
   descriptionText,
   variant,
+  className,
 }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={variant} className="px-2">
+        <Button variant={variant} className={cn(className, "px-2")}>
           {triggerText}
           {triggerIcon}
         </Button>

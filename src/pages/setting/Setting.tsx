@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/theme/ModeToggleMenu";
 import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
-import { LogOut, CloudDownload, Bell } from "lucide-react";
+import { LogOut, Bell } from "lucide-react";
 import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
 
 export default function Setting() {
@@ -21,32 +21,17 @@ export default function Setting() {
   return (
     <div className="flex flex-col space-y-2 mt-[72px]">
       <Header>Settings</Header>
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-16">
+      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-14">
         <Label>User</Label>
         <div className="text-gray-600">{user?.email}</div>
       </Card>
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
-        <Label>Log out</Label>
-        <ConfirmAlertDialog
-          onConfirm={logoutHandler}
-          triggerIcon={<LogOut className="h-[1.2rem] w-[1.2rem]" />}
-          title="Log out of Bite Board?"
-          descriptionText="You can always log back in at any time."
-          variant="ghost"
-        />
-      </Card>
 
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
+      <Card className="flex flex-row justify-between items-center pl-4 pr-6 py-2 m-2 min-h-14">
         <Label>Theme</Label>
         <ModeToggle />
       </Card>
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-14">
-        <Label>
-          <OnboardingTrigger />
-        </Label>
 
-        <CloudDownload size={20} className="m-2" />
-      </Card>
+      <OnboardingTrigger />
       <Card className="m-2">
         <Link
           to="/setting/notifications"
@@ -55,6 +40,20 @@ export default function Setting() {
           <Label>Notifications</Label>
           <Bell size={20} className="m-2" />
         </Link>
+      </Card>
+      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
+        <Label>Log out</Label>
+        <ConfirmAlertDialog
+          onConfirm={logoutHandler}
+          triggerIcon={
+            <div className="pl-36">
+              <LogOut className="h-[1.2rem] w-[1.2rem]" color="#dc2626" />
+            </div>
+          }
+          title="Log out of Bite Board?"
+          descriptionText="You can always log back in at any time."
+          variant="link"
+        />
       </Card>
     </div>
   );

@@ -14,6 +14,10 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
+import { Label } from "@/components/ui/label";
+import { Card } from "@/components/ui/card";
+import { CloudDownload } from "lucide-react";
+
 import AnimatedCheckIcon from "./animated-check-icon";
 import BulkMeals from "./bulk-meals";
 
@@ -46,9 +50,14 @@ export default function OnboardingTrigger() {
   return (
     <Drawer open={open} onOpenChange={(open) => setOpen(open)}>
       <DrawerTrigger asChild>
-        <Button variant="link" className="px-0 mx-0">
+        <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-14">
+          <Label>Recipe suggestions</Label>
+
+          <CloudDownload size={20} className="m-2" />
+        </Card>
+        {/* <Button variant="link" className="px-0 mx-0">
           Recipe suggestions
-        </Button>
+        </Button> */}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerTitle>
