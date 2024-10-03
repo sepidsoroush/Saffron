@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addIngredient } from "@/store/ingredients/ingredients.actions";
@@ -17,9 +17,10 @@ import jsonMeals from "@/__mock/meals.json";
 
 type Props = {
   goToNextStep: () => void;
+  onChangeAmount: Dispatch<SetStateAction<number>>;
 };
 
-export default function BulkMeals({ goToNextStep }: Props) {
+export default function BulkMeals({ goToNextStep, onChangeAmount }: Props) {
   const dispatch = useAppDispatch();
   const currentIngredients = useAppSelector(selectIngredients);
 
@@ -121,6 +122,8 @@ export default function BulkMeals({ goToNextStep }: Props) {
       console.error("Error submitting meals and ingredients:", error);
     } finally {
       goToNextStep();
+
+      onChangeAmount(selectedValues.length);
     }
   };
 
@@ -132,6 +135,7 @@ export default function BulkMeals({ goToNextStep }: Props) {
       onSelectAll={selectAll}
       onDeselectAll={deselectAll}
       onSubmit={submitSelected}
+      goToNextStep={goToNextStep}
     />
   );
 }

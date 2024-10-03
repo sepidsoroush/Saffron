@@ -19,6 +19,7 @@ type Props = {
   onSelectAll: () => void;
   onDeselectAll: () => void;
   onSubmit: () => void;
+  goToNextStep: () => void;
 };
 
 export default function OnboardingList({
@@ -28,6 +29,7 @@ export default function OnboardingList({
   onSelectAll,
   onDeselectAll,
   onSubmit,
+  goToNextStep,
 }: Props) {
   const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
     options.length
@@ -110,7 +112,7 @@ export default function OnboardingList({
           )}
         </CommandGroup>
       </CommandList>
-      <div className="flex flex-row justify-between items-center my-2 mx-4">
+      <div className="grid grid-cols-2 my-2 mx-4">
         <div className="flex flex-row items-center justify-start">
           {selectedValues.length !== options.length ? (
             <CommandItem
@@ -134,13 +136,22 @@ export default function OnboardingList({
             </CommandItem>
           )}
         </div>
-        <Button
-          disabled={selectedValues.length === 0}
-          className="text-center w-1/4"
-          onClick={onSubmit}
-        >
-          Add
-        </Button>
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            className="text-center"
+            variant="secondary"
+            onClick={() => goToNextStep()}
+          >
+            Next
+          </Button>
+          <Button
+            disabled={selectedValues.length === 0}
+            className="text-center"
+            onClick={onSubmit}
+          >
+            Add
+          </Button>
+        </div>
       </div>
     </Command>
   );
