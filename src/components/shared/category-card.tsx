@@ -43,7 +43,7 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
         transition={{ height: { duration: 0.5 }, opacity: { duration: 0.3 } }}
         style={{ overflow: "hidden" }}
       >
-        <CardContent className="divide-y divide-gray-100">
+        <CardContent className="divide-y divide-gray-100 dark:divide-gray-800">
           {items
             .sort((a, b) => Number(a.available) - Number(b.available))
             .map((item) => (

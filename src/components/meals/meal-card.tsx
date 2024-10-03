@@ -15,13 +15,13 @@ export const MealCard = ({ meal }: Props) => {
           <img
             src={meal.imageUrl}
             alt={meal.name}
-            className="h-40 rounded-xl object-cover border border-gray-200"
+            className="h-40 rounded-xl object-cover "
           />
         ) : (
           <NoImageMeal />
         )}
 
-        <div className="w-full bottom-0 min-h-8 rounded-lg bg-white bg-opacity-75 flex items-center">
+        <div className="w-full bottom-0 min-h-8 rounded-lg  flex items-center">
           <span className="font-medium text-sm text-left">{meal.name}</span>
         </div>
       </div>

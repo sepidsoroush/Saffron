@@ -32,7 +32,7 @@ const WeeklyReminder = ({ isDisabled }: Props) => {
     <Drawer open={open} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
         <div
-          className={`flex items-center justify-between p-4 m-4 rounded-md bg-slate-100 ${
+          className={`flex items-center justify-between p-4 m-4 rounded-md bg-gray-100 dark:bg-gray-800 ${
             isDisabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
@@ -49,7 +49,7 @@ const WeeklyReminder = ({ isDisabled }: Props) => {
         <DrawerDescription>
           <VisuallyHidden.Root>Menu</VisuallyHidden.Root>
         </DrawerDescription>
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-gray-100 dark:divide-gray-800">
           {emptySchedule.map((item) => (
             <div
               key={item.day_id}
