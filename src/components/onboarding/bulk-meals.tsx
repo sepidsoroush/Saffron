@@ -1,51 +1,28 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  addIngredient,
-  fetchBulkIngredients,
-} from "@/store/ingredients/ingredients.actions";
-import { addMeal, fetchBulkMeals } from "@/store/meals/meals.actions";
+import { addIngredient } from "@/store/ingredients/ingredients.actions";
+import { addMeal } from "@/store/meals/meals.actions";
 import { addComposition } from "@/store/compositions/compositions.actions";
-import {
-  selectIngredients,
-  selectBulkIngredients,
-} from "@/store/ingredients/ingredients.selector";
-import { selectBulkMeals, selectMeals } from "@/store/meals/meals.selector";
+import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 
 import OnboardingList from "./onboarding-list";
 
 import { uniqueId } from "@/lib/utils";
+import { Ingredient, Meal } from "@/types";
 
 type Props = {
-  goToNextStep: () => void;
-  onChangeAmount: Dispatch<SetStateAction<number>>;
+  remainingMeals: Meal[];
+  bulkIngredients: Ingredient[];
 };
 
-export default function BulkMeals({ goToNextStep, onChangeAmount }: Props) {
+export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
   const dispatch = useAppDispatch();
   const currentIngredients = useAppSelector(selectIngredients);
-
-  const bulkMeals = useAppSelector(selectBulkMeals);
-  const bulkIngredients = useAppSelector(selectBulkIngredients);
-  const currentMealsData = useAppSelector(selectMeals);
-
-  const remainingMeals = bulkMeals.filter(
-    (item) => !currentMealsData.find((rm) => rm.name === item.name)
-  );
 
   const [selectedValues, setSelectedValues] = useState<number[]>(
     remainingMeals.map((option) => option.id)
   );
-
-  useEffect(() => {
-    if (bulkMeals.length === 0) {
-      dispatch(fetchBulkMeals());
-    }
-    if (bulkIngredients.length === 0) {
-      dispatch(fetchBulkIngredients());
-    }
-  }, [bulkMeals, bulkIngredients, dispatch]);
 
   const toggleOption = (value: number) => {
     setSelectedValues((prevSelected) =>
@@ -131,10 +108,6 @@ export default function BulkMeals({ goToNextStep, onChangeAmount }: Props) {
       );
     } catch (error) {
       console.error("Error submitting meals and ingredients:", error);
-    } finally {
-      goToNextStep();
-
-      onChangeAmount(selectedValues.length);
     }
   };
 
@@ -146,7 +119,6 @@ export default function BulkMeals({ goToNextStep, onChangeAmount }: Props) {
       onSelectAll={selectAll}
       onDeselectAll={deselectAll}
       onSubmit={submitSelected}
-      goToNextStep={goToNextStep}
     />
   );
 }

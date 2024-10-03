@@ -1,4 +1,9 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { fetchBulkIngredients } from "@/store/ingredients/ingredients.actions";
+import { fetchBulkMeals } from "@/store/meals/meals.actions";
+import { selectBulkIngredients } from "@/store/ingredients/ingredients.selector";
+import { selectMeals, selectBulkMeals } from "@/store/meals/meals.selector";
 
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
@@ -9,67 +14,33 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
-
-import StepperIndicator from "./stepper-indicator";
+import AnimatedCheckIcon from "./animated-check-icon";
 import BulkMeals from "./bulk-meals";
-import BulkIngredients from "./bulk-ingredients";
-import CompletedOnboarding from "./completed-onboarding";
-
-type Props = {
-  activeStep: number;
-  handleNext: () => void;
-  addedMealAmount: number;
-  addedIngAmount: number;
-  setAddedMealAmount: Dispatch<SetStateAction<number>>;
-  setAddedIngAmount: Dispatch<SetStateAction<number>>;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-function getStepContent({
-  activeStep,
-  handleNext,
-  addedMealAmount,
-  addedIngAmount,
-  setAddedMealAmount,
-  setAddedIngAmount,
-  setOpen,
-}: Props) {
-  switch (activeStep) {
-    case 1:
-      return (
-        <BulkMeals
-          goToNextStep={handleNext}
-          onChangeAmount={setAddedMealAmount}
-        />
-      );
-    case 2:
-      return (
-        <BulkIngredients
-          goToNextStep={handleNext}
-          onChangeAmount={setAddedIngAmount}
-        />
-      );
-    case 3:
-      return (
-        <CompletedOnboarding
-          addedMealAmount={addedMealAmount}
-          addedIngAmount={addedIngAmount}
-          setOpen={setOpen}
-        />
-      );
-    default:
-      return "Unknown step";
-  }
-}
 
 export default function OnboardingTrigger() {
   const [open, setOpen] = useState<boolean>(false);
-  const [activeStep, setActiveStep] = useState<number>(1);
-  const [addedMealAmount, setAddedMealAmount] = useState<number>(0);
-  const [addedIngAmount, setAddedIngAmount] = useState<number>(0);
 
-  const handleNext = async () => {
-    if (activeStep < 3) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const dispatch = useAppDispatch();
+
+  const bulkIngredients = useAppSelector(selectBulkIngredients);
+  const bulkMeals = useAppSelector(selectBulkMeals);
+  const currentMealsData = useAppSelector(selectMeals);
+
+  const remainingMeals = bulkMeals.filter(
+    (item) => !currentMealsData.find((rm) => rm.name === item.name)
+  );
+
+  useEffect(() => {
+    if (bulkMeals.length === 0) {
+      dispatch(fetchBulkMeals());
+    }
+    if (bulkIngredients.length === 0) {
+      dispatch(fetchBulkIngredients());
+    }
+  }, [bulkMeals, bulkIngredients, dispatch]);
+
+  const closeDrawerHandler = () => {
+    setOpen(false);
   };
 
   return (
@@ -86,22 +57,30 @@ export default function OnboardingTrigger() {
         <DrawerDescription>
           <VisuallyHidden.Root>Recipe suggestions</VisuallyHidden.Root>
         </DrawerDescription>
+        {remainingMeals.length === 0 ? (
+          <div className="h-[calc(100vh-180px)] flex flex-col justify-center items-center">
+            <AnimatedCheckIcon isVisible={true} initial={true} />
+            <p className="tetx-lg font-semibold">
+              We are out of suggestions :(
+            </p>
+            <p className="w-3/5 text-sm text-gray-500 text-center mt-2">
+              Try adding your favorite foods by + button in the meals tab
+            </p>
 
-        <div>
-          <StepperIndicator
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
+            <Button
+              variant="default"
+              className="mt-8"
+              onClick={closeDrawerHandler}
+            >
+              Done
+            </Button>
+          </div>
+        ) : (
+          <BulkMeals
+            remainingMeals={remainingMeals}
+            bulkIngredients={bulkIngredients}
           />
-          {getStepContent({
-            activeStep,
-            handleNext,
-            addedMealAmount,
-            addedIngAmount,
-            setAddedMealAmount,
-            setAddedIngAmount,
-            setOpen,
-          })}
-        </div>
+        )}
       </DrawerContent>
     </Drawer>
   );
