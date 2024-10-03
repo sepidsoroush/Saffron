@@ -87,6 +87,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
           name: trimmedName,
           available: false,
           isImported: false,
+          category: "Others",
         })
       );
       setUpdatedName("");
