@@ -20,9 +20,7 @@ export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
   const dispatch = useAppDispatch();
   const currentIngredients = useAppSelector(selectIngredients);
 
-  const [selectedValues, setSelectedValues] = useState<number[]>(
-    remainingMeals.map((option) => option.id)
-  );
+  const [selectedValues, setSelectedValues] = useState<number[]>([]);
 
   const toggleOption = (value: number) => {
     setSelectedValues((prevSelected) =>
