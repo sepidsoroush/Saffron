@@ -18,7 +18,7 @@ const EditMealPage: React.FC = () => {
         title="Edit selected meal"
         className="px-4"
       />
-      <div className="p-4 mb-[72px]">
+      <div className="px-4 mb-[72px]">
         <MealForm actionType="update" mealToUpdate={mealToUpdate} />
       </div>
     </>

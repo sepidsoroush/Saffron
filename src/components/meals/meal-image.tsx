@@ -61,7 +61,7 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
     <div className="flex flex-col justify-center items-center">
       {preview ? (
         <>
-          <Avatar className="w-[400px] md:w-[300px] h-[300px] object-fill rounded-sm bg-gray-300">
+          <Avatar className="w-[400px] h-[400px] object-cover rounded-sm bg-gray-300">
             <AvatarImage src={preview} />
             <AvatarFallback>Meal Image</AvatarFallback>
           </Avatar>

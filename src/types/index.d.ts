@@ -1,4 +1,4 @@
-// import { CuisineType, MealType } from "./constants";
+import { CuisineType } from "./constants";
 import { WeekDay } from "./constants";
 
 export interface Meal {
@@ -7,7 +7,7 @@ export interface Meal {
   imageUrl?: string;
   liked?: boolean;
   ingredientIds?: number[];
-  // cuisine?: CuisineType;
+  cuisine?: CuisineType;
   // type?: MealType;
 }
 

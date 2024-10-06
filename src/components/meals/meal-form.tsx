@@ -14,10 +14,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { SelectIngredientComboBox } from "@/components/ingredients/select-ingredient";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 
 import { Meal, Composition } from "@/types";
+import { cuisineInfo, CuisineType } from "@/types/constants";
 import { SelectOption } from "@/types/common-ui";
 
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
@@ -55,6 +63,7 @@ const formSchema = z.object({
     }),
   ingredients: z.array(z.string()),
   imageUrl: z.string().optional(),
+  cuisine: z.string().optional(),
 });
 
 const MealForm = ({ actionType, mealToUpdate }: Props) => {
@@ -78,6 +87,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             .map((item) => item.ingredient_id.toString())
         : [],
       imageUrl: mealToUpdate ? mealToUpdate.imageUrl : "",
+      cuisine: mealToUpdate ? mealToUpdate.cuisine : "",
     },
   });
 
@@ -87,6 +97,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       name: values.name,
       imageUrl: values.imageUrl,
       liked: false,
+      cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
     };
 
     // Check if the updated name is the same as the current name
@@ -276,7 +287,6 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              {/* <FormLabel>Meal Image</FormLabel> */}
               <FormControl>
                 <MealImage
                   onImageChange={field.onChange}
@@ -313,6 +323,30 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
                 placeholder="Select Ingredients"
                 maxCount={30}
               />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="cuisine"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cuisine</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Cuisine" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {cuisineInfo.map((item) => (
+                    <SelectItem key={item.id} value={item.name}>
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
             </FormItem>
           )}
         />

@@ -53,6 +53,7 @@ export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
               id: mealId,
               name: meal.name,
               imageUrl: meal.imageUrl,
+              cuisine: meal.cuisine,
               liked: false,
             })
           );

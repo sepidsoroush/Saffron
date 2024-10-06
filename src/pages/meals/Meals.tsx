@@ -8,6 +8,21 @@ import { Header } from "@/components/layout/header";
 import NewItemButton from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
+import { cuisineInfo } from "@/types/constants";
+
+function groupMealsByCuisine(meals: Meal[]) {
+  return meals.reduce((acc, meal) => {
+    const cuisine = meal.cuisine ?? "Other";
+    acc[cuisine] = acc[cuisine] || [];
+    acc[cuisine].push(meal);
+    return acc;
+  }, {} as Record<string, Meal[]>);
+}
+
+const getCuisineEmoji = (cuisine: string) => {
+  const cuisineItem = cuisineInfo.find((item) => item.name === cuisine);
+  return cuisineItem ? cuisineItem.emoji : "🍽"; // Default emoji if not found
+};
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -19,13 +34,26 @@ function SkeletonList({ count }: { count: number }) {
   );
 }
 
-function MealsList({ meals }: { meals: Array<Meal> }) {
+function MealsListByCuisine({
+  groupedMeals,
+}: {
+  groupedMeals: Record<string, Meal[]>;
+}) {
   return (
-    <ul className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden">
-      {meals.map((meal) => (
-        <MealCard key={meal.id} meal={meal} />
+    <div className="space-y-4 mt-4">
+      {Object.entries(groupedMeals).map(([cuisine, meals]) => (
+        <div key={cuisine}>
+          <h2 className="text-xl font-bold px-2">
+            {cuisine} {getCuisineEmoji(cuisine)}
+          </h2>
+          <ul className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden">
+            {meals.map((meal) => (
+              <MealCard key={meal.id} meal={meal} />
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
@@ -38,6 +66,8 @@ function MealsPage() {
     navigate("/meals/new");
   };
 
+  const groupedMeals = groupMealsByCuisine(mealsData);
+
   return (
     <div className="flex flex-col overflow-y-auto my-[72px]">
       <Header onClick={handleNewItemClick} actionTitle="New Meal">
@@ -49,7 +79,7 @@ function MealsPage() {
       ) : mealsData.length === 0 ? (
         <EmptyStateMeals />
       ) : (
-        <MealsList meals={mealsData} />
+        <MealsListByCuisine groupedMeals={groupedMeals} />
       )}
 
       <div className="md:hidden inline-block bottom-20 right-5 fixed">

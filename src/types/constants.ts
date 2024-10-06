@@ -1,14 +1,12 @@
 import { Schedule } from ".";
-// export enum CuisineType {
-//   Persian = "Persian",
-//   Italian = "Italian",
-//   Mexican = "Mexican",
-//   American = "American",
-//   Turkish = "Turkish",
-//   Russian = "Russian",
-//   Indian = "Indian",
-//   Other = "Other",
-// }
+
+export enum CuisineType {
+  MiddleEastern = "Middle Eastern",
+  Italian = "Italian",
+  Mexican = "Mexican",
+  Asian = "Asian",
+  Healthy = "Healthy Food",
+}
 
 // export enum MealType {
 //   Breakfast = "Breakfast",
@@ -35,6 +33,14 @@ export const emptySchedule: Schedule[] = [
   { day_id: 5, day: WeekDay.Friday, meal_id: undefined },
   { day_id: 6, day: WeekDay.Saturday, meal_id: undefined },
   { day_id: 7, day: WeekDay.Sunday, meal_id: undefined },
+];
+
+export const cuisineInfo = [
+  { id: 1, name: CuisineType.Asian, emoji: "🍜" },
+  { id: 2, name: CuisineType.Healthy, emoji: "🥗" },
+  { id: 3, name: CuisineType.Italian, emoji: "🍝" },
+  { id: 4, name: CuisineType.Mexican, emoji: "🌮" },
+  { id: 5, name: CuisineType.MiddleEastern, emoji: "🍢" },
 ];
 
 export enum CategoryType {
