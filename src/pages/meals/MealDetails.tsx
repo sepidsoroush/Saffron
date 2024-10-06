@@ -12,7 +12,8 @@ import { FavoriteMeal } from "@/components/meals/favorite-meal";
 const MealDetails: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const mealId = Number(location.pathname.split("/")[2]);
+  const mealName = location.pathname.split("/")[2];
+  const mealId = location.state.id;
 
   const mealToUpdate = useAppSelector(selectMealById(mealId));
   const ingredientsInRecipe = useAppSelector((state) =>
@@ -20,7 +21,7 @@ const MealDetails: React.FC = () => {
   );
 
   const editMealHandler = () => {
-    navigate(`/meals/${mealId}/edit`);
+    navigate(`/meals/${mealName}/edit`, { state: { id: mealId } });
   };
 
   return (

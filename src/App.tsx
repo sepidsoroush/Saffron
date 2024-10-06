@@ -42,11 +42,11 @@ const router = createBrowserRouter([
             element: <ProtectedRoute element={<NewMealPage />} />,
           },
           {
-            path: ":mealId",
+            path: ":mealName",
             element: <ProtectedRoute element={<MealDetails />} />,
           },
           {
-            path: ":mealId/edit",
+            path: ":mealName/edit",
             element: <ProtectedRoute element={<EditMealPage />} />,
           },
         ],

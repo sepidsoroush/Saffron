@@ -7,14 +7,13 @@ import { FormTitle } from "@/components/meals/form-title";
 
 const EditMealPage: React.FC = () => {
   const location = useLocation();
-  const mealId = Number(location.pathname.split("/")[2]);
-
+  const mealId = location.state.id;
   const mealToUpdate = useAppSelector(selectMealById(mealId));
 
   return (
     <>
       <FormTitle
-        backLink={`/meals/${mealToUpdate?.id}`}
+        backLink={`/meals/${mealToUpdate?.name}`}
         title="Edit selected meal"
         className="px-4"
       />

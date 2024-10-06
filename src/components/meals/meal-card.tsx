@@ -9,7 +9,7 @@ type Props = {
 
 export const MealCard = ({ meal }: Props) => {
   return (
-    <Link to={`/meals/${meal.id}`}>
+    <Link to={`/meals/${meal.name}`} state={{ id: meal.id }}>
       <div className="w-full flex flex-col">
         {meal.imageUrl ? (
           <img
