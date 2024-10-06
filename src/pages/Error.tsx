@@ -5,7 +5,7 @@ export default function ErrorPage() {
   const navigate = useNavigate();
   return (
     <section className="flex flex-col justify-center items-center">
-      <img src="error.svg" />
+      <img src="error.svg" loading="lazy" />
       <h1 className="text-xl font-semibold tracking-tighter">
         404 - Page Not Found
       </h1>

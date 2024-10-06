@@ -15,7 +15,8 @@ export const MealCard = ({ meal }: Props) => {
           <img
             src={meal.imageUrl}
             alt={meal.name}
-            className="h-40 rounded-xl object-cover "
+            className="h-40 rounded-xl object-cover"
+            loading="lazy"
           />
         ) : (
           <NoImageMeal />

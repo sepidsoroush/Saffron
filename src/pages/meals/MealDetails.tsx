@@ -41,6 +41,7 @@ const MealDetails: React.FC = () => {
             width={150}
             height={150}
             className="w-full md:w-[300px] md:h-[300px] md:rounded-xl md:m-4 object-cover"
+            loading="lazy"
           />
         ) : (
           <NoImageMeal />

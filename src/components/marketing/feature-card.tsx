@@ -11,7 +11,8 @@ export const FeatureCard = ({ info }: Props) => {
       <img
         src={info.image}
         alt={info.title}
-        className="h-28 rounded-xl object-fill mx-auto "
+        className="h-28 rounded-xl object-fill mx-auto"
+        loading="lazy"
       />
       <h2 className="mb-2 text-2xl text-center font-bold">
         <Balancer>{info.title}</Balancer>

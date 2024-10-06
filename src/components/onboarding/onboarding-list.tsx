@@ -147,6 +147,7 @@ export default function OnboardingList({
                                 ? ""
                                 : "opacity-70"
                             )}
+                            loading="lazy"
                           />
                           <span className="font-medium">{meal.name}</span>
                         </CommandItem>
