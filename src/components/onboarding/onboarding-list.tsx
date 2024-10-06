@@ -9,7 +9,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { CheckIcon, Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, groupMealsByCuisine } from "@/lib/utils";
+
 import { Meal } from "@/types";
 
 type Props = {
@@ -32,6 +33,7 @@ export default function OnboardingList({
   const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
     options.length
   );
+  const groupedMeals = groupMealsByCuisine(options);
 
   useEffect(() => {
     if (options.length > prevOptionsLength) {
@@ -47,36 +49,41 @@ export default function OnboardingList({
       <CommandList className="border-b">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          <div className="grid grid-cols-2">
-            {options.map((option) => (
-              <CommandItem
-                key={option.id}
-                onSelect={() => onToggleOption(option.id)}
-                className="cursor-pointer flex flex-col items-start"
-              >
-                <div
-                  className={cn(
-                    "mr-2 flex h-6 w-6 items-center justify-center rounded-full absolute right-4 top-4",
-                    selectedValues.includes(option.id)
-                      ? "bg-primary text-primary-foreground border border-primary"
-                      : "bg-white border border-white"
-                  )}
-                >
-                  {selectedValues.includes(option.id) ? (
-                    <CheckIcon className="h-4 w-4" />
-                  ) : (
-                    <Plus size={18} />
-                  )}
-                </div>
-                <img
-                  src={option.imageUrl}
-                  alt={option.name}
-                  className="h-40 w-40 rounded-xl object-cover border border-gray-200"
-                />
-                <span className="font-medium">{option.name}</span>
-              </CommandItem>
-            ))}
-          </div>
+          {Object.entries(groupedMeals).map(([cuisine, meals]) => (
+            <div key={cuisine} className="mb-6">
+              <h2 className="text-lg font-bold pl-3">{cuisine}</h2>
+              <div className="grid grid-cols-2">
+                {meals.map((meal) => (
+                  <CommandItem
+                    key={meal.id}
+                    onSelect={() => onToggleOption(meal.id)}
+                    className="cursor-pointer flex flex-col items-start"
+                  >
+                    <div
+                      className={cn(
+                        "mr-2 flex h-6 w-6 items-center justify-center rounded-full absolute right-4 top-4",
+                        selectedValues.includes(meal.id)
+                          ? "bg-primary text-primary-foreground border border-primary"
+                          : "bg-white border border-white"
+                      )}
+                    >
+                      {selectedValues.includes(meal.id) ? (
+                        <CheckIcon className="h-4 w-4" />
+                      ) : (
+                        <Plus size={18} />
+                      )}
+                    </div>
+                    <img
+                      src={meal.imageUrl}
+                      alt={meal.name}
+                      className="h-40 w-40 rounded-xl object-cover border border-gray-200"
+                    />
+                    <span className="font-medium">{meal.name}</span>
+                  </CommandItem>
+                ))}
+              </div>
+            </div>
+          ))}
         </CommandGroup>
       </CommandList>
       <div className="grid grid-cols-2 my-2 mx-4">

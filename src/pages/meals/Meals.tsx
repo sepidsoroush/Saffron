@@ -9,15 +9,7 @@ import NewItemButton from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
 import { cuisineInfo } from "@/types/constants";
-
-function groupMealsByCuisine(meals: Meal[]) {
-  return meals.reduce((acc, meal) => {
-    const cuisine = meal.cuisine ?? "Other";
-    acc[cuisine] = acc[cuisine] || [];
-    acc[cuisine].push(meal);
-    return acc;
-  }, {} as Record<string, Meal[]>);
-}
+import { groupMealsByCuisine } from "@/lib/utils";
 
 const getCuisineEmoji = (cuisine: string) => {
   const cuisineItem = cuisineInfo.find((item) => item.name === cuisine);
