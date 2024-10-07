@@ -25,7 +25,7 @@ import { SelectIngredientComboBox } from "@/components/ingredients/select-ingred
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 
 import { Meal, Composition } from "@/types";
-import { cuisineInfo, CuisineType } from "@/types/constants";
+import { cuisineInfo } from "@/types/constants";
 import { SelectOption } from "@/types/common-ui";
 
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
@@ -97,7 +97,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       name: values.name,
       imageUrl: values.imageUrl,
       liked: false,
-      cuisine: CuisineType[values.cuisine as keyof typeof CuisineType],
+      cuisine: values.cuisine,
     };
 
     // Check if the updated name is the same as the current name

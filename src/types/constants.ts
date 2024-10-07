@@ -1,13 +1,5 @@
 import { Schedule } from ".";
 
-export enum CuisineType {
-  MiddleEastern = "Middle Eastern",
-  Italian = "Italian",
-  Mexican = "Mexican",
-  Asian = "Asian",
-  Healthy = "Healthy Food",
-}
-
 // export enum MealType {
 //   Breakfast = "Breakfast",
 //   Lunch = "Lunch",
@@ -36,11 +28,11 @@ export const emptySchedule: Schedule[] = [
 ];
 
 export const cuisineInfo = [
-  { id: 1, name: CuisineType.Asian, emoji: "🍜" },
-  { id: 2, name: CuisineType.Healthy, emoji: "🥗" },
-  { id: 3, name: CuisineType.Italian, emoji: "🍝" },
-  { id: 4, name: CuisineType.Mexican, emoji: "🌮" },
-  { id: 5, name: CuisineType.MiddleEastern, emoji: "🍢" },
+  { id: 1, name: "Asian", emoji: "🍜" },
+  { id: 2, name: "Healthy Food", emoji: "🥗" },
+  { id: 3, name: "Italian", emoji: "🍝" },
+  { id: 4, name: "Mexican", emoji: "🌮" },
+  { id: 5, name: "Middle Eastern", emoji: "🍢" },
 ];
 
 export enum CategoryType {
