@@ -14,7 +14,7 @@ export const MealCard = ({ meal }: Props) => {
       <div className="w-full flex flex-col">
         {meal.imageUrl ? (
           <CloudinaryImage
-            imageName={meal.name}
+            imageNameOrUrl={meal.imageUrl}
             width={500}
             height={500}
             className="h-40 rounded-xl object-cover"

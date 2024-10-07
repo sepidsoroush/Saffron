@@ -37,7 +37,7 @@ const MealDetails: React.FC = () => {
       <div className="flex flex-col md:flex-row">
         {mealToUpdate?.imageUrl ? (
           <CloudinaryImage
-            imageName={mealToUpdate.name}
+            imageNameOrUrl={mealToUpdate.imageUrl}
             width={500}
             height={500}
             className="w-full md:w-[300px] md:h-[300px] md:rounded-xl md:m-4 object-cover"

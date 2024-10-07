@@ -141,7 +141,7 @@ export default function OnboardingList({
                             )}
                           </div>
                           <CloudinaryImage
-                            imageName={meal.name}
+                            imageNameOrUrl={meal.name}
                             width={500}
                             height={500}
                             className={cn(
