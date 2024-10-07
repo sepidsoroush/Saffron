@@ -42,10 +42,67 @@ export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
         selectedValues.includes(meal.id)
       );
 
-      // Step 1: Dispatch addMeal for all selected meals
+      // Step 1: Collect all unique ingredients across all selected meals
+      const allIngredients = selectedMeals.flatMap((meal) =>
+        meal.ingredientIds?.map((ingredientId) =>
+          bulkIngredients.find((ingredient) => ingredient?.id === ingredientId)
+        )
+      );
+
+      const uniqueIngredients = Array.from(
+        new Set(allIngredients.filter(Boolean))
+      );
+
+      // Temporary Set to track newly added ingredients by name
+      const addedIngredientsSet = new Set<string>();
+
+      // Map to store ingredient IDs (either existing or newly added)
+      const ingredientIdMap = new Map<string, number>();
+
+      // Step 2: Filter out ingredients that already exist in currentIngredients
+      const ingredientsToAdd = uniqueIngredients.filter((ingredient) => {
+        const existingIngredient = currentIngredients.find(
+          (currIng) => currIng.name === ingredient?.name
+        );
+        const isAlreadyAdded = addedIngredientsSet.has(ingredient?.name ?? "");
+
+        // If the ingredient exists, map its name to its ID
+        if (existingIngredient) {
+          ingredientIdMap.set(existingIngredient.name, existingIngredient.id);
+        }
+
+        return !existingIngredient && !isAlreadyAdded;
+      });
+
+      // Step 3: Add all unique ingredients in bulk
+      await Promise.all(
+        ingredientsToAdd.map(async (ingredient) => {
+          const ingredientId = uniqueId();
+
+          // Add ingredient to the database
+          await dispatch(
+            addIngredient({
+              ...ingredient,
+              id: ingredientId,
+              name: ingredient?.name ?? "Unnamed Ingredient",
+              available: false,
+              isImported: true,
+              category: ingredient?.category,
+            })
+          );
+
+          // Track the ingredient in the Set and Map
+          addedIngredientsSet.add(ingredient?.name ?? "");
+          ingredientIdMap.set(ingredient?.name ?? "", ingredientId);
+        })
+      );
+
+      // Step 4: Now add the meals and their compositions
       await Promise.all(
         selectedMeals.map(async (meal) => {
           const mealId = uniqueId();
+
+          // Add the meal to the database
           await dispatch(
             addMeal({
               id: mealId,
@@ -56,51 +113,41 @@ export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
             })
           );
 
-          // Step 2: Find unique ingredients for this meal
+          // Find the ingredient IDs to add to the composition
           const mealIngredients = meal.ingredientIds?.map((ingredientId) =>
-            bulkIngredients.find((ingredient) => ingredient.id === ingredientId)
+            bulkIngredients.find(
+              (ingredient) => ingredient?.id === ingredientId
+            )
           );
 
-          const uniqueIngredients = Array.from(
+          const uniqueMealIngredients = Array.from(
             new Set(mealIngredients?.filter(Boolean))
           );
 
-          // Step 3: Dispatch addIngredient for new ingredients and handle compositions
           await Promise.all(
-            uniqueIngredients.map(async (ingredient) => {
-              // Check if the ingredient already exists in currentIngredients
+            uniqueMealIngredients.map(async (ingredient) => {
+              // Resolve the correct ingredient ID (either existing or newly added)
               const existingIngredient = currentIngredients.find(
                 (currIng) => currIng.name === ingredient?.name
               );
+              const ingredientId = existingIngredient
+                ? existingIngredient.id
+                : ingredientIdMap.get(ingredient?.name ?? "");
 
-              let ingredientId: number;
-
-              if (existingIngredient) {
-                // Use existing ingredient's ID if it exists
-                ingredientId = existingIngredient.id;
-              } else {
-                // Otherwise, dispatch addIngredient and create a new ingredient
-                ingredientId = uniqueId();
+              // Ensure the ingredientId is valid before adding the composition
+              if (ingredientId) {
                 await dispatch(
-                  addIngredient({
-                    ...ingredient,
-                    id: ingredientId,
-                    name: ingredient?.name ?? "Unnamed Ingredient",
-                    available: false,
-                    isImported: true,
-                    category: ingredient?.category,
+                  addComposition({
+                    id: uniqueId(),
+                    meal_id: mealId,
+                    ingredient_id: ingredientId,
                   })
                 );
+              } else {
+                console.error(
+                  `Ingredient ID not found for ingredient: ${ingredient?.name}`
+                );
               }
-
-              // Step 4: Dispatch addComposition for each meal-ingredient relationship
-              await dispatch(
-                addComposition({
-                  id: uniqueId(),
-                  meal_id: mealId,
-                  ingredient_id: ingredientId,
-                })
-              );
             })
           );
         })

@@ -55,9 +55,6 @@ export default function OnboardingTrigger() {
 
           <CloudDownload size={20} className="m-2" />
         </Card>
-        {/* <Button variant="link" className="px-0 mx-0">
-          Recipe suggestions
-        </Button> */}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerTitle>
