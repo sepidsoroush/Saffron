@@ -13,8 +13,9 @@ import CloudinaryImage from "@/components/shared/cloudinary-image";
 const MealDetails: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const mealName = location.pathname.split("/")[2];
-  const mealId = location.state.id;
+  const mealName: string = location.pathname.split("/")[2];
+
+  const mealId: number = location.state.id;
 
   const mealToUpdate = useAppSelector(selectMealById(mealId));
   const ingredientsInRecipe = useAppSelector((state) =>

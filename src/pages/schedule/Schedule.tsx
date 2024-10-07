@@ -72,7 +72,7 @@ function SchedulePage() {
                   <>
                     <Link
                       to={`/meals/${item.meal.name}`}
-                      state={{ id: item.meal_id }}
+                      state={{ id: item.meal.id }}
                       className="p-2 hover:underline"
                     >
                       {item.meal?.name}
