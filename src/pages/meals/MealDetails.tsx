@@ -8,6 +8,7 @@ import IngredientListItem from "@/components/ingredients/ingredient-list-item";
 import { FormTitle } from "@/components/meals/form-title";
 import NoImageMeal from "@/components/meals/no-image-meal";
 import { FavoriteMeal } from "@/components/meals/favorite-meal";
+import CloudinaryImage from "@/components/shared/cloudinary-image";
 
 const MealDetails: React.FC = () => {
   const location = useLocation();
@@ -35,13 +36,11 @@ const MealDetails: React.FC = () => {
       />
       <div className="flex flex-col md:flex-row">
         {mealToUpdate?.imageUrl ? (
-          <img
-            src={mealToUpdate?.imageUrl}
-            alt={mealToUpdate?.name}
-            width={150}
-            height={150}
+          <CloudinaryImage
+            imageName={mealToUpdate.name}
+            width={500}
+            height={500}
             className="w-full md:w-[300px] md:h-[300px] md:rounded-xl md:m-4 object-cover"
-            loading="lazy"
           />
         ) : (
           <NoImageMeal />

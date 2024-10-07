@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "../ui/label";
+import CloudinaryImage from "@/components/shared/cloudinary-image";
+
 import { CheckIcon, Plus } from "lucide-react";
 import { cn, groupMealsByCuisine } from "@/lib/utils";
 
@@ -138,17 +140,18 @@ export default function OnboardingList({
                               <Plus size={18} />
                             )}
                           </div>
-                          <img
-                            src={meal.imageUrl}
-                            alt={meal.name}
+                          <CloudinaryImage
+                            imageName={meal.name}
+                            width={500}
+                            height={500}
                             className={cn(
                               "h-40 w-40 rounded-xl object-cover border border-gray-200",
                               selectedValues.includes(meal.id)
                                 ? ""
                                 : "opacity-70"
                             )}
-                            loading="lazy"
                           />
+
                           <span className="font-medium">{meal.name}</span>
                         </CommandItem>
                       ))}
