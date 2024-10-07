@@ -13,7 +13,7 @@ import { Header } from "@/components/layout/header";
 import { WeekDay } from "@/types/constants";
 
 import { X } from "lucide-react";
-import { showSuccessToast, uniqueId } from "@/lib/utils";
+import { uniqueId } from "@/lib/utils";
 import { emptySchedule } from "@/types/constants";
 import { Link } from "react-router-dom";
 
@@ -55,7 +55,7 @@ function SchedulePage() {
 
   const handleDeleteMeal = (day: WeekDay) => {
     dispatch(deleteSchedule(day));
-    showSuccessToast("Meal removed from weekly schedule!");
+    // showSuccessToast("Meal removed from weekly schedule!");
   };
 
   return (

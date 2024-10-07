@@ -85,6 +85,7 @@ export default function OnboardingTrigger() {
           <BulkMeals
             remainingMeals={remainingMeals}
             bulkIngredients={bulkIngredients}
+            closeDrawerHandler={closeDrawerHandler}
           />
         )}
       </DrawerContent>

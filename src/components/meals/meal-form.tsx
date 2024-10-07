@@ -270,7 +270,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
         await Promise.all(deleteCompositionPromises);
         // Delete the meal
         await dispatch(deleteMeal(mealToUpdate.id));
-        showSuccessToast("Meal and related compositions deleted!");
+        // showSuccessToast("Meal and related compositions deleted!");
 
         navigate("/meals");
       } catch (error) {

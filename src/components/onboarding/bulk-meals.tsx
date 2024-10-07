@@ -8,15 +8,20 @@ import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 
 import OnboardingList from "./onboarding-list";
 
-import { uniqueId } from "@/lib/utils";
+import { showSuccessToast, uniqueId } from "@/lib/utils";
 import { Ingredient, Meal } from "@/types";
 
 type Props = {
   remainingMeals: Meal[];
   bulkIngredients: Ingredient[];
+  closeDrawerHandler: () => void;
 };
 
-export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
+export default function BulkMeals({
+  remainingMeals,
+  bulkIngredients,
+  closeDrawerHandler,
+}: Props) {
   const dispatch = useAppDispatch();
   const currentIngredients = useAppSelector(selectIngredients);
 
@@ -154,6 +159,11 @@ export default function BulkMeals({ remainingMeals, bulkIngredients }: Props) {
       );
     } catch (error) {
       console.error("Error submitting meals and ingredients:", error);
+    } finally {
+      closeDrawerHandler();
+      showSuccessToast(
+        `${selectedValues.length} new recipes added to your meal list`
+      );
     }
   };
 
