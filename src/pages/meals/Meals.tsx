@@ -60,6 +60,8 @@ function MealsPage() {
 
   const groupedMeals = groupMealsByCuisine(mealsData);
 
+  const isEmptyStateVisible = !isLoading && mealsData.length === 0;
+
   return (
     <div className="flex flex-col overflow-y-auto my-[72px]">
       <Header onClick={handleNewItemClick} actionTitle="New Meal">
@@ -68,7 +70,7 @@ function MealsPage() {
 
       {isLoading ? (
         <SkeletonList count={4} />
-      ) : mealsData.length === 0 ? (
+      ) : isEmptyStateVisible ? (
         <EmptyStateMeals />
       ) : (
         <MealsListByCuisine groupedMeals={groupedMeals} />

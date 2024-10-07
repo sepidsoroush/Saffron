@@ -39,6 +39,8 @@ function IngredientsPage() {
     setIsCreating(true);
   };
 
+  const isEmptyStateVisible = !isLoading && numberOfIngredients === 0;
+
   return (
     <div className="flex flex-col justify-between overflow-y-auto my-[72px]">
       <Header onClick={handleNewItemClick} actionTitle="New Item">
@@ -49,7 +51,7 @@ function IngredientsPage() {
 
       {isLoading ? (
         <SkeletonList count={6} />
-      ) : numberOfIngredients === 0 && !isCreating ? (
+      ) : isEmptyStateVisible && !isCreating ? (
         <EmptyStateIngredients />
       ) : (
         <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
