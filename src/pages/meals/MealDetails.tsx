@@ -29,7 +29,7 @@ const MealDetails: React.FC = () => {
   return (
     <>
       <FormTitle
-        // backLink="/meals"
+        backLink="/meals"
         title={mealToUpdate?.name || ""}
         actionTitle="Edit"
         action={editMealHandler}

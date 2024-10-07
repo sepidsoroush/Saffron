@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 type Props = {
   title: string;
   backLink?: string;
+  backLinkId?: number;
   action?: () => void;
   actionTitle?: string;
   className?: string;
@@ -15,6 +16,7 @@ type Props = {
 export function FormTitle({
   title,
   backLink,
+  backLinkId,
   action,
   actionTitle,
   className,
@@ -31,6 +33,7 @@ export function FormTitle({
       {backLink ? (
         <Link
           to={backLink}
+          state={backLinkId ? { id: backLinkId } : null}
           className={cn(
             "flex flex-row justify-between items-center text-sm",
             action && actionTitle ? "" : "absolute"

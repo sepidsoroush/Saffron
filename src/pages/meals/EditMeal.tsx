@@ -14,6 +14,7 @@ const EditMealPage: React.FC = () => {
     <>
       <FormTitle
         backLink={`/meals/${mealToUpdate?.name}`}
+        backLinkId={mealId}
         title="Edit selected meal"
         className="px-4"
       />
