@@ -7,7 +7,6 @@ import { addComposition } from "@/store/compositions/compositions.actions";
 import { selectIngredients } from "@/store/ingredients/ingredients.selector";
 
 import OnboardingList from "./onboarding-list";
-
 import { showSuccessToast, uniqueId } from "@/lib/utils";
 import { Ingredient, Meal } from "@/types";
 
@@ -26,6 +25,7 @@ export default function BulkMeals({
   const currentIngredients = useAppSelector(selectIngredients);
 
   const [selectedValues, setSelectedValues] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleOption = (value: number) => {
     setSelectedValues((prevSelected) =>
@@ -42,6 +42,10 @@ export default function BulkMeals({
   const deselectAll = () => setSelectedValues([]);
 
   const submitSelected = async () => {
+    const MINIMUM_LOADER_TIME = 3000; // minimum time in milliseconds
+    const startTime = Date.now();
+
+    setIsLoading(true); // Start the loader
     try {
       const selectedMeals = remainingMeals.filter((meal) =>
         selectedValues.includes(meal.id)
@@ -160,10 +164,26 @@ export default function BulkMeals({
     } catch (error) {
       console.error("Error submitting meals and ingredients:", error);
     } finally {
-      closeDrawerHandler();
-      showSuccessToast(
-        `${selectedValues.length} new recipes added to your meal list`
-      );
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = MINIMUM_LOADER_TIME - elapsedTime;
+
+      if (remainingTime > 0) {
+        // Delay closing the loader if the elapsed time is less than the minimum loader time
+        setTimeout(() => {
+          setIsLoading(false); // Hide the loader
+          closeDrawerHandler();
+          showSuccessToast(
+            `${selectedValues.length} new recipes added to your meal list`
+          );
+        }, remainingTime);
+      } else {
+        // Close immediately if enough time has passed
+        setIsLoading(false); // Hide the loader
+        closeDrawerHandler();
+        showSuccessToast(
+          `${selectedValues.length} new recipes added to your meal list`
+        );
+      }
     }
   };
 
@@ -175,6 +195,7 @@ export default function BulkMeals({
       onSelectAll={selectAll}
       onDeselectAll={deselectAll}
       onSubmit={submitSelected}
+      isLoading={isLoading}
     />
   );
 }
