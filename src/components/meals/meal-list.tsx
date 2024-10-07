@@ -1,4 +1,4 @@
-useNavigate;
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { selectMeals } from "@/store/meals/meals.selector";
 
@@ -10,11 +10,10 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Button } from "@/components/ui/button";
 
 import { Meal } from "@/types";
-import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { Button } from "../ui/button";
 
 type Props = {
   setOpen: (open: boolean) => void;

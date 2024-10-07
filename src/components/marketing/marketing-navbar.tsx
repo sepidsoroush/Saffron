@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
+import { useAuth } from "@/hooks/useAuth";
+
+import { Button } from "@/components/ui/button";
 
 import { Cookie } from "lucide-react";
 import { siteConfig } from "@/lib/site";
-import { useAuth } from "@/hooks/useAuth";
 
 export const MarketingNavbar = () => {
   const { user } = useAuth();
