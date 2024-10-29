@@ -1,12 +1,13 @@
 import { Balancer } from "react-wrap-balancer";
 import { GetStartedButton } from "./get-started-button";
 import { ArrowRight } from "lucide-react";
+import { siteConfig } from "@/lib/site";
 
 const CallToAction = () => {
   return (
     <div className="mx-auto px-6 text-center flex flex-col items-center place-content-center min-h-[calc(100vh-80px)]">
       <p className="text-xs mx-auto max-w-md text-neutral-600/50 dark:text-neutral-400/50 inline-flex items-center justify-center">
-        <span>✨ Introducing Bite Board</span>
+        <span>✨ Introducing {siteConfig.name}</span>
         <ArrowRight size={12} />
       </p>
       <div className="max-w-3xl mx-auto">

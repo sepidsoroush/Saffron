@@ -1,6 +1,7 @@
 import { featuresInfo } from "@/lib/info";
 import { FeatureCard } from "./feature-card";
 import { GetStartedButton } from "./get-started-button";
+import { siteConfig } from "@/lib/site";
 
 export const Features = () => {
   return (
@@ -9,7 +10,7 @@ export const Features = () => {
         Here’s how it works
       </h2>
       <p className="text-primary-500 font-normal text-lg md:text-xl">
-        Learn more about Bite Board
+        Learn more about {siteConfig.name}
       </p>
       <div className="my-8 lg:my-12 gap-8 flex flex-col md:flex-row flex-wrap md:gap-12 justify-center content-center justify-items-center">
         {featuresInfo.map((item) => {

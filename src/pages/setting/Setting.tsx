@@ -8,6 +8,7 @@ import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { LogOut, Bell } from "lucide-react";
 import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
+import { siteConfig } from "@/lib/site";
 
 export default function Setting() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ export default function Setting() {
               <LogOut className="h-[1.2rem] w-[1.2rem]" color="#dc2626" />
             </div>
           }
-          title="Log out of Bite Board?"
+          title={`Log out of ${siteConfig.name}?`}
           descriptionText="You can always log back in at any time."
           variant="link"
         />

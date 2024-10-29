@@ -26,7 +26,7 @@ export function SiteFooter() {
         ))}
       </ul>
       <p className="text-sm text-gray-500">
-        <span>© 2024 Bite Board by</span>{" "}
+        <span>© 2024 {siteConfig.name} by</span>{" "}
         <Link
           to="https://github.com/sepidsoroush"
           className="inline-block text-muted-foreground hover:text-primary"
