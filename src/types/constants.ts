@@ -1,3 +1,4 @@
+import { Description } from "@radix-ui/react-toast";
 import { Schedule } from ".";
 
 // export enum MealType {
@@ -28,11 +29,22 @@ export const emptySchedule: Schedule[] = [
 ];
 
 export const cuisineInfo = [
-  { id: 1, name: "Asian", emoji: "🍜" },
-  { id: 2, name: "Healthy Food", emoji: "🥗" },
-  { id: 3, name: "Italian", emoji: "🍝" },
-  { id: 4, name: "Mexican", emoji: "🌮" },
-  { id: 5, name: "Middle Eastern", emoji: "🍢" },
+  {
+    id: 1,
+    name: "Iranian",
+    description: "Rich spices and warmth",
+  },
+  {
+    id: 2,
+    name: "Indian",
+    description: "Bold flavors in every bite!",
+  },
+  {
+    id: 3,
+    name: "Italian",
+    description: "Comforting dishes with love",
+  },
+  { id: 4, name: "Mexican", description: "Spicy delights" },
 ];
 
 export enum CategoryType {

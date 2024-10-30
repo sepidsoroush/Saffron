@@ -8,13 +8,7 @@ import { Header } from "@/components/layout/header";
 import NewItemButton from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
-import { cuisineInfo } from "@/types/constants";
 import { groupMealsByCuisine } from "@/lib/utils";
-
-const getCuisineEmoji = (cuisine: string) => {
-  const cuisineItem = cuisineInfo.find((item) => item.name === cuisine);
-  return cuisineItem ? cuisineItem.emoji : "🍽"; // Default emoji if not found
-};
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -35,9 +29,7 @@ function MealsListByCuisine({
     <div className="space-y-4 mt-4">
       {Object.entries(groupedMeals).map(([cuisine, meals]) => (
         <div key={cuisine}>
-          <h2 className="text-xl font-bold px-2">
-            {cuisine} {getCuisineEmoji(cuisine)}
-          </h2>
+          <h2 className="text-xl font-bold px-2">{cuisine}</h2>
           <ul className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden">
             {meals.map((meal) => (
               <MealCard key={meal.id} meal={meal} />

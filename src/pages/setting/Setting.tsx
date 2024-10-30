@@ -7,7 +7,7 @@ import { ModeToggle } from "@/components/theme/ModeToggleMenu";
 import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { LogOut, Bell } from "lucide-react";
-import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
+// import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
 import { siteConfig } from "@/lib/site";
 
 export default function Setting() {
@@ -32,7 +32,7 @@ export default function Setting() {
         <ModeToggle />
       </Card>
 
-      <OnboardingTrigger />
+      {/* <OnboardingTrigger /> */}
       <Card className="m-2">
         <Link
           to="/setting/notifications"
