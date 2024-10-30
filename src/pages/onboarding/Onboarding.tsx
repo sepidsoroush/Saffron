@@ -6,10 +6,8 @@ export default function OnboardingPage() {
   return (
     <div className="flex flex-col justify-between overflow-y-auto px-5">
       <div className="mt-[22px] mb-7">
-        <div className="font-[Rethink Sans] font-bold text-[28px] mb-[6px]">
-          Pick cuisines
-        </div>
-        <div className="text-sm font-light leading-4 font-[Rethink Sans] break-words">
+        <div className="font-bold text-[28px] mb-[6px]">Pick cuisines</div>
+        <div className="text-sm font-light leading-4 break-words">
           Let's head to flavor town!
         </div>
       </div>

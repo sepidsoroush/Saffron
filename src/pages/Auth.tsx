@@ -54,7 +54,7 @@ const AuthPage = () => {
         </div>
       </div>
       <div>
-        <div className="mb-10 text-neutral-800 text-center text-xl leading-7 font-[Rethink Sans] font-medium ">
+        <div className="mb-10 text-neutral-800 text-center text-xl leading-7 font-medium ">
           Plan meals, explore recipes, and savor flavors all week!
         </div>
         <div className="flex flex-col items-center justify-center gap-4">
@@ -64,7 +64,7 @@ const AuthPage = () => {
             </div>
             <button
               onClick={() => handleOAuthSignIn("google")}
-              className="text-black text-[17px] font-[600] leading-[22px] font-[Rethink Sans] break-words"
+              className="text-black text-[17px] font-[600] leading-[22px] break-words"
             >
               Sign in with Google
             </button>
@@ -75,7 +75,7 @@ const AuthPage = () => {
             </div>
             <button
               onClick={() => handleOAuthSignIn("facebook")}
-              className="text-black text-[17px] font-[600] leading-[22px] font-[Rethink Sans] break-words"
+              className="text-black text-[17px] font-[600] leading-[22px] break-words"
             >
               Sign in with Facebook
             </button>

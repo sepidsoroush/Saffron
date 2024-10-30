@@ -71,6 +71,6 @@
     @apply box-border;
   }
   body {
-    @apply bg-background text-foreground h-full;
+    @apply bg-background text-foreground h-full font-sans;
   }
 }

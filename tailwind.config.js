@@ -18,6 +18,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Rethink Sans"', "sans-serif"],
+      },
       boxShadow: {
         combined:
           "0px 1px 7px 0px #63636314, 0px 0px 0px 1px #7F7F7F1A, 0px 1px 2px 0px #00000017",
@@ -80,26 +83,8 @@ module.exports = {
             height: "0",
           },
         },
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
