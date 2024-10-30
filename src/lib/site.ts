@@ -4,9 +4,6 @@ import {
   CookingPot,
   ShoppingCart,
   Settings,
-  Twitter,
-  Github,
-  Mail,
 } from "lucide-react";
 
 export const NAVBAR: NavItem[] = [
