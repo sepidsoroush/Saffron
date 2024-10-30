@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 import { format, quality } from "@cloudinary/url-gen/actions/delivery";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
 
-// Define the props for the reusable CloudinaryImage component
 type CloudinaryImageProps = {
   imageNameOrUrl: string; // This can be a Cloudinary image name or a URL
   width?: number;
@@ -12,7 +12,6 @@ type CloudinaryImageProps = {
   className?: string;
 };
 
-// Initialize the Cloudinary instance
 const cld = new Cloudinary({
   cloud: {
     cloudName: import.meta.env.VITE_CLOUD_NAME,
@@ -29,25 +28,31 @@ const isUrl = (string: string) => {
   }
 };
 
-// Reusable CloudinaryImage component
 const CloudinaryImage = ({
   imageNameOrUrl,
   width = 500,
   height = 500,
   className = "",
 }: CloudinaryImageProps) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleLoad = () => setImageLoaded(true);
+
   if (isUrl(imageNameOrUrl)) {
-    // If it's a URL, use a simple <img> tag
     return (
       <img
         src={imageNameOrUrl}
         alt="Image"
         className={className}
-        style={{ maxWidth: "100%" }}
+        style={{
+          maxWidth: "100%",
+          filter: imageLoaded ? "none" : "blur(5px)",
+          transition: "filter 0.1s ease-out",
+        }}
+        onLoad={handleLoad}
       />
     );
   } else {
-    // If it's not a URL, assume it's a Cloudinary image name and use Cloudinary transformations
     const image = cld
       .image(`bite board/${imageNameOrUrl}`)
       .resize(thumbnail().width(width).height(height).gravity(autoGravity()))
@@ -59,7 +64,12 @@ const CloudinaryImage = ({
         cldImg={image}
         plugins={[placeholder()]}
         className={className}
-        style={{ maxWidth: "100%" }}
+        style={{
+          maxWidth: "100%",
+          filter: imageLoaded ? "none" : "blur(5px)",
+          transition: "filter 0.1s ease-out",
+        }}
+        onLoad={handleLoad}
       />
     );
   }
