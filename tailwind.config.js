@@ -25,6 +25,7 @@ module.exports = {
         combined:
           "0px 1px 7px 0px #63636314, 0px 0px 0px 1px #7F7F7F1A, 0px 1px 2px 0px #00000017",
         icon: "0px 6px 16px 0px #0000001F",
+        checkbox: "0px 0px 0px 1px #00000014 inset",
       },
       colors: {
         border: "hsl(var(--border))",
