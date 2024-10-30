@@ -32,18 +32,46 @@ export const cuisineInfo = [
     id: 1,
     name: "Iranian",
     description: "Rich spices and warmth",
+    images: [
+      "iranian/xlvzribz1zxwwn1iudmg",
+      "iranian/mc66jqamwxqmozfwvfpp",
+      "iranian/sbenr6cn3oqrtk2gv5qf",
+    ],
+    rotations: [9, -10, -3],
   },
   {
     id: 2,
     name: "Indian",
     description: "Bold flavors in every bite!",
+    images: [
+      "indian/ysloik85uhrg8ukgtvsv",
+      "indian/uw4ervkompj0z7gqajof",
+      "indian/vq3kr7fxw54pepnjizjt",
+    ],
+    rotations: [-4, 4, -3],
   },
   {
     id: 3,
     name: "Italian",
     description: "Comforting dishes with love",
+    images: [
+      "italian/pylswljtifxhscvbe3xn",
+      "italian/zpb4tj9rnk6aeqhhse1d",
+      "italian/qs8qwd2bgj2xcrmdxsqh",
+    ],
+    rotations: [-3, 7, 5],
   },
-  { id: 4, name: "Mexican", description: "Spicy delights" },
+  {
+    id: 4,
+    name: "Mexican",
+    description: "Spicy delights",
+    images: [
+      "mexican/wzntssipranygyow324h",
+      "mexican/lhdou0iogvfj1dcqmwgz",
+      "mexican/lilaijyluaxns0hqvz2v",
+    ],
+    rotations: [10, -1, -10],
+  },
 ];
 
 export enum CategoryType {

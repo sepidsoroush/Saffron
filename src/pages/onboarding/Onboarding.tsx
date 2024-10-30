@@ -51,7 +51,13 @@ export default function OnboardingPage() {
 }
 
 interface CuisineCardProps {
-  item: { id: number; name: string; description: string };
+  item: {
+    id: number;
+    name: string;
+    description: string;
+    images: string[];
+    rotations: number[];
+  };
   isCuisineSelected: boolean;
   toggleCuisineSelection: (cuisine: string) => void;
 }
@@ -72,10 +78,10 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
         toggleCuisineSelection(item.name);
       }}
     >
-      <div className="flex flex-col items-start justify-between col-span-1">
+      <div className="flex flex-col items-start justify-between">
         <div>
           <div className="text-lg font-bold text-neutral-800">{item.name}</div>
-          <div className="text-[13px] text-neutral-500">{item.description}</div>
+          <div className="text-xs text-neutral-500">{item.description}</div>
         </div>
         <Checkbox
           checked={isCuisineSelected}
@@ -87,27 +93,36 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
         />
       </div>
       <div className="h-auto flex flex-row items-center justify-end">
-        <div className="overflow-hidden w-[54px] h-[72px] rotate-6 shadow-combined border-[2px] border-white rounded-md">
+        <div
+          className="overflow-hidden min-w-14 h-16 translate-x-8 shadow-combined border-[2px] border-white rounded-md z-0"
+          style={{ rotate: `${item.rotations[0]}deg` }}
+        >
           <CloudinaryImage
-            imageNameOrUrl="app/jnnolhpitynbvgdxiizm"
-            width={600}
-            height={600}
+            imageNameOrUrl={`app/cuisines/${item.images[0]}`}
+            width={500}
+            height={500}
             className="object-cover h-full"
           />
         </div>
-        <div className="overflow-hidden w-[65px] h-[78px] shadow-combined border-[2px] border-white rounded-md z-5">
+        <div
+          className="overflow-hidden min-w-16 h-20 translate-x-4 shadow-combined border-[2px] border-white rounded-md z-10"
+          style={{ rotate: `${item.rotations[1]}deg` }}
+        >
           <CloudinaryImage
-            imageNameOrUrl="app/urswbl6jcraksqdit5v8"
-            width={600}
-            height={600}
+            imageNameOrUrl={`app/cuisines/${item.images[1]}`}
+            width={500}
+            height={500}
             className="object-cover h-full"
           />
         </div>
-        <div className="overflow-hidden w-[54px] h-[54px] -rotate-6 shadow-combined border-[2px] border-white rounded-md">
+        <div
+          className="overflow-hidden min-w-14 h-14 shadow-combined border-[2px] border-white rounded-md z-20"
+          style={{ rotate: `${item.rotations[2]}deg` }}
+        >
           <CloudinaryImage
-            imageNameOrUrl="app/lkdfldikmnekm341rove"
-            width={600}
-            height={600}
+            imageNameOrUrl={`app/cuisines/${item.images[2]}`}
+            width={500}
+            height={500}
             className="object-cover h-full"
           />
         </div>
