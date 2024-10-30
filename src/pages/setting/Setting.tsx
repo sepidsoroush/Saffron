@@ -7,8 +7,8 @@ import { ModeToggle } from "@/components/theme/ModeToggleMenu";
 import { Header } from "@/components/layout/header";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { LogOut, Bell } from "lucide-react";
-// import OnboardingTrigger from "@/components/onboarding/onboarding-trigger";
 import { siteConfig } from "@/lib/site";
+import { CloudDownload } from "lucide-react";
 
 export default function Setting() {
   const navigate = useNavigate();
@@ -31,8 +31,16 @@ export default function Setting() {
         <Label>Theme</Label>
         <ModeToggle />
       </Card>
+      <Card className="m-2">
+        <Link
+          to="/onboarding"
+          className="flex flex-row justify-between items-center px-4 py-2 min-h-14"
+        >
+          <Label>Recipe suggestions</Label>
+          <CloudDownload size={20} className="m-2" />
+        </Link>
+      </Card>
 
-      {/* <OnboardingTrigger /> */}
       <Card className="m-2">
         <Link
           to="/setting/notifications"
