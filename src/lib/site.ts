@@ -23,7 +23,7 @@ export const footerLinks: NavItem[] = [
 const site_url = import.meta.env.VITE_APP_URL;
 
 export const siteConfig: SiteConfig = {
-  name: "DishList",
+  name: "Saffron",
   description:
     "Custom meal plans, personalized recipes and grocery lists to help you save time and eat better.",
   url: site_url,
