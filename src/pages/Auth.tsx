@@ -17,7 +17,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen overflow-hidden fixed bg-gradient-to-t from-orange-50 to-white px-8 md:px-0 gap-16">
+    <div className="flex flex-col justify-center items-center h-screen overflow-hidden bg-gradient-to-t from-orange-50 to-white px-8 md:px-0 gap-16">
       <div className="relative h-52 max-w-[320px] w-full">
         <div className="absolute overflow-hidden w-[108px] h-[142px] top-0 left-4 rotate-6 shadow-combined border-[6px] border-white rounded-2xl">
           <CloudinaryImage
