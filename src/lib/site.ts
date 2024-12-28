@@ -1,16 +1,17 @@
 import { NavItem, SiteConfig } from "@/types/common-ui";
+
 import {
-  CalendarCheck,
-  CookingPot,
-  ShoppingCart,
-  Settings,
-} from "lucide-react";
+  Calendar3Fill,
+  ChefHatLine,
+  Basket2Line,
+  Settings1Fill,
+} from "@/components/shared/icons";
 
 export const NAVBAR: NavItem[] = [
-  { title: "Schedule", href: "/schedule", icon: CalendarCheck },
-  { title: "Meals", href: "/meals", icon: CookingPot },
-  { title: "Grocery list", href: "/ingredients", icon: ShoppingCart },
-  { title: "Setting", href: "/setting", icon: Settings },
+  { title: "Schedule", href: "/schedule", icon: Calendar3Fill },
+  { title: "Meals", href: "/meals", icon: ChefHatLine },
+  { title: "Grocery list", href: "/ingredients", icon: Basket2Line },
+  { title: "Setting", href: "/setting", icon: Settings1Fill },
 ];
 
 export const footerLinks: NavItem[] = [

@@ -12,7 +12,7 @@ export interface SelectOption {
 export interface NavItem {
   title: string;
   href: string;
-  icon?: LucideIcon;
+  icon?: LucideIcon | React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 export interface SiteConfig {
