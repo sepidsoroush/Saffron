@@ -15,7 +15,7 @@ const Navbar = () => {
         </div>
       </Header>
 
-      <div className="mt-[72px]">
+      <div className="mt-[72px] space-y-2">
         {NAVBAR.map((item) => (
           <NavbarItem key={item.title} link={item} />
         ))}
