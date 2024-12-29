@@ -1,22 +1,19 @@
 import { Link } from "react-router-dom";
-import NewItem from "@/components/shared/new-Item";
 import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = {
   children: React.ReactNode;
   backLink?: string;
-  onClick?: () => void;
-  actionTitle?: string;
   className?: string;
+  actionComponent?: React.ReactNode;
 };
 
 export function Header({
   backLink,
-  onClick,
-  actionTitle,
   children,
   className,
+  actionComponent,
 }: Props) {
   return (
     <div
@@ -36,9 +33,9 @@ export function Header({
       ) : null}
 
       <div className="text-2xl font-semibold text-left">{children}</div>
-      {onClick && actionTitle ? (
+      {actionComponent ? (
         <div className="text-right hidden md:inline-block">
-          <NewItem title={actionTitle} onClick={onClick} />
+          {actionComponent}
         </div>
       ) : null}
     </div>

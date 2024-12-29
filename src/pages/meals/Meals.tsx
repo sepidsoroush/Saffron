@@ -5,6 +5,7 @@ import { selectLoading } from "@/store/ui/ui.selector";
 import { MealCard } from "@/components/meals/meal-card";
 import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
 import { Header } from "@/components/layout/header";
+import NewItem from "@/components/shared/new-Item";
 import NewItemButton from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
@@ -56,7 +57,11 @@ function MealsPage() {
 
   return (
     <div className="flex flex-col overflow-y-auto my-[72px]">
-      <Header onClick={handleNewItemClick} actionTitle="New Meal">
+      <Header
+        actionComponent={
+          <NewItem title="Add New" onClick={handleNewItemClick} />
+        }
+      >
         Meals List
       </Header>
 

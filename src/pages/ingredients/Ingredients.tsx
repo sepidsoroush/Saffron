@@ -12,6 +12,7 @@ import { CategoryCard } from "@/components/shared/category-card";
 import NewItemButton from "@/components/shared/new-item-button";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
+import NewItem from "@/components/shared/new-Item";
 import { CategoryType } from "@/types/constants";
 
 function SkeletonList({ count }: { count: number }) {
@@ -43,7 +44,11 @@ function IngredientsPage() {
 
   return (
     <div className="flex flex-col justify-between overflow-y-auto my-[72px]">
-      <Header onClick={handleNewItemClick} actionTitle="New Item">
+      <Header
+        actionComponent={
+          <NewItem title="Add New" onClick={handleNewItemClick} />
+        }
+      >
         Grocery List
       </Header>
 
