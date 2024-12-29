@@ -3,14 +3,13 @@ import NavbarItem from "./navbar-item";
 import { Header } from "./header";
 
 import { NAVBAR, siteConfig } from "@/lib/site";
-import { Cookie } from "lucide-react";
 
 const Navbar = () => {
   return (
     <nav className="flex flex-col gap-2 overflow-hidden">
       <Header className="md:w-[220px] border-r pl-4">
         <div className="flex flex-row justify-start items-center">
-          <Cookie size={20} />
+          <img src="/favicon.png" alt="logo" loading="lazy" className="w-8" />
           <span className="ml-2">{siteConfig.name}</span>
         </div>
       </Header>
