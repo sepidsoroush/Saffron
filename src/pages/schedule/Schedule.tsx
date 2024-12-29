@@ -8,7 +8,7 @@ import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
 
 import { Card } from "@/components/ui/card";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
-import { Header } from "@/components/layout/header";
+import { Settings1Fill } from "@/components/shared/icons";
 
 import { WeekDay } from "@/types/constants";
 
@@ -60,7 +60,13 @@ function SchedulePage() {
 
   return (
     <div className="flex flex-col my-[72px]">
-      <Header>Weekly Schedule</Header>
+      <div className="flex flex-row items-center justify-between w-full md:w-[calc(100vw-240px)] p-4 fixed top-0 z-10 bg-background/60 backdrop-blur-xl transition-all border-b h-[72px]">
+        <div className="text-lg font-bold text-left">Plan</div>
+
+        <Link to="/setting/notifications" className="text-zinc-400">
+          <Settings1Fill width={24} height={24} />
+        </Link>
+      </div>
       <div className="p-2">
         {completeSchedule
           .sort((a, b) => a.day_id - b.day_id)
