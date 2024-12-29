@@ -30,8 +30,8 @@ function MealsListByCuisine({
     <div className="space-y-4 mt-4">
       {Object.entries(groupedMeals).map(([cuisine, meals]) => (
         <div key={cuisine}>
-          <h2 className="text-xl font-bold px-2">{cuisine}</h2>
-          <ul className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden">
+          <h2 className="text-xl font-bold">{cuisine}</h2>
+          <ul className="py-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden">
             {meals.map((meal) => (
               <MealCard key={meal.id} meal={meal} />
             ))}
@@ -56,7 +56,7 @@ function MealsPage() {
   const isEmptyStateVisible = !isLoading && mealsData.length === 0;
 
   return (
-    <div className="flex flex-col overflow-y-auto my-[72px]">
+    <div className="flex flex-col overflow-y-auto">
       <Header
         actionComponent={
           <NewItem title="Add New" onClick={handleNewItemClick} />

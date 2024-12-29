@@ -26,7 +26,7 @@ export function FormTitle({
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-between max-w-full border-b h-[72px]",
+        "flex flex-row items-center justify-between max-w-full h-[72px]",
         className
       )}
     >

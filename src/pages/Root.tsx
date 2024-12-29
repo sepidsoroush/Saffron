@@ -44,10 +44,10 @@ function RootLayout() {
       <ScrollToTop />
 
       <div className="flex">
-        <aside className="md:w-[220px] fixed h-full border-r bg-background/60 backdrop-blur-xl transition-all">
+        <aside className="md:w-[220px] hidden md:block fixed h-full border-r bg-background/60 backdrop-blur-xl transition-all">
           <Navbar />
         </aside>
-        <main className="w-full md:ml-[220px] md:mb-0 flex-1 overflow-auto">
+        <main className="w-full md:ml-[220px] md:mb-0 px-[22px] mb-[72px] overflow-auto">
           <Outlet />
         </main>
         <div className="fixed bottom-0 md:hidden bg-background/60 backdrop-blur-xl transition-all w-full z-30 flex justify-center items-center border-t">

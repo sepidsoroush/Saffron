@@ -33,7 +33,6 @@ const MealDetails: React.FC = () => {
         title={mealToUpdate?.name || ""}
         actionTitle="Edit"
         action={editMealHandler}
-        className="px-4"
       />
       <div className="flex flex-col md:flex-row">
         {mealToUpdate?.imageUrl ? (
@@ -46,7 +45,7 @@ const MealDetails: React.FC = () => {
         ) : (
           <NoImageMeal />
         )}
-        <div className="p-4 mb-[72px]">
+        <div>
           <div className="flex flex-row justify-between items-center mb-2">
             <h1 className="text-3xl">{mealToUpdate?.name}</h1>
             {mealToUpdate && <FavoriteMeal meal={mealToUpdate} />}

@@ -43,7 +43,7 @@ function IngredientsPage() {
   const isEmptyStateVisible = !isLoading && numberOfIngredients === 0;
 
   return (
-    <div className="flex flex-col justify-between overflow-y-auto my-[72px]">
+    <div className="flex flex-col justify-between overflow-y-auto">
       <Header
         actionComponent={
           <NewItem title="Add New" onClick={handleNewItemClick} />
@@ -59,7 +59,7 @@ function IngredientsPage() {
       ) : isEmptyStateVisible && !isCreating ? (
         <EmptyStateIngredients />
       ) : (
-        <div className="flex-1 p-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
+        <div className="flex-1 py-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
           {Object.values(CategoryType).map((category) => {
             const categoryItems = getIngredientsByCategory(category);
             const numberOfIngredientsInCategory = categoryItems.length;

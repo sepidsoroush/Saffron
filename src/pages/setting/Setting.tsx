@@ -20,50 +20,51 @@ export default function Setting() {
   };
 
   return (
-    <div className="flex flex-col space-y-2 mt-[72px]">
+    <div className="flex flex-col">
       <Header>Settings</Header>
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2 min-h-14">
-        <Label>User</Label>
-        <div className="text-gray-600">{user?.email}</div>
-      </Card>
-
-      <Card className="flex flex-row justify-between items-center pl-4 pr-6 py-2 m-2 min-h-14">
-        <Label>Theme</Label>
-        <ModeToggle />
-      </Card>
-      <Card className="m-2">
-        <Link
-          to="/onboarding"
-          className="flex flex-row justify-between items-center px-4 py-2 min-h-14"
-        >
-          <Label>Recipe suggestions</Label>
-          <CloudDownload size={20} className="m-2" />
-        </Link>
-      </Card>
-
-      <Card className="m-2">
-        <Link
-          to="/setting/notifications"
-          className="flex flex-row justify-between items-center px-4 py-2 min-h-14"
-        >
-          <Label>Notifications</Label>
-          <Bell size={20} className="m-2" />
-        </Link>
-      </Card>
-      <Card className="flex flex-row justify-between items-center px-4 py-2 m-2">
-        <Label>Log out</Label>
-        <ConfirmAlertDialog
-          onConfirm={logoutHandler}
-          triggerIcon={
-            <div className="pl-36">
-              <LogOut className="h-[1.2rem] w-[1.2rem]" color="#dc2626" />
-            </div>
-          }
-          title={`Log out of ${siteConfig.name}?`}
-          descriptionText="You can always log back in at any time."
-          variant="link"
-        />
-      </Card>
+      <div className="space-y-2">
+        {" "}
+        <Card className="flex flex-row justify-between items-center px-4 py-2 min-h-14">
+          <Label>User</Label>
+          <div className="text-gray-600">{user?.email}</div>
+        </Card>
+        <Card className="flex flex-row justify-between items-center pl-4 pr-6 py-2 min-h-14">
+          <Label>Theme</Label>
+          <ModeToggle />
+        </Card>
+        <Card className="">
+          <Link
+            to="/onboarding"
+            className="flex flex-row justify-between items-center px-4 py-2 min-h-14"
+          >
+            <Label>Recipe suggestions</Label>
+            <CloudDownload size={20} className="m-2" />
+          </Link>
+        </Card>
+        <Card className="">
+          <Link
+            to="/setting/notifications"
+            className="flex flex-row justify-between items-center px-4 py-2 min-h-14"
+          >
+            <Label>Notifications</Label>
+            <Bell size={20} className="m-2" />
+          </Link>
+        </Card>
+        <Card className="flex flex-row justify-between items-center px-4 py-2 ">
+          <Label>Log out</Label>
+          <ConfirmAlertDialog
+            onConfirm={logoutHandler}
+            triggerIcon={
+              <div className="pl-36">
+                <LogOut className="h-[1.2rem] w-[1.2rem]" color="#dc2626" />
+              </div>
+            }
+            title={`Log out of ${siteConfig.name}?`}
+            descriptionText="You can always log back in at any time."
+            variant="link"
+          />
+        </Card>
+      </div>
     </div>
   );
 }

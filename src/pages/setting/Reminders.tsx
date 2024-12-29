@@ -9,12 +9,8 @@ const Reminders = () => {
 
   return (
     <>
-      <FormTitle
-        backLink="/setting/notifications"
-        title="Reminders"
-        className="px-4"
-      />
-      <div className="flex items-center justify-between p-2 m-2">
+      <FormTitle backLink="/setting/notifications" title="Reminders" />
+      <div className="flex items-center justify-between py-2">
         <p className="text-sm font-medium leading-none">
           Remind me to make a meal plan
         </p>

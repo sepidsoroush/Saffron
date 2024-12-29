@@ -16,11 +16,11 @@ const Notifications: React.FC = () => {
 
   return (
     <>
-      <FormTitle backLink="/setting" title="Notifications" className="px-4" />
+      <FormTitle backLink="/setting" title="Notifications" />
 
       <Link
         to="/setting/notifications/reminders"
-        className="flex items-center space-x-4 rounded-md border p-4 m-2"
+        className="flex items-center space-x-4 rounded-md border p-4 my-2"
       >
         <div className="flex-1 space-y-1">
           <p className="text-sm font-medium leading-none">
@@ -37,7 +37,7 @@ const Notifications: React.FC = () => {
           <ChevronRight size={20} color="gray" />
         </div>
       </Link>
-      <div className="flex items-center space-x-4 rounded-md border p-4 m-2">
+      <div className="flex items-center space-x-4 rounded-md border p-4 my-2">
         <div className="flex-1 space-y-1">
           <p className="text-sm font-medium leading-none">What's new updates</p>
           <p className="text-xs text-muted-foreground">

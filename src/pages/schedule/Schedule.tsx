@@ -59,18 +59,15 @@ function SchedulePage() {
   };
 
   return (
-    <div className="flex flex-col my-[72px]">
-      <div className="flex flex-row items-center justify-between w-full md:w-[calc(100vw-240px)] p-4 fixed top-0 z-10 bg-background/60 backdrop-blur-xl transition-all border-b h-[72px]">
+    <div className="flex flex-col w-full">
+      <div className="flex flex-row items-center justify-between w-full top-0 z-10 bg-background/60 backdrop-blur-xl transition-all h-[72px]">
         <div className="text-lg font-bold text-left">Plan</div>
 
-        <Link
-          to="/setting/notifications"
-          className="text-zinc-400 block md:hidden"
-        >
+        <Link to="/setting" className="text-zinc-400 block md:hidden">
           <Settings1Fill width={24} height={24} />
         </Link>
       </div>
-      <div className="p-2">
+      <div>
         {completeSchedule
           .sort((a, b) => a.day_id - b.day_id)
           .map((item) => (

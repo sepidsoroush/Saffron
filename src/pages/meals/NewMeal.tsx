@@ -5,10 +5,8 @@ import { FormTitle } from "@/components/meals/form-title";
 const NewMealPage: React.FC = () => {
   return (
     <>
-      <FormTitle backLink="/meals" title="Add a new meal" className="px-4" />
-      <div className="p-4 mb-[72px]">
-        <MealForm actionType="create" />
-      </div>
+      <FormTitle backLink="/meals" title="Add a new meal" />
+      <MealForm actionType="create" />
     </>
   );
 };

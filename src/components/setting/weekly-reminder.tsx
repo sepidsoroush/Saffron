@@ -32,7 +32,7 @@ const WeeklyReminder = ({ isDisabled }: Props) => {
     <Drawer open={open} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
         <div
-          className={`flex items-center justify-between p-4 m-4 rounded-md bg-gray-100 dark:bg-gray-800 ${
+          className={`flex items-center justify-between p-4 my-4 rounded-md bg-gray-100 dark:bg-gray-800 ${
             isDisabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

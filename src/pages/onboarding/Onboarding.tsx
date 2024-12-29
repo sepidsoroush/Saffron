@@ -17,7 +17,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex flex-col justify-between overflow-y-auto px-5 mb-[72px]">
+    <div className="flex flex-col justify-between overflow-y-auto">
       <div className="mt-[22px] mb-7">
         <div className="font-bold text-[28px] mb-[6px]">Pick cuisines</div>
         <div className="text-sm font-light leading-4 break-words">
