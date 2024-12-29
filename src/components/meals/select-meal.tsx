@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-
 import { useMediaQuery } from "@/hooks/use-media-query";
-
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-
 import {
   Drawer,
   DrawerContent,
@@ -42,7 +39,11 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
     return (
       <Popover open={open} onOpenChange={setOpen} aria-describedby={undefined}>
         <PopoverTrigger asChild>
-          <AddMealButton />
+          <div className="w-full h-16 flex items-center place-content-center">
+            <div className="text-neutral-300 bg-neutral-100 rounded-full w-[30px] h-[30px] flex items-center place-content-center shadow-inner">
+              <AddFill width={20} height={20} />
+            </div>
+          </div>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0" align="start">
           <MealList setOpen={setOpen} setSelectedMeal={setSelectedMeal} />
@@ -54,7 +55,11 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <AddMealButton />
+        <div className="w-full h-16 flex items-center place-content-center">
+          <div className="text-neutral-300 bg-neutral-100 rounded-full w-[30px] h-[30px] flex items-center place-content-center shadow-inner">
+            <AddFill width={20} height={20} />
+          </div>
+        </div>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerTitle>
@@ -70,13 +75,3 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
     </Drawer>
   );
 }
-
-const AddMealButton = () => {
-  return (
-    <div className="w-full h-16 flex items-center place-content-center">
-      <div className="text-neutral-300 bg-neutral-100 rounded-full w-[30px] h-[30px] flex items-center place-content-center shadow-inner">
-        <AddFill width={20} height={20} />
-      </div>
-    </div>
-  );
-};
