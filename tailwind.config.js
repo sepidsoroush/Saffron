@@ -19,7 +19,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['"Rethink Sans"', "sans-serif"],
+        sans: ['"SF Pro Rounded"', "Fredoka"],
       },
       boxShadow: {
         combined:
