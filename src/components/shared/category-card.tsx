@@ -30,7 +30,7 @@ export const CategoryCard: React.FC<Props> = ({ header, items, className }) => {
         {header}
         <motion.button
           onClick={toggleHeader}
-          className="text-lime-600"
+          className="text-accent"
           animate={{ rotate: isOpen ? 0 : 90 }}
           transition={{ duration: 0.2 }}
         >

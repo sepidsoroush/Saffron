@@ -135,7 +135,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
         checked={ingredient?.available || false}
         className={
           ingredient?.available
-            ? "data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
+            ? "data-[state=checked]:bg-accent data-[state=checked]:border-accent"
             : ""
         }
         onClick={checkboxHandler}

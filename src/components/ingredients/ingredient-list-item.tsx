@@ -18,7 +18,7 @@ const IngredientListItem = ({ ingredient }: Props) => {
         checked={ingredient.available}
         className={cn(
           ingredient?.available
-            ? "data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
+            ? "data-[state=checked]:bg-accent data-[state=checked]:border-accent"
             : "",
           "cursor-not-allowed"
         )}

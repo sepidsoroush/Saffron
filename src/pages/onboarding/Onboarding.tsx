@@ -39,7 +39,7 @@ export default function OnboardingPage() {
           "w-full h-[50px] mt-12 mb-4 rounded-2xl shadow-button",
           selectedCuisines.length === 0
             ? "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-            : "bg-lime-200 text-black cursor-pointer"
+            : "bg-orange-400 text-black cursor-pointer"
         )}
         disabled={selectedCuisines.length === 0}
         onClick={() => console.log(selectedCuisines)}
@@ -71,7 +71,7 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
     <div
       className={cn(
         "rounded-xl min-h-[118px] w-full grid grid-cols-2 gap-1 p-4 cursor-pointer",
-        isCuisineSelected ? "bg-lime-50" : "bg-neutral-100"
+        isCuisineSelected ? "bg-orange-100" : "bg-neutral-100"
       )}
       onClick={(e) => {
         e.stopPropagation();
@@ -86,7 +86,7 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
         <Checkbox
           checked={isCuisineSelected}
           className={cn(
-            "border-0 bg-white w-[30px] h-[30px] data-[state=checked]:bg-lime-200 data-[state=checked]:text-black",
+            "border-0 bg-white w-[30px] h-[30px] data-[state=checked]:bg-orange-400 data-[state=checked]:text-black",
             isCuisineSelected ? "" : "shadow-checkbox"
           )}
           id={`cuisine-${item.name}`}
