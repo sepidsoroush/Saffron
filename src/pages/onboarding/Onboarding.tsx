@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { cuisineInfo } from "@/types/constants";
 import CloudinaryImage from "@/components/shared/cloudinary-image";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,14 +18,14 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex flex-col justify-between overflow-y-auto">
+    <div className="flex flex-col justify-between overflow-y-auto overflow-x-hidden">
       <div className="mt-[22px] mb-7">
         <div className="font-bold text-[28px] mb-[6px]">Pick cuisines</div>
         <div className="text-sm font-light leading-4 break-words">
           Let's head to flavor town!
         </div>
       </div>
-      <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+      <div className="px-0.5 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
         {cuisineInfo.map((item) => (
           <CuisineCard
             key={item.id}
@@ -68,7 +69,7 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
   toggleCuisineSelection,
 }) => {
   return (
-    <div
+    <motion.div
       className={cn(
         "rounded-xl min-h-[118px] w-full grid grid-cols-2 gap-1 p-4 cursor-pointer",
         isCuisineSelected ? "bg-orange-100" : "bg-neutral-100"
@@ -77,6 +78,8 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
         e.stopPropagation();
         toggleCuisineSelection(item.name);
       }}
+      whileTap={{ scale: 1.03 }}
+      transition={{ duration: 0.3 }}
     >
       <div className="flex flex-col items-start justify-between">
         <div>
@@ -127,6 +130,6 @@ const CuisineCard: React.FC<CuisineCardProps> = ({
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
