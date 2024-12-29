@@ -67,13 +67,15 @@ function SchedulePage() {
           <Settings1Fill width={24} height={24} />
         </Link>
       </div>
-      <div>
+      <div className="space-y-4 md:mb-4">
         {completeSchedule
           .sort((a, b) => a.day_id - b.day_id)
           .map((item) => (
             <div key={item.day_id}>
-              <span className="text-xs text-gray-500">{item.day}</span>
-              <Card className="flex flex-row justify-center items-center border relative">
+              <div className="text-sm font-semibold text-neutral-400 mb-2">
+                {item.day}
+              </div>
+              <Card className="flex flex-row justify-center items-center rounded-xl border-dashed border-neutral-200 relative shadow-none">
                 {item.meal ? (
                   <>
                     <Link
