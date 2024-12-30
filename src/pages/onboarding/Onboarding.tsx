@@ -40,7 +40,7 @@ export default function OnboardingPage() {
           "w-full h-[50px] mt-12 mb-4 rounded-2xl shadow-button",
           selectedCuisines.length === 0
             ? "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-            : "bg-orange-400 text-black cursor-pointer"
+            : "bg-neutral-800 text-white cursor-pointer"
         )}
         disabled={selectedCuisines.length === 0}
         onClick={() => console.log(selectedCuisines)}
