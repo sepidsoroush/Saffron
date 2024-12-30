@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { selectMeals } from "@/store/meals/meals.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
@@ -10,6 +10,7 @@ import NewItemButton from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
 import { groupMealsByCuisine } from "@/lib/utils";
+import { Settings1Fill } from "@/components/shared/icons";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -58,11 +59,16 @@ function MealsPage() {
   return (
     <div className="flex flex-col overflow-y-auto">
       <Header
-        actionComponent={
+        desktopActionComponent={
           <NewItem title="Add New" onClick={handleNewItemClick} />
         }
+        mobileActionComponent={
+          <Link to="/setting" className="text-zinc-400 block md:hidden">
+            <Settings1Fill width={24} height={24} />
+          </Link>
+        }
       >
-        Meals List
+        Meals list
       </Header>
 
       {isLoading ? (

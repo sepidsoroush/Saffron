@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAppSelector } from "@/store/hooks";
+import { Link } from "react-router-dom";
 import {
   selectIngredientsLength,
   selectIngredients,
@@ -14,6 +15,7 @@ import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
 import NewItem from "@/components/shared/new-Item";
 import { CategoryType } from "@/types/constants";
+import { Settings1Fill } from "@/components/shared/icons";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -43,10 +45,15 @@ function IngredientsPage() {
   const isEmptyStateVisible = !isLoading && numberOfIngredients === 0;
 
   return (
-    <div className="flex flex-col justify-between overflow-y-auto">
+    <div className="flex flex-col overflow-y-auto">
       <Header
-        actionComponent={
+        desktopActionComponent={
           <NewItem title="Add New" onClick={handleNewItemClick} />
+        }
+        mobileActionComponent={
+          <Link to="/setting" className="text-zinc-400 block md:hidden">
+            <Settings1Fill width={24} height={24} />
+          </Link>
         }
       >
         Grocery List

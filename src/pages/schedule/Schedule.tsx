@@ -9,6 +9,7 @@ import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
 
 import { Card } from "@/components/ui/card";
 import CloudinaryImage from "@/components/shared/cloudinary-image";
+import { Header } from "@/components/layout/header";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
 import NoImageMeal from "@/components/meals/no-image-meal";
 import { CloseFill, Settings1Fill } from "@/components/shared/icons";
@@ -58,13 +59,15 @@ function SchedulePage() {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row items-center justify-between w-full top-0 z-10 bg-background/60 backdrop-blur-xl transition-all h-[72px]">
-        <div className="text-lg font-bold text-left">Plan</div>
-
-        <Link to="/setting" className="text-zinc-400 block md:hidden">
-          <Settings1Fill width={24} height={24} />
-        </Link>
-      </div>
+      <Header
+        mobileActionComponent={
+          <Link to="/setting" className="text-zinc-400 block md:hidden">
+            <Settings1Fill width={24} height={24} />
+          </Link>
+        }
+      >
+        Plan
+      </Header>
       <div className="space-y-4 md:mb-4">
         {completeSchedule
           .sort((a, b) => a.day_id - b.day_id)

@@ -4,7 +4,7 @@ import supabase from "@/config/supabaseConfig";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/theme/ModeToggleMenu";
-import { Header } from "@/components/layout/header";
+import { FormTitle } from "@/components/meals/form-title";
 import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 import { LogOut, Bell } from "lucide-react";
 import { siteConfig } from "@/lib/site";
@@ -21,9 +21,9 @@ export default function Setting() {
 
   return (
     <div className="flex flex-col">
-      <Header>Settings</Header>
+      <FormTitle title="Settings" />
+
       <div className="space-y-2">
-        {" "}
         <Card className="flex flex-row justify-between items-center px-4 py-2 min-h-14">
           <Label>User</Label>
           <div className="text-gray-600">{user?.email}</div>

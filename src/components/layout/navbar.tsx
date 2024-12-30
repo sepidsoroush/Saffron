@@ -7,10 +7,10 @@ import { NAVBAR, siteConfig } from "@/lib/site";
 const Navbar = () => {
   return (
     <nav className="flex flex-col gap-2 overflow-hidden">
-      <Header className="md:w-[220px] border-r pl-4">
-        <div className="flex flex-row justify-start items-center">
+      <Header>
+        <div className="flex flex-row justify-start items-center pl-4">
           <img src="/favicon.png" alt="logo" loading="lazy" className="w-8" />
-          <span className="ml-2">{siteConfig.name}</span>
+          <span className="ml-2 text-3xl">{siteConfig.name}</span>
         </div>
       </Header>
 
