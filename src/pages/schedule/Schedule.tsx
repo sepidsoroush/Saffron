@@ -8,15 +8,13 @@ import {
 import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
 import { selectCompositionsByMealId } from "@/store/compositions/compositions.selector";
 
-import CloudinaryImage from "@/components/shared/cloudinary-image";
 import { Header } from "@/components/layout/header";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
-import NoImageMeal from "@/components/meals/no-image-meal";
-import { Delete3Line, Settings1Fill } from "@/components/shared/icons";
-import { Badge } from "@/components/ui/badge";
+import { Settings1Fill } from "@/components/shared/icons";
 
 import { WeekDay, emptySchedule } from "@/types/constants";
-import { cn, uniqueId } from "@/lib/utils";
+import { uniqueId } from "@/lib/utils";
+import { MealCardDrawer } from "@/components/plan/meal-card-drawer";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();
@@ -88,7 +86,6 @@ function SchedulePage() {
         {completeSchedule
           .sort((a, b) => a.day_id - b.day_id)
           .map((item) => {
-            const MAXCOUNT = 6;
             const ingredients =
               item.meal?.id && ingredientsByMealId[item.meal.id]
                 ? ingredientsByMealId[item.meal.id]
@@ -106,69 +103,12 @@ function SchedulePage() {
                 )}
 
                 {item.meal ? (
-                  <div className="flex flex-row justify-between items-start gap-[6px]">
-                    <Link
-                      to={`/meals/${item.meal.name}`}
-                      state={{ id: item.meal.id }}
-                      className="flex flex-row items-start gap-[6px]"
-                    >
-                      {item.meal.imageUrl ? (
-                        <CloudinaryImage
-                          imageNameOrUrl={item.meal.imageUrl}
-                          width={500}
-                          height={500}
-                          className="h-[72px] w-[72px] rounded-xl object-cover"
-                        />
-                      ) : (
-                        <NoImageMeal />
-                      )}
-                      <div className="w-full">
-                        <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200">
-                          {item.meal?.name}
-                        </div>
-                        <div>
-                          <ul className="flex fle-row flex-wrap gap-1">
-                            {ingredients
-                              .sort(
-                                (a, b) =>
-                                  Number(b.ingredient?.available) -
-                                  Number(a.ingredient?.available)
-                              )
-                              .slice(0, MAXCOUNT)
-                              .map((comp) => (
-                                <Badge
-                                  key={comp.id}
-                                  variant="outline"
-                                  className={cn(
-                                    "text-xs font-medium py-[3px] px-2",
-                                    comp.ingredient?.available
-                                      ? "text-yellow-700 bg-yellow-100 border border-yellow-200"
-                                      : "text-neutral-500"
-                                  )}
-                                >
-                                  {comp.ingredient?.name}
-                                </Badge>
-                              ))}
-
-                            {ingredients.length > MAXCOUNT && (
-                              <Badge
-                                variant="outline"
-                                className="text-xs font-medium text-neutral-500 py-[3px] px-2"
-                              >
-                                {`+ ${ingredients.length - MAXCOUNT}`}
-                              </Badge>
-                            )}
-                          </ul>
-                        </div>
-                      </div>
-                    </Link>
-                    <div
-                      onClick={() => handleDeleteMeal(item.day)}
-                      className="text-neutral-500 hover:text-orange-600 focus:text-orange-600 bg-neutral-100 rounded-full w-6 h-6 flex items-center place-content-center shadow-inner"
-                    >
-                      <Delete3Line width={16} height={16} />
-                    </div>
-                  </div>
+                  <MealCardDrawer
+                    meal={item.meal}
+                    ingredients={ingredients}
+                    day={item.day}
+                    onDelete={handleDeleteMeal}
+                  />
                 ) : (
                   <div className="flex flex-row justify-center items-center rounded-xl border border-dashed border-neutral-200 relative shadow-none">
                     <SelectMealComboBox

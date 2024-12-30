@@ -13,13 +13,13 @@ const IngredientListItem = ({ ingredient }: Props) => {
   }
 
   return (
-    <li className="flex flex-row justify-start items-center my-1">
+    <li className="flex flex-row justify-start items-center px-1 py-3">
       <Checkbox
         checked={ingredient.available}
         className={cn(
           ingredient?.available
-            ? "data-[state=checked]:bg-accent data-[state=checked]:border-accent"
-            : "",
+            ? "data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+            : "border-neutral-300",
           "cursor-not-allowed"
         )}
         id={`ingredient-${ingredient.id}`}
@@ -27,10 +27,7 @@ const IngredientListItem = ({ ingredient }: Props) => {
 
       <Label
         htmlFor={`ingredient-${ingredient.id}`}
-        className={cn(
-          ingredient.available ? "text-gray-400" : "",
-          "ml-1 text-sm font-light"
-        )}
+        className="ml-1.5 text-[15px] font-medium text-neutral-600 dark:text-neutral-400"
       >
         {ingredient.name}
       </Label>
