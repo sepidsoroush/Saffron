@@ -70,6 +70,8 @@ function SchedulePage() {
     dispatch(deleteSchedule(day));
   };
 
+  const today = new Date().toLocaleString("en-us", { weekday: "long" });
+
   return (
     <div className="flex flex-col w-full">
       <Header
@@ -93,9 +95,15 @@ function SchedulePage() {
                 : [];
             return (
               <div key={item.day_id}>
-                <div className="text-sm font-semibold text-neutral-400 mb-2">
-                  {item.day}
-                </div>
+                {item.day === today ? (
+                  <div className="text-sm font-semibold text-orange-600 mb-2">
+                    Today
+                  </div>
+                ) : (
+                  <div className="text-sm font-semibold text-neutral-400 mb-2">
+                    {item.day}
+                  </div>
+                )}
 
                 {item.meal ? (
                   <div className="flex flex-row justify-between items-start gap-[6px]">
