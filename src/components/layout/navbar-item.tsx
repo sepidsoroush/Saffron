@@ -20,13 +20,13 @@ const NavbarItem = ({ link }: Props) => {
     <Link
       to={link.href}
       className={cn(
-        "group flex flex-col md:flex-row items-center justify-center md:justify-between rounded-full py-[6px] px-4 md:px-4 hover:bg-accent-foreground hover:text-accent bg-accent-neutral-400",
+        "group flex md:flex-row items-center justify-center md:justify-between rounded-full py-[6px] px-4 hover:text-accent bg-accent-neutral-400",
         location.pathname === link.href
-          ? "bg-accent-foreground text-accent"
+          ? "bg-accent-foreground md:bg-transparent text-accent"
           : "transparent text-neutral-400"
       )}
     >
-      <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="flex items-center justify-center">
         <div className="flex flex-row justify-start items-center">
           {location.pathname === link.href ? (
             <link.iconfill width={30} height={30} className="md:mr-2" />
@@ -35,7 +35,7 @@ const NavbarItem = ({ link }: Props) => {
           )}
 
           {link.title === "Grocery list" && essentialItems !== 0 ? (
-            <span className="h-1 w-1 rounded-full bg-red-600 -top-2 relative md:hidden"></span>
+            <span className="h-1 w-1 rounded-full bg-orange-600 -top-2 relative md:hidden"></span>
           ) : null}
         </div>
         <span className="text-[10px] md:text-sm font-light md:font-medium hidden md:block">
@@ -43,7 +43,7 @@ const NavbarItem = ({ link }: Props) => {
         </span>
       </div>
       {link.title === "Grocery list" ? (
-        <Badge className="ml-1 hidden md:flex self-end" variant="destructive">
+        <Badge className="ml-1 hidden bg-orange-600 md:flex">
           {essentialItems}
         </Badge>
       ) : null}
