@@ -5,7 +5,7 @@ import { NAVBAR } from "@/lib/site";
 
 const MobileNavbar = () => {
   return (
-    <div className="grid grid-cols-3 md:gap-2 gap-9 p-2">
+    <div className="grid grid-cols-3 md:gap-2 gap-9 p-2 mb-2.5">
       <Separator className="hidden md:inline" />
       {NAVBAR.filter((item) => item.title !== "Setting").map((item) => (
         <NavbarItem key={item.title} link={item} />
