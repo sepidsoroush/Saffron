@@ -16,7 +16,7 @@ import { Delete3Line, Settings1Fill } from "@/components/shared/icons";
 import { Badge } from "@/components/ui/badge";
 
 import { WeekDay, emptySchedule } from "@/types/constants";
-import { uniqueId } from "@/lib/utils";
+import { cn, uniqueId } from "@/lib/utils";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();
@@ -120,15 +120,27 @@ function SchedulePage() {
                         </div>
                         <div>
                           <ul className="flex fle-row flex-wrap gap-1">
-                            {ingredients.slice(0, MAXCOUNT).map((comp) => (
-                              <Badge
-                                key={comp.id}
-                                variant="outline"
-                                className="text-xs font-medium text-neutral-500 py-[3px] px-2"
-                              >
-                                {comp.ingredient?.name}
-                              </Badge>
-                            ))}
+                            {ingredients
+                              .sort(
+                                (a, b) =>
+                                  Number(b.ingredient?.available) -
+                                  Number(a.ingredient?.available)
+                              )
+                              .slice(0, MAXCOUNT)
+                              .map((comp) => (
+                                <Badge
+                                  key={comp.id}
+                                  variant="outline"
+                                  className={cn(
+                                    "text-xs font-medium py-[3px] px-2",
+                                    comp.ingredient?.available
+                                      ? "text-yellow-700 bg-yellow-100 border border-yellow-200"
+                                      : "text-neutral-500"
+                                  )}
+                                >
+                                  {comp.ingredient?.name}
+                                </Badge>
+                              ))}
 
                             {ingredients.length > MAXCOUNT && (
                               <Badge
