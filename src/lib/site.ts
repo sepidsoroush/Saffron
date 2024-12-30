@@ -1,20 +1,39 @@
-import { NavItem, SiteConfig } from "@/types/common-ui";
+import { NavItem, FooterItem, SiteConfig } from "@/types/common-ui";
 
 import {
   Calendar3Fill,
   ChefHatLine,
   Basket2Line,
   Settings1Fill,
+  Calendar3Line,
+  ChefHatFill,
+  Basket2Fill,
+  Settings1Line,
 } from "@/components/shared/icons";
 
 export const NAVBAR: NavItem[] = [
-  { title: "Schedule", href: "/schedule", icon: Calendar3Fill },
-  { title: "Meals", href: "/meals", icon: ChefHatLine },
-  { title: "Grocery list", href: "/ingredients", icon: Basket2Line },
-  { title: "Setting", href: "/setting", icon: Settings1Fill },
+  {
+    title: "Schedule",
+    href: "/schedule",
+    icon: Calendar3Line,
+    iconfill: Calendar3Fill,
+  },
+  { title: "Meals", href: "/meals", icon: ChefHatLine, iconfill: ChefHatFill },
+  {
+    title: "Grocery list",
+    href: "/ingredients",
+    icon: Basket2Line,
+    iconfill: Basket2Fill,
+  },
+  {
+    title: "Setting",
+    href: "/setting",
+    icon: Settings1Line,
+    iconfill: Settings1Fill,
+  },
 ];
 
-export const footerLinks: NavItem[] = [
+export const footerLinks: FooterItem[] = [
   { title: "About", href: "#" },
   { title: "Docs", href: "#" },
   { title: "FAQ", href: "#" },

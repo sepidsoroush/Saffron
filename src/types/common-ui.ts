@@ -9,10 +9,16 @@ export interface SelectOption {
   label: string;
 }
 
+export interface FooterItem {
+  title: string;
+  href: string;
+}
+
 export interface NavItem {
   title: string;
   href: string;
-  icon?: LucideIcon | React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: LucideIcon | React.FC<React.SVGProps<SVGSVGElement>>;
+  iconfill: LucideIcon | React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 export interface SiteConfig {
