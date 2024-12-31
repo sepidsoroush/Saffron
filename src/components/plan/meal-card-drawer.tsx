@@ -62,8 +62,8 @@ export const MealCardDrawer = ({
                   {ingredients
                     .sort(
                       (a, b) =>
-                        Number(b.ingredient?.available) -
-                        Number(a.ingredient?.available)
+                        Number(a.ingredient?.available) -
+                        Number(b.ingredient?.available)
                     )
                     .slice(0, MAXCOUNT)
                     .map((comp) => (
@@ -73,8 +73,8 @@ export const MealCardDrawer = ({
                         className={cn(
                           "text-xs font-medium py-[3px] px-2",
                           comp.ingredient?.available
-                            ? "text-yellow-700 bg-yellow-100 border border-yellow-200"
-                            : "text-neutral-500"
+                            ? "text-neutral-500"
+                            : "text-yellow-700 bg-yellow-100 border border-yellow-200"
                         )}
                       >
                         {comp.ingredient?.name}
