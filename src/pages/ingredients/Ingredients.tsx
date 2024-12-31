@@ -1,21 +1,18 @@
 import { useState } from "react";
 import { useAppSelector } from "@/store/hooks";
-import { Link } from "react-router-dom";
 import {
   selectIngredientsLength,
   selectIngredients,
 } from "@/store/ingredients/ingredients.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 
-import { Header } from "@/components/layout/header";
 import NewIngredient from "@/components/ingredients/new-ingredient";
 import { CategoryCard } from "@/components/shared/category-card";
-import NewItemButton from "@/components/shared/new-item-button";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
+import { NewItemButton } from "@/components/shared/new-item-button";
 import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
-import NewItem from "@/components/shared/new-Item";
 import { CategoryType } from "@/types/constants";
-import { Settings1Fill } from "@/components/shared/icons";
+import { Header } from "@/components/layout/header";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -46,17 +43,8 @@ function IngredientsPage() {
 
   return (
     <div className="flex flex-col overflow-y-auto">
-      <Header
-        desktopActionComponent={
-          <NewItem title="Add New" onClick={handleNewItemClick} />
-        }
-        mobileActionComponent={
-          <Link to="/setting" className="text-zinc-400 block md:hidden">
-            <Settings1Fill width={24} height={24} />
-          </Link>
-        }
-      >
-        Grocery List
+      <Header actionComponent={<NewItemButton onClick={handleNewItemClick} />}>
+        Shopping list
       </Header>
 
       {isCreating && <NewIngredient setIsCreating={setIsCreating} />}
@@ -82,10 +70,6 @@ function IngredientsPage() {
           })}
         </div>
       )}
-
-      <div className="md:hidden inline-block bottom-20 right-5 fixed">
-        <NewItemButton onClick={handleNewItemClick} />
-      </div>
     </div>
   );
 }

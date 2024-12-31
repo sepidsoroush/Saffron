@@ -8,16 +8,14 @@ type Props = {
   onClick?: () => void;
   actionTitle?: string;
   className?: string;
-  mobileActionComponent?: React.ReactNode;
-  desktopActionComponent?: React.ReactNode;
+  actionComponent?: React.ReactNode;
 };
 
 export function Header({
   backLink,
   children,
   className,
-  mobileActionComponent,
-  desktopActionComponent,
+  actionComponent,
 }: Props) {
   return (
     <div
@@ -38,14 +36,7 @@ export function Header({
       ) : null}
 
       <div className="text-2xl font-semibold text-left">{children}</div>
-      <div className="flex flex-row space-x-4">
-        {mobileActionComponent && (
-          <div className="block md:hidden">{mobileActionComponent}</div>
-        )}
-        {desktopActionComponent && (
-          <div className="hidden md:block">{desktopActionComponent}</div>
-        )}
-      </div>
+      <div className="flex flex-row space-x-4">{actionComponent}</div>
     </div>
   );
 }

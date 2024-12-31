@@ -1,20 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { AddCircleFill } from "./icons";
 
 type Props = {
   onClick: () => void;
 };
 
-function NewItemButton({ onClick }: Props) {
+export function NewItemButton({ onClick }: Props) {
   return (
-    <Button
-      variant="default"
-      className="group flex items-center justify-center md:justify-start rounded-full p-2 text-sm font-medium w-12 h-12 bg-accent shadow-xl"
-      onClick={onClick}
-    >
-      <Plus size={18} strokeWidth={3} />
-    </Button>
+    <div className="text-orange-500" onClick={onClick}>
+      <AddCircleFill width={30} height={30} />
+    </div>
   );
 }
-
-export default NewItemButton;
