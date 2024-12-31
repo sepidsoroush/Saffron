@@ -33,7 +33,7 @@ export default function EmptyStateMeals() {
 
   return (
     <section className="h-[calc(100vh-160px)] w-full flex place-content-center overflow-hidden">
-      <div className="w-1/2 flex flex-col justify-center items-center space-y-3">
+      <div className="w-2/3 flex flex-col justify-center items-center space-y-3">
         <div className="text-neutral-300">
           <AnimatePresence mode="wait">
             <motion.div
