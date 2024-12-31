@@ -27,15 +27,19 @@ const NavbarItem = ({ link }: Props) => {
       )}
     >
       <div className="flex items-center justify-center">
-        <div className="flex flex-row justify-start items-center">
+        <div className="flex flex-row justify-start items-center relative">
           {location.pathname === link.href ? (
             <link.iconfill width={30} height={30} className="md:mr-2" />
           ) : (
             <link.icon width={30} height={30} className="md:mr-2" />
           )}
 
-          {link.title === "Grocery list" && essentialItems !== 0 ? (
-            <span className="h-1 w-1 rounded-full bg-orange-600 -top-2 relative md:hidden"></span>
+          {link.title === "Grocery list" &&
+          location.pathname !== link.href &&
+          essentialItems !== 0 ? (
+            <span className="px-1 py-[1px] rounded-full border-2 border-white bg-orange-500 text-white text-[8px] text-center absolute -right-1.5 -top-1.5 md:hidden">
+              {essentialItems > 9 ? "+9" : essentialItems}
+            </span>
           ) : null}
         </div>
         <span className="text-[10px] md:text-sm font-light md:font-medium hidden md:block">
