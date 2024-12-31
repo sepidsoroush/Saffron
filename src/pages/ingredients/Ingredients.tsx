@@ -11,6 +11,7 @@ import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 import { NewItemButton } from "@/components/shared/new-item-button";
 import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
+import { EyeCloseLine, Eye2Line } from "@/components/shared/icons";
 import { Ingredient } from "@/types";
 import { CategoryType } from "@/types/constants";
 import { Header } from "@/components/layout/header";
@@ -28,6 +29,7 @@ function SkeletonList({ count }: { count: number }) {
 
 function IngredientsPage() {
   const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [showCompleted, setShowCompleted] = useState<boolean>(false);
 
   const allIngredients = useAppSelector(selectIngredients);
   const numberOfIngredients = useAppSelector(selectIngredientsLength);
@@ -41,11 +43,28 @@ function IngredientsPage() {
     setIsCreating(true);
   };
 
+  const handleShowCompleted = () => {
+    setShowCompleted(!showCompleted);
+  };
+
   const isEmptyStateVisible = !isLoading && numberOfIngredients === 0;
 
   return (
-    <div className="flex flex-col overflow-y-auto">
-      <Header actionComponent={<NewItemButton onClick={handleNewItemClick} />}>
+    <div className="flex flex-col">
+      <Header
+        actionComponent={
+          <div className="flex flex-row space-x-6">
+            <NewItemButton onClick={handleNewItemClick} />
+            <div className="text-zinc-500" onClick={handleShowCompleted}>
+              {showCompleted ? (
+                <Eye2Line width={30} height={30} />
+              ) : (
+                <EyeCloseLine width={30} height={30} />
+              )}
+            </div>
+          </div>
+        }
+      >
         Shopping list
       </Header>
 
@@ -65,7 +84,11 @@ function IngredientsPage() {
               <CategoryCard
                 key={category}
                 header={category}
-                items={categoryItems}
+                items={
+                  showCompleted
+                    ? categoryItems
+                    : categoryItems.filter((item) => !item.available)
+                }
               />
             ) : null;
           })}
