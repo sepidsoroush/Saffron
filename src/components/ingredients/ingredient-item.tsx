@@ -119,8 +119,8 @@ export const IngredientItem = ({ item }: Props) => {
     >
       <div
         className={cn("relative transition-colors duration-400 ease-in-out", {
-          "text-gray-400": active,
-          "text-primary": !active,
+          "text-neutral-400": active,
+          "text-neutral-600": !active,
         })}
       >
         <IngredientForm type="update" ingredient={item} />

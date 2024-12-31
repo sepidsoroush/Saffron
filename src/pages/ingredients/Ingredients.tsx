@@ -7,12 +7,14 @@ import {
 import { selectLoading } from "@/store/ui/ui.selector";
 
 import NewIngredient from "@/components/ingredients/new-ingredient";
-import { CategoryCard } from "@/components/shared/category-card";
+import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 import { NewItemButton } from "@/components/shared/new-item-button";
 import EmptyStateIngredients from "@/components/emptyState/ingredients-empty-state";
+import { Ingredient } from "@/types";
 import { CategoryType } from "@/types/constants";
 import { Header } from "@/components/layout/header";
+import { cn } from "@/lib/utils";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -64,7 +66,6 @@ function IngredientsPage() {
                 key={category}
                 header={category}
                 items={categoryItems}
-                className="py-4"
               />
             ) : null;
           })}
@@ -75,3 +76,35 @@ function IngredientsPage() {
 }
 
 export default IngredientsPage;
+
+interface CategoryCardProps {
+  header: string;
+  items: Ingredient[];
+  className?: string;
+}
+
+const CategoryCard: React.FC<CategoryCardProps> = ({
+  header,
+  items,
+  className,
+}) => {
+  return (
+    <div>
+      <div
+        className={cn(
+          "text-xs font-medium text-neutral-400 py-1 mb-1 md:text-lg flex flex-row justify-between items-center w-full",
+          className
+        )}
+      >
+        {header}
+      </div>
+      <div className="space-y-1">
+        {items
+          .sort((a, b) => Number(a.available) - Number(b.available))
+          .map((item) => (
+            <IngredientItem key={item.id} item={item} />
+          ))}
+      </div>
+    </div>
+  );
+};

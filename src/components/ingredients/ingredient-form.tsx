@@ -130,13 +130,13 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
   };
 
   return (
-    <li className="flex items-center space-x-2 w-full py-[8px]">
+    <li className="flex items-center space-x-1.5 w-full pl-1 py-1.5">
       <Checkbox
         checked={ingredient?.available || false}
         className={
           ingredient?.available
-            ? "data-[state=checked]:bg-accent data-[state=checked]:border-accent"
-            : ""
+            ? "data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+            : "border-2 border-neutral-300"
         }
         onClick={checkboxHandler}
       />
@@ -151,7 +151,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
         />
       ) : (
         <p
-          className={ingredient?.available ? "text-gray-400 font-normal" : ""}
+          className={ingredient?.available ? "text-neutral-400" : ""}
           onClick={handleLabelClick}
         >
           {ingredient?.name}
