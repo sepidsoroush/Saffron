@@ -1,16 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { selectMeals } from "@/store/meals/meals.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 import { MealCard } from "@/components/meals/meal-card";
 import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
-import { Header } from "@/components/layout/header";
-import NewItem from "@/components/shared/new-Item";
-import NewItemButton from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
 import { groupMealsByCuisine } from "@/lib/utils";
-import { Settings1Fill } from "@/components/shared/icons";
+import { AddCircleFill, More1Line } from "@/components/shared/icons";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -58,18 +55,17 @@ function MealsPage() {
 
   return (
     <div className="flex flex-col overflow-y-auto">
-      <Header
-        desktopActionComponent={
-          <NewItem title="Add New" onClick={handleNewItemClick} />
-        }
-        mobileActionComponent={
-          <Link to="/setting" className="text-zinc-400 block md:hidden">
-            <Settings1Fill width={24} height={24} />
-          </Link>
-        }
-      >
-        Meals list
-      </Header>
+      <div className="flex flex-row items-center justify-between w-full top-0 z-10 bg-background transition-all h-[72px] mt-4">
+        <div className="text-2xl font-semibold text-left">Meals</div>
+        <div className="flex flex-row space-x-6">
+          <div className="text-orange-500" onClick={handleNewItemClick}>
+            <AddCircleFill width={30} height={30} />
+          </div>
+          <div className="text-zinc-500">
+            <More1Line width={30} height={30} />
+          </div>
+        </div>
+      </div>
 
       {isLoading ? (
         <SkeletonList count={4} />
@@ -78,10 +74,6 @@ function MealsPage() {
       ) : (
         <MealsListByCuisine groupedMeals={groupedMeals} />
       )}
-
-      <div className="md:hidden inline-block bottom-20 right-5 fixed">
-        <NewItemButton onClick={handleNewItemClick} />
-      </div>
     </div>
   );
 }
