@@ -4,10 +4,12 @@ import { selectMeals } from "@/store/meals/meals.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 import { MealCard } from "@/components/meals/meal-card";
 import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
+import { Header } from "@/components/layout/header";
+import { NewItemButton } from "@/components/shared/new-item-button";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
 import { groupMealsByCuisine } from "@/lib/utils";
-import { AddCircleFill, More1Line } from "@/components/shared/icons";
+import { More1Line } from "@/components/shared/icons";
 
 function SkeletonList({ count }: { count: number }) {
   return (
@@ -55,17 +57,18 @@ function MealsPage() {
 
   return (
     <div className="flex flex-col overflow-y-auto">
-      <div className="flex flex-row items-center justify-between w-full top-0 z-10 bg-background transition-all h-[72px] mt-4">
-        <div className="text-2xl font-semibold text-left">Meals</div>
-        <div className="flex flex-row space-x-6">
-          <div className="text-orange-500" onClick={handleNewItemClick}>
-            <AddCircleFill width={30} height={30} />
+      <Header
+        actionComponent={
+          <div className="flex flex-row space-x-6">
+            <NewItemButton onClick={handleNewItemClick} />
+            <div className="text-zinc-500">
+              <More1Line width={30} height={30} />
+            </div>
           </div>
-          <div className="text-zinc-500">
-            <More1Line width={30} height={30} />
-          </div>
-        </div>
-      </div>
+        }
+      >
+        Meals
+      </Header>
 
       {isLoading ? (
         <SkeletonList count={4} />

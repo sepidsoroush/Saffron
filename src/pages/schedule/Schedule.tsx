@@ -73,7 +73,7 @@ function SchedulePage() {
   return (
     <div className="flex flex-col w-full">
       <Header
-        mobileActionComponent={
+        actionComponent={
           <Link to="/setting" className="text-zinc-400 block md:hidden">
             <Settings1Fill width={24} height={24} />
           </Link>
