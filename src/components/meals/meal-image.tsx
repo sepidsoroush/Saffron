@@ -2,17 +2,8 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { CloseFill } from "@/components/shared/icons";
 import NoImageMeal from "./no-image-meal";
-0;
-import CropImage from "./crop-image";
 
 type MealImageProps = {
   onImageChange: (base64: string) => void;
@@ -22,7 +13,6 @@ type MealImageProps = {
 const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
   const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [isCropDialogOpen, setIsCropDialogOpen] = useState(false);
 
   useEffect(() => {
     if (currentImage) {
@@ -39,17 +29,10 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
       reader.onloadend = () => {
         const base64String = reader.result as string;
         setPreview(base64String);
-        setIsCropDialogOpen(true);
       };
       reader.readAsDataURL(file);
     }
     setUploading(false);
-  };
-
-  const handleCropComplete = (croppedImage: string) => {
-    setPreview(croppedImage);
-    onImageChange(croppedImage);
-    setIsCropDialogOpen(false);
   };
 
   const deleteImageHandler = () => {
@@ -61,44 +44,31 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
     <div className="flex flex-col justify-center items-center">
       {preview ? (
         <>
-          <Avatar className="w-[400px] h-[400px] object-cover rounded-sm bg-gray-300">
-            <AvatarImage src={preview} />
-            <AvatarFallback>Meal Image</AvatarFallback>
-          </Avatar>
-          <div className="flex space-x-2 mt-2">
-            <Dialog open={isCropDialogOpen} onOpenChange={setIsCropDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="ghost">Crop image</Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogTitle>Crop Image</DialogTitle>
-                <DialogDescription>
-                  Adjust your image and click "Crop Image" to save.
-                </DialogDescription>
-                <CropImage
-                  imageSrc={preview}
-                  onCropComplete={handleCropComplete}
-                  onCancel={() => setIsCropDialogOpen(false)}
-                />
-              </DialogContent>
-            </Dialog>
-            <Button
+          <div className="relative">
+            <Avatar className="h-[60px] w-[60px] rounded-xl bg-neutral-300">
+              <AvatarImage src={preview} />
+              <AvatarFallback>Meal Image</AvatarFallback>
+            </Avatar>
+            <div
               onClick={deleteImageHandler}
-              variant="ghost"
-              className="text-red-600"
+              className="w-5 h-5 rounded-full backdrop-blur-sm bg-white/30 text-white z-30 absolute top-0 right-0 flex justify-center items-center m-1"
             >
-              Delete image
-            </Button>
+              <CloseFill width={12} height={12} />
+            </div>
           </div>
+
+          <div className="flex space-x-2 mt-2"></div>
         </>
       ) : (
-        <div>
+        <>
           {uploading ? (
             <Label className="inline-block text-center mt-2">
               Uploading ...
             </Label>
           ) : (
-            <NoImageMeal />
+            <Label className="inline-block mt-2" htmlFor="image">
+              <NoImageMeal />
+            </Label>
           )}
           <Input
             type="file"
@@ -108,7 +78,7 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
             onChange={imageUploadHandler}
             className="hidden absolute"
           />
-        </div>
+        </>
       )}
     </div>
   );
