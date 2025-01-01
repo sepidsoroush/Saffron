@@ -84,7 +84,7 @@ export function IngredientList({
         onValueChange={setSearchTerm}
       />
 
-      <CommandList ref={listRef}>
+      <CommandList ref={listRef} className="h-72 mt-2 pb-4">
         <CommandEmpty>
           <div className="flex flex-col gap-6">
             {searchTerm && (
@@ -110,49 +110,47 @@ export function IngredientList({
           </div>
         </CommandEmpty>
         <CommandGroup>
-          <div className="">
-            {options
-              .sort((a, b) => {
-                const aSelected = selectedValues.includes(a.value);
-                const bSelected = selectedValues.includes(b.value);
-                return aSelected === bSelected ? 0 : aSelected ? -1 : 1;
-              })
-              .map((option) => {
-                const isSelected = selectedValues.includes(option.value);
-                return (
-                  <motion.div
-                    key={option.value}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
+          {options
+            .sort((a, b) => {
+              const aSelected = selectedValues.includes(a.value);
+              const bSelected = selectedValues.includes(b.value);
+              return aSelected === bSelected ? 0 : aSelected ? -1 : 1;
+            })
+            .map((option) => {
+              const isSelected = selectedValues.includes(option.value);
+              return (
+                <motion.div
+                  key={option.value}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                >
+                  <CommandItem
+                    onSelect={() => handleToggleOption(option.value)}
+                    className="cursor-pointer pl-1 py-3 border-b border-dashed border-neutral-100 dark:border-neutral-800"
                   >
-                    <CommandItem
-                      onSelect={() => handleToggleOption(option.value)}
-                      className="cursor-pointer pl-1 py-3 border-b border-dashed border-neutral-100 dark:border-neutral-800"
+                    <div
+                      className={cn(
+                        "mr-2 flex h-5 w-5 items-center justify-center rounded-full",
+                        isSelected
+                          ? "text-orange-500"
+                          : "border-2 border-neutral-300 [&_svg]:invisible"
+                      )}
                     >
-                      <div
-                        className={cn(
-                          "mr-2 flex h-5 w-5 items-center justify-center rounded-full",
-                          isSelected
-                            ? "text-orange-500"
-                            : "border-2 border-neutral-300 [&_svg]:invisible"
-                        )}
-                      >
-                        {isSelected ? (
-                          <CheckCircleFill width={20} height={20} />
-                        ) : (
-                          <CheckCircleLine width={20} height={20} />
-                        )}
-                      </div>
-                      <div className="ml-1.5 text-[15px] font-medium text-neutral-600 dark:text-neutral-400">
-                        {option.label}
-                      </div>
-                    </CommandItem>
-                  </motion.div>
-                );
-              })}
-          </div>
+                      {isSelected ? (
+                        <CheckCircleFill width={20} height={20} />
+                      ) : (
+                        <CheckCircleLine width={20} height={20} />
+                      )}
+                    </div>
+                    <div className="ml-1.5 text-[15px] font-medium text-neutral-600 dark:text-neutral-400">
+                      {option.label}
+                    </div>
+                  </CommandItem>
+                </motion.div>
+              );
+            })}
         </CommandGroup>
       </CommandList>
     </Command>

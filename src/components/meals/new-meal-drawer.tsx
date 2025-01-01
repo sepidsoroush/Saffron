@@ -14,17 +14,8 @@ const NewMealDrawer: React.FC = () => {
         </div>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="max-h-[80vh] ">
-          {/* <DrawerHeader className="w-full flex flex-row justify-between items-center text-[17px] font-semibold text-neutral-400">
-            <DrawerClose>Cancel</DrawerClose>
-            <DrawerTitle className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 ">
-              New meal
-            </DrawerTitle>
-            <div>Save</div>
-          </DrawerHeader> */}
-          <div className="w-full p-4 gap-3">
-            <MealForm actionType="create" setOpen={setOpen} />
-          </div>
+        <div className="w-full px-4">
+          <MealForm actionType="create" setOpen={setOpen} />
         </div>
       </DrawerContent>
     </Drawer>
