@@ -7,7 +7,6 @@ import RootLayout from "./pages/Root";
 import Setting from "./pages/setting/Setting";
 import EditMealPage from "./pages/meals/EditMeal";
 import MealsPage from "./pages/meals/Meals";
-import MealDetails from "./pages/meals/MealDetails";
 import IngredientsPage from "./pages/ingredients/Ingredients";
 import SchedulePage from "./pages/schedule/Schedule";
 import OnboardingPage from "./pages/onboarding/Onboarding";
@@ -42,10 +41,6 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <ProtectedRoute element={<MealsPage />} /> },
 
-          {
-            path: ":mealName",
-            element: <ProtectedRoute element={<MealDetails />} />,
-          },
           {
             path: ":mealName/edit",
             element: <ProtectedRoute element={<EditMealPage />} />,

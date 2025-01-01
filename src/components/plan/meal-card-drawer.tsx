@@ -95,7 +95,7 @@ export const MealCardDrawer = ({
           </div>
         </DrawerTrigger>
         <DrawerContent>
-          <div className="max-h-[80vh] overflow-y-auto">
+          <div className="h-[80vh] overflow-y-auto">
             <DrawerHeader className="p-0">
               <DrawerTitle className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 fixed flex justify-center items-end w-full bg-white py-2 top-5">
                 {day}
