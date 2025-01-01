@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
+import { useAppDispatch } from "@/store/hooks";
+import { addIngredient } from "@/store/ingredients/ingredients.actions";
+import { cn, uniqueId } from "@/lib/utils";
 import {
   Command,
   CommandEmpty,
@@ -8,7 +10,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { CheckCircleLine, CheckCircleFill } from "../shared/icons";
+import {
+  CheckCircleLine,
+  CheckCircleFill,
+  AddCircleFill,
+  CarrotFill,
+} from "@/components/shared/icons";
 import { motion } from "framer-motion";
 
 import { SelectOption } from "@/types/common-ui";
@@ -24,7 +31,9 @@ export function IngredientList({
   selectedValues,
   toggleOption,
 }: Props) {
-  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [prevOptionsLength, setPrevOptionsLength] = useState<number>(
     options.length
   );
@@ -53,17 +62,55 @@ export function IngredientList({
     toggleOption(value);
   };
 
+  const handleCreateNewIngredient = () => {
+    dispatch(
+      addIngredient({
+        id: uniqueId(),
+        name: searchTerm,
+        available: false,
+        isImported: false,
+        category: "Others",
+      })
+    );
+    setSearchTerm("");
+  };
+
   return (
     <Command>
       <CommandInput
         placeholder="Search Ingredients"
         className="px-3 py-[10px] w-full bg-neutral-100 caret-orange-500 text-neutral-900 text-base"
+        value={searchTerm}
+        onValueChange={setSearchTerm}
       />
 
       <CommandList ref={listRef}>
-        <CommandEmpty>Not found</CommandEmpty>
+        <CommandEmpty>
+          <div className="flex flex-col gap-6">
+            {searchTerm && (
+              <button
+                onClick={handleCreateNewIngredient}
+                className="flex flex-row items-center text-neutral-600 text-[15px] font-medium"
+              >
+                <div className="text-orange-500 mr-1">
+                  <AddCircleFill width={24} height={24} />
+                </div>
+                Create{" "}
+                <span className="bg-neutral-200 rounded py-px px-0.5 text-neutral-600 text-[15px] font-medium ml-0.5">
+                  {searchTerm}
+                </span>
+              </button>
+            )}
+            <div className="w-full flex flex-col justify-center items-center py-12 space-y-1.5">
+              <div className="text-neutral-300">
+                <CarrotFill width={32} height={32} />
+              </div>
+              <p className="text-xs text-neutral-500 font-medium">Not found</p>
+            </div>
+          </div>
+        </CommandEmpty>
         <CommandGroup>
-          <div className="divide-y divide-dashed divide-neutral-100 dark:divide-neutral-800">
+          <div className="">
             {options
               .sort((a, b) => {
                 const aSelected = selectedValues.includes(a.value);
@@ -82,7 +129,7 @@ export function IngredientList({
                   >
                     <CommandItem
                       onSelect={() => handleToggleOption(option.value)}
-                      className="cursor-pointer pl-1 py-3"
+                      className="cursor-pointer pl-1 py-3 border-b border-dashed border-neutral-100 dark:border-neutral-800"
                     >
                       <div
                         className={cn(
