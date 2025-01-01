@@ -67,7 +67,7 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
             </Label>
           ) : (
             <Label className="inline-block mt-2" htmlFor="image">
-              <NoImageMeal />
+              <NoImageMeal className="h-[60px] w-[60px]" />
             </Label>
           )}
           <Input

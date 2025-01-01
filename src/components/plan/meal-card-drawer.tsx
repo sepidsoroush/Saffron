@@ -39,10 +39,10 @@ export const MealCardDrawer = ({
   const MAXCOUNT = 7;
 
   return (
-    <div className="flex flex-row justify-between items-start gap-[6px]">
+    <div className="flex flex-row justify-between items-start space-x-1.5">
       <Drawer direction={isDesktop ? "right" : "bottom"}>
         <DrawerTrigger asChild>
-          <div className="flex flex-row items-start gap-[6px]">
+          <div className="w-full flex flex-row space-x-1.5">
             {meal.imageUrl ? (
               <CloudinaryImage
                 imageNameOrUrl={meal.imageUrl}
@@ -51,9 +51,9 @@ export const MealCardDrawer = ({
                 className="h-[72px] w-[72px] rounded-xl object-cover"
               />
             ) : (
-              <NoImageMeal />
+              <NoImageMeal className="h-[72px] w-[72px]" />
             )}
-            <div className="w-full">
+            <div className="">
               <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200">
                 {meal?.name}
               </div>
@@ -111,7 +111,7 @@ export const MealCardDrawer = ({
                     )}
                   />
                 ) : (
-                  <NoImageMeal />
+                  <NoImageMeal className="h-20 w-20" />
                 )}
               </DrawerDescription>
             </DrawerHeader>

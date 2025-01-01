@@ -17,7 +17,7 @@ export const MealCard = ({ meal }: Props) => {
           className="h-28 object-cover rounded-t-[14px]"
         />
       ) : (
-        <NoImageMeal />
+        <NoImageMeal className="w-full h-[117px] rounded-t-[14px] rounded-b-none border-solid border" />
       )}
 
       <div className="w-full bottom-0 min-h-14 flex flex-col items-start py-1 px-[9px]">
