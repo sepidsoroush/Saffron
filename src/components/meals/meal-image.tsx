@@ -92,16 +92,13 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
           </div>
         </>
       ) : (
-        <>
-          <NoImageMeal />
+        <div>
           {uploading ? (
             <Label className="inline-block text-center mt-2">
               Uploading ...
             </Label>
           ) : (
-            <Label className="inline-block mt-2" htmlFor="image">
-              Add Image
-            </Label>
+            <NoImageMeal />
           )}
           <Input
             type="file"
@@ -111,7 +108,7 @@ const MealImage = ({ onImageChange, currentImage }: MealImageProps) => {
             onChange={imageUploadHandler}
             className="hidden absolute"
           />
-        </>
+        </div>
       )}
     </div>
   );

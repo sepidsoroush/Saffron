@@ -281,52 +281,65 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <MealImage
-                  onImageChange={field.onChange}
-                  currentImage={field.value}
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="flex flex-row items-center space-x-4 w-full">
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <MealImage
+                    onImageChange={field.onChange}
+                    currentImage={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="w-full space-y-1">
+                <FormLabel className="text-xs font-medium text-neutral-400">
+                  Name
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="px-3 py-[10px] w-full bg-neutral-100 focus:bg-neutral-100 focus-visible:ring-0 caret-orange-500 text-neutral-900 text-base"
+                    placeholder="Meal name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="border-t border-dashed border-neutral-200 pt-4 mt-4">
+          <FormField
+            control={form.control}
+            name="ingredients"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-medium text-neutral-400">
+                  Ingredients
+                </FormLabel>
+                <SelectIngredientComboBox
+                  options={ingredientSelectOptions}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  placeholder="Select Ingredients"
+                  maxCount={30}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Meal name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="ingredients"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Ingredients</FormLabel>
-              <SelectIngredientComboBox
-                options={ingredientSelectOptions}
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                placeholder="Select Ingredients"
-                maxCount={30}
-              />
-            </FormItem>
-          )}
-        />
-        <FormField
+              </FormItem>
+            )}
+          />
+        </div>
+
+        {/* <FormField
           control={form.control}
           name="cuisine"
           render={({ field }) => (
@@ -349,8 +362,8 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
               <FormMessage />
             </FormItem>
           )}
-        />
-        <div className="space-x-4 text-left">
+        /> */}
+        {/* <div className="space-x-4 text-left">
           <Button variant="outline" onClick={() => navigate("/meals")}>
             Cancel
           </Button>
@@ -366,7 +379,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
           <Button type="submit">
             {actionType === "create" ? "Add Meal" : "Update Meal"}
           </Button>
-        </div>
+        </div> */}
       </form>
     </Form>
   );

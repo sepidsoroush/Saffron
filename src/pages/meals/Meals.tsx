@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { selectMeals } from "@/store/meals/meals.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 import { MealCard } from "@/components/meals/meal-card";
 import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
 import { Header } from "@/components/layout/header";
-import { NewItemButton } from "@/components/shared/new-item-button";
+import NewMealDrawer from "@/components/meals/new-meal-drawer";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
 import { Meal } from "@/types";
 import { groupMealsByCuisine } from "@/lib/utils";
@@ -43,13 +42,8 @@ function MealsListByCuisine({
 }
 
 function MealsPage() {
-  const navigate = useNavigate();
   const mealsData = useAppSelector(selectMeals);
   const isLoading = useAppSelector(selectLoading);
-
-  const handleNewItemClick = () => {
-    navigate("/meals/new");
-  };
 
   const groupedMeals = groupMealsByCuisine(mealsData);
 
@@ -60,7 +54,7 @@ function MealsPage() {
       <Header
         actionComponent={
           <div className="flex flex-row space-x-6">
-            <NewItemButton onClick={handleNewItemClick} />
+            <NewMealDrawer />
             <div className="text-zinc-500">
               <More1Line width={30} height={30} />
             </div>

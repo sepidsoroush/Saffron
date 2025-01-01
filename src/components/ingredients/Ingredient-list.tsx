@@ -8,10 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-
-import NewItem from "@/components/shared/new-Item";
-import IngredientForm from "./ingredient-form";
-import { CheckIcon } from "lucide-react";
+import { CheckCircleLine, CheckCircleFill } from "../shared/icons";
 import { motion } from "framer-motion";
 
 import { SelectOption } from "@/types/common-ui";
@@ -56,62 +53,59 @@ export function IngredientList({
     toggleOption(value);
   };
 
-  const newItemHandler = () => {
-    setIsCreating(true);
-  };
-
-  const finishCreatingHandler = () => {
-    setIsCreating(false);
-  };
-
   return (
     <Command>
-      <CommandInput placeholder="Search Ingredient..." />
-      <CommandItem className="border-b">
-        {isCreating ? (
-          <IngredientForm type="create" onFinish={finishCreatingHandler} />
-        ) : (
-          <NewItem onClick={newItemHandler} title="New Item" />
-        )}
-      </CommandItem>
+      <CommandInput
+        placeholder="Search Ingredients"
+        className="px-3 py-[10px] w-full bg-neutral-100 caret-orange-500 text-neutral-900 text-base"
+      />
+
       <CommandList ref={listRef}>
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>Not found</CommandEmpty>
         <CommandGroup>
-          {options
-            .sort((a, b) => {
-              const aSelected = selectedValues.includes(a.value);
-              const bSelected = selectedValues.includes(b.value);
-              return aSelected === bSelected ? 0 : aSelected ? -1 : 1;
-            })
-            .map((option) => {
-              const isSelected = selectedValues.includes(option.value);
-              return (
-                <motion.div
-                  key={option.value}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                >
-                  <CommandItem
-                    onSelect={() => handleToggleOption(option.value)}
-                    className="cursor-pointer"
+          <div className="divide-y divide-dashed divide-neutral-100 dark:divide-neutral-800">
+            {options
+              .sort((a, b) => {
+                const aSelected = selectedValues.includes(a.value);
+                const bSelected = selectedValues.includes(b.value);
+                return aSelected === bSelected ? 0 : aSelected ? -1 : 1;
+              })
+              .map((option) => {
+                const isSelected = selectedValues.includes(option.value);
+                return (
+                  <motion.div
+                    key={option.value}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
                   >
-                    <div
-                      className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
-                      )}
+                    <CommandItem
+                      onSelect={() => handleToggleOption(option.value)}
+                      className="cursor-pointer pl-1 py-3"
                     >
-                      <CheckIcon className="h-4 w-4" />
-                    </div>
-                    <span>{option.label}</span>
-                  </CommandItem>
-                </motion.div>
-              );
-            })}
+                      <div
+                        className={cn(
+                          "mr-2 flex h-5 w-5 items-center justify-center rounded-full",
+                          isSelected
+                            ? "text-orange-500"
+                            : "border-2 border-neutral-300 [&_svg]:invisible"
+                        )}
+                      >
+                        {isSelected ? (
+                          <CheckCircleFill width={20} height={20} />
+                        ) : (
+                          <CheckCircleLine width={20} height={20} />
+                        )}
+                      </div>
+                      <div className="ml-1.5 text-[15px] font-medium text-neutral-600 dark:text-neutral-400">
+                        {option.label}
+                      </div>
+                    </CommandItem>
+                  </motion.div>
+                );
+              })}
+          </div>
         </CommandGroup>
       </CommandList>
     </Command>
