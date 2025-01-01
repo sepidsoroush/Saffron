@@ -1,10 +1,7 @@
-import { useNavigate } from "react-router-dom";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -14,18 +11,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { SelectIngredientComboBox } from "@/components/ingredients/select-ingredient";
-import ConfirmAlertDialog from "@/components/shared/confirm-alert";
 
 import { Meal, Composition } from "@/types";
-import { cuisineInfo } from "@/types/constants";
 import { SelectOption } from "@/types/common-ui";
 
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
@@ -50,6 +39,7 @@ type ActionType = "create" | "update";
 type Props = {
   actionType: ActionType;
   mealToUpdate?: Meal;
+  setOpen: (open: boolean) => void;
 };
 
 const formSchema = z.object({
@@ -63,11 +53,10 @@ const formSchema = z.object({
     }),
   ingredients: z.array(z.string()),
   imageUrl: z.string().optional(),
-  cuisine: z.string().optional(),
+  // cuisine: z.string().optional(),
 });
 
-const MealForm = ({ actionType, mealToUpdate }: Props) => {
-  const navigate = useNavigate();
+const MealForm = ({ actionType, mealToUpdate, setOpen }: Props) => {
   const dispatch = useAppDispatch();
 
   const ingredientsData = useAppSelector(selectIngredients);
@@ -87,7 +76,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             .map((item) => item.ingredient_id.toString())
         : [],
       imageUrl: mealToUpdate ? mealToUpdate.imageUrl : "",
-      cuisine: mealToUpdate ? mealToUpdate.cuisine : "",
+      // cuisine: mealToUpdate ? mealToUpdate.cuisine : "",
     },
   });
 
@@ -97,7 +86,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       name: values.name,
       imageUrl: values.imageUrl,
       liked: false,
-      cuisine: values.cuisine,
+      // cuisine: values.cuisine,
     };
 
     // Check if the updated name is the same as the current name
@@ -162,7 +151,7 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
             showErrorToast(`${`Error updating selected meal: ${error}`}`);
           });
       });
-      navigate("/meals");
+      setOpen(false);
       return;
     }
 
@@ -254,34 +243,51 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
       });
     }
 
-    navigate("/meals");
+    setOpen(false);
   }
 
-  const onDelete = async () => {
-    if (mealToUpdate) {
-      try {
-        const compositionsToDelete = compositionsData.filter(
-          (c) => c.meal_id === mealToUpdate.id
-        );
-        // Delete all related compositions
-        const deleteCompositionPromises = compositionsToDelete.map((c) =>
-          dispatch(deleteComposition(c.id))
-        );
-        await Promise.all(deleteCompositionPromises);
-        // Delete the meal
-        await dispatch(deleteMeal(mealToUpdate.id));
-        // showSuccessToast("Meal and related compositions deleted!");
+  // const onDelete = async () => {
+  //   if (mealToUpdate) {
+  //     try {
+  //       const compositionsToDelete = compositionsData.filter(
+  //         (c) => c.meal_id === mealToUpdate.id
+  //       );
+  //       // Delete all related compositions
+  //       const deleteCompositionPromises = compositionsToDelete.map((c) =>
+  //         dispatch(deleteComposition(c.id))
+  //       );
+  //       await Promise.all(deleteCompositionPromises);
+  //       // Delete the meal
+  //       await dispatch(deleteMeal(mealToUpdate.id));
+  //       // showSuccessToast("Meal and related compositions deleted!");
 
-        navigate("/meals");
-      } catch (error) {
-        showErrorToast(`${`Error deleting meal and compositions: ${error}`}`);
-      }
-    }
-  };
+  //       navigate("/meals");
+  //     } catch (error) {
+  //       showErrorToast(`${`Error deleting meal and compositions: ${error}`}`);
+  //     }
+  //   }
+  // };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="w-full flex flex-row justify-between items-center text-[17px] font-semibold text-neutral-400 ">
+          <button onClick={() => setOpen(false)}>Cancel</button>
+          <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 ">
+            New meal
+          </div>
+          <button
+            type="submit"
+            disabled={!form.formState.isDirty}
+            className={`${
+              form.formState.isDirty
+                ? "text-orange-500"
+                : "text-neutral-400 cursor-not-allowed"
+            } px-4 py-2 rounded`}
+          >
+            {actionType === "create" ? "Save" : "Update"}
+          </button>
+        </div>
         <div className="flex flex-row items-center space-x-4 w-full">
           <FormField
             control={form.control}
@@ -331,55 +337,11 @@ const MealForm = ({ actionType, mealToUpdate }: Props) => {
                   options={ingredientSelectOptions}
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  placeholder="Select Ingredients"
-                  maxCount={30}
                 />
               </FormItem>
             )}
           />
         </div>
-
-        {/* <FormField
-          control={form.control}
-          name="cuisine"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cuisine</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Cuisine" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {cuisineInfo.map((item) => (
-                    <SelectItem key={item.id} value={item.name}>
-                      {item.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-        {/* <div className="space-x-4 text-left">
-          <Button variant="outline" onClick={() => navigate("/meals")}>
-            Cancel
-          </Button>
-          {actionType === "update" ? (
-            <ConfirmAlertDialog
-              onConfirm={onDelete}
-              triggerText="Delete"
-              title="Are you absolutely sure?"
-              descriptionText="This action cannot be undone. This will permanently delete the meal and remove its data from our servers."
-              variant="destructive"
-            />
-          ) : null}
-          <Button type="submit">
-            {actionType === "create" ? "Add Meal" : "Update Meal"}
-          </Button>
-        </div> */}
       </form>
     </Form>
   );
