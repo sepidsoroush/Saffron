@@ -20,7 +20,7 @@ import { SelectOption } from "@/types/common-ui";
 import { ingredientDataAsSelectOptions } from "@/lib/utils";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { addMeal, deleteMeal, updateMeal } from "@/store/meals/meals.actions";
+import { addMeal, updateMeal } from "@/store/meals/meals.actions";
 
 import {
   addComposition,
@@ -246,35 +246,17 @@ const MealForm = ({ actionType, mealToUpdate, setOpen }: Props) => {
     setOpen(false);
   }
 
-  // const onDelete = async () => {
-  //   if (mealToUpdate) {
-  //     try {
-  //       const compositionsToDelete = compositionsData.filter(
-  //         (c) => c.meal_id === mealToUpdate.id
-  //       );
-  //       // Delete all related compositions
-  //       const deleteCompositionPromises = compositionsToDelete.map((c) =>
-  //         dispatch(deleteComposition(c.id))
-  //       );
-  //       await Promise.all(deleteCompositionPromises);
-  //       // Delete the meal
-  //       await dispatch(deleteMeal(mealToUpdate.id));
-  //       // showSuccessToast("Meal and related compositions deleted!");
-
-  //       navigate("/meals");
-  //     } catch (error) {
-  //       showErrorToast(`${`Error deleting meal and compositions: ${error}`}`);
-  //     }
-  //   }
-  // };
-
+  function closeDrawer(event: React.MouseEvent) {
+    event.preventDefault();
+    setOpen(false);
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="w-full flex flex-row justify-between items-center text-[17px] font-semibold text-neutral-400 ">
-          <button onClick={() => setOpen(false)}>Cancel</button>
+          <button onClick={closeDrawer}>Cancel</button>
           <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 ">
-            New meal
+            {actionType === "create" ? "New Meal" : "Edit"}
           </div>
           <button
             type="submit"
