@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import { Ingredient, Meal } from "@/types";
+import { Ingredient } from "@/types";
 import { SelectOption } from "@/types/common-ui";
 
 import { toast } from "@/components/ui/use-toast";
@@ -21,15 +21,6 @@ export const ingredientDataAsSelectOptions = (
     };
   });
   return categorySelectionOptions;
-};
-
-export const groupMealsByCuisine = (meals: Meal[]) => {
-  return meals.reduce((acc, meal) => {
-    const cuisine = meal.cuisine ?? "Other";
-    acc[cuisine] = acc[cuisine] || [];
-    acc[cuisine].push(meal);
-    return acc;
-  }, {} as Record<string, Meal[]>);
 };
 
 export const showSuccessToast = (message: string) => {

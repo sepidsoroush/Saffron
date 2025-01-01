@@ -6,8 +6,6 @@ import { MealCardSkeleton } from "@/components/skeleton/meal-card-skeleton";
 import { Header } from "@/components/layout/header";
 import NewMealDrawer from "@/components/meals/new-meal-drawer";
 import EmptyStateMeals from "@/components/emptyState/meals-empty-state";
-import { Meal } from "@/types";
-import { groupMealsByCuisine } from "@/lib/utils";
 import { More1Line } from "@/components/shared/icons";
 
 function SkeletonList({ count }: { count: number }) {
@@ -20,38 +18,16 @@ function SkeletonList({ count }: { count: number }) {
   );
 }
 
-function MealsListByCuisine({
-  groupedMeals,
-}: {
-  groupedMeals: Record<string, Meal[]>;
-}) {
-  return (
-    <div className="space-y-4 mt-4">
-      {Object.entries(groupedMeals).map(([cuisine, meals]) => (
-        <div key={cuisine}>
-          <h2 className="text-xl font-bold">{cuisine}</h2>
-          <ul className="py-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden">
-            {meals.map((meal) => (
-              <MealCard key={meal.id} meal={meal} />
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function MealsPage() {
   const mealsData = useAppSelector(selectMeals);
   const isLoading = useAppSelector(selectLoading);
 
-  const groupedMeals = groupMealsByCuisine(mealsData);
-
   const isEmptyStateVisible = !isLoading && mealsData.length === 0;
 
   return (
-    <div className="flex flex-col overflow-y-auto">
+    <div className="flex flex-col overflow-y-auto -mx-[22px]">
       <Header
+        className="px-[22px]"
         actionComponent={
           <div className="flex flex-row space-x-6">
             <NewMealDrawer />
@@ -69,7 +45,11 @@ function MealsPage() {
       ) : isEmptyStateVisible ? (
         <EmptyStateMeals />
       ) : (
-        <MealsListByCuisine groupedMeals={groupedMeals} />
+        <ul className="pt-2 pb-8 px-[22px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-hidden">
+          {mealsData.map((meal) => (
+            <MealCard key={meal.id} meal={meal} />
+          ))}
+        </ul>
       )}
     </div>
   );

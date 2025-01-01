@@ -29,6 +29,7 @@ module.exports = {
         button:
           "0px 2px 0px 0px #FFFFFF61 inset, 0px 0px 0px 1px #0000001F inset",
         inner: "0px 1px 2px 0px #0000000D inset",
+        cards: "0px 4px 4px -4px #0C0C0D0D, 0px 16px 32px -4px #0C0C0D1A",
       },
       colors: {
         border: "hsl(var(--border))",
