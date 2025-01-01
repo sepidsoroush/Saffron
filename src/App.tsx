@@ -5,7 +5,6 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
 import Setting from "./pages/setting/Setting";
-import EditMealPage from "./pages/meals/EditMeal";
 import MealsPage from "./pages/meals/Meals";
 import IngredientsPage from "./pages/ingredients/Ingredients";
 import SchedulePage from "./pages/schedule/Schedule";
@@ -38,14 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "meals",
-        children: [
-          { index: true, element: <ProtectedRoute element={<MealsPage />} /> },
-
-          {
-            path: ":mealName/edit",
-            element: <ProtectedRoute element={<EditMealPage />} />,
-          },
-        ],
+        element: <ProtectedRoute element={<MealsPage />} />,
       },
       {
         path: "ingredients",
