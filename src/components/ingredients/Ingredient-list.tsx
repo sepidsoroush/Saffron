@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { useAppDispatch } from "@/store/hooks";
 import { addIngredient } from "@/store/ingredients/ingredients.actions";
 import { cn, uniqueId } from "@/lib/utils";
@@ -40,6 +41,7 @@ export function IngredientList({
   const [scrollTop, setScrollTop] = useState<number>(0);
 
   const listRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   useEffect(() => {
     if (options.length > prevOptionsLength) {
@@ -84,7 +86,10 @@ export function IngredientList({
         onValueChange={setSearchTerm}
       />
 
-      <CommandList ref={listRef} className="h-72 mt-2 pb-4">
+      <CommandList
+        ref={listRef}
+        className={cn("mt-2 pb-4", isDesktop ? "h-full" : "h-72")}
+      >
         <CommandEmpty>
           <div className="flex flex-col gap-6">
             {searchTerm && (

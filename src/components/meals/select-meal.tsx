@@ -8,11 +8,7 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AddFill } from "@/components/shared/icons";
 import { MealList } from "./meal-list";
 
@@ -37,18 +33,18 @@ export function SelectMealComboBox({ day, onMealChange }: Props) {
 
   if (isDesktop) {
     return (
-      <Popover open={open} onOpenChange={setOpen} aria-describedby={undefined}>
-        <PopoverTrigger asChild>
+      <Sheet open={open} onOpenChange={setOpen} aria-describedby={undefined}>
+        <SheetTrigger asChild>
           <div className="w-full h-16 flex items-center place-content-center">
             <div className="text-neutral-300 bg-neutral-100 rounded-full w-[30px] h-[30px] flex items-center place-content-center shadow-inner">
               <AddFill width={20} height={20} />
             </div>
           </div>
-        </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0" align="start">
+        </SheetTrigger>
+        <SheetContent side="right">
           <MealList setOpen={setOpen} setSelectedMeal={setSelectedMeal} />
-        </PopoverContent>
-      </Popover>
+        </SheetContent>
+      </Sheet>
     );
   }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { selectCompositionsByMealId } from "@/store/compositions/compositions.selector";
 import { selectCompositions } from "@/store/compositions/compositions.selector";
@@ -14,7 +14,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { showErrorToast, showSuccessToast } from "@/lib/utils";
 
 import { cn } from "@/lib/utils";
@@ -34,6 +41,8 @@ export const MealCard = ({ meal }: MealCardProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   const ingredientsInRecipe = useAppSelector((state) =>
     selectCompositionsByMealId(state, meal.id)
   );
@@ -45,16 +54,14 @@ export const MealCard = ({ meal }: MealCardProps) => {
         const compositionsToDelete = compositionsData.filter(
           (c) => c.meal_id === meal.id
         );
-        // Delete all related compositions
         const deleteCompositionPromises = compositionsToDelete.map((c) =>
           dispatch(deleteComposition(c.id))
         );
         await Promise.all(deleteCompositionPromises);
-        // Delete the meal
         await dispatch(deleteMeal(meal.id));
         showSuccessToast("Meal and related compositions deleted!");
       } catch (error) {
-        showErrorToast(`${`Error deleting meal and compositions: ${error}`}`);
+        showErrorToast(`Error deleting meal and compositions: ${error}`);
       }
     }
   };
@@ -63,10 +70,17 @@ export const MealCard = ({ meal }: MealCardProps) => {
     setIsEditing(true);
   };
 
+  const ModalComponent = isDesktop ? Sheet : Drawer;
+  const TriggerComponent = isDesktop ? SheetTrigger : DrawerTrigger;
+  const ContentComponent = isDesktop ? SheetContent : DrawerContent;
+  const HeaderComponent = isDesktop ? SheetHeader : DrawerHeader;
+  const TitleComponent = isDesktop ? SheetTitle : DrawerTitle;
+  const DescriptionComponent = isDesktop ? SheetDescription : DrawerDescription;
+
   return (
     <div className="flex flex-row justify-between items-start space-x-1.5">
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger asChild>
+      <ModalComponent open={open} onOpenChange={setOpen}>
+        <TriggerComponent asChild>
           <div className="w-full flex flex-col rounded-[14px] bg-white shadow-cards">
             {meal.imageUrl ? (
               <CloudinaryImage
@@ -78,7 +92,6 @@ export const MealCard = ({ meal }: MealCardProps) => {
             ) : (
               <NoImageMeal className="w-full h-[117px] rounded-t-[14px] rounded-b-none border-solid border" />
             )}
-
             <div className="w-full bottom-0 min-h-14 flex flex-col items-start py-1 px-[9px]">
               <div className="font-semibold text-sm text-neutral-800 whitespace-nowrap mb-1.5">
                 {meal.name.length > 18
@@ -90,9 +103,11 @@ export const MealCard = ({ meal }: MealCardProps) => {
               </div>
             </div>
           </div>
-        </DrawerTrigger>
-        <DrawerContent>
-          <div className="h-[80vh] overflow-y-auto">
+        </TriggerComponent>
+        <ContentComponent>
+          <div
+            className={cn("overflow-y-auto", isDesktop ? "h-full" : "h-[80vh]")}
+          >
             {isEditing ? (
               <div className="px-4">
                 <MealForm
@@ -103,25 +118,27 @@ export const MealCard = ({ meal }: MealCardProps) => {
               </div>
             ) : (
               <>
-                <DrawerHeader className="p-0">
-                  <DrawerTitle className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 fixed flex justify-center items-end w-full bg-white py-2 top-5">
+                <HeaderComponent className="p-0">
+                  <TitleComponent
+                    className={cn(
+                      "text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 text-center"
+                    )}
+                  >
                     {meal.name}
-                  </DrawerTitle>
-                  <DrawerDescription className="px-4">
+                  </TitleComponent>
+                  <DescriptionComponent className="px-4">
                     {meal.imageUrl ? (
                       <CloudinaryImage
                         imageNameOrUrl={meal.imageUrl}
                         width={500}
                         height={500}
-                        className={cn(
-                          "h-[200px] w-full rounded-xl object-cover mt-12"
-                        )}
+                        className="h-[200px] w-full rounded-xl object-cover"
                       />
                     ) : (
                       <NoImageMeal className="h-20 w-20" />
                     )}
-                  </DrawerDescription>
-                </DrawerHeader>
+                  </DescriptionComponent>
+                </HeaderComponent>
                 <div className="w-full p-4 gap-3">
                   <div className="flex flex-row justify-between items-center py-[3px] w-full">
                     <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200">
@@ -142,7 +159,6 @@ export const MealCard = ({ meal }: MealCardProps) => {
                       </div>
                     </div>
                   </div>
-
                   <div>
                     <div className="text-xs font-medium text-neutral-400">
                       Ingredients
@@ -160,8 +176,10 @@ export const MealCard = ({ meal }: MealCardProps) => {
               </>
             )}
           </div>
-        </DrawerContent>
-      </Drawer>
+        </ContentComponent>
+      </ModalComponent>
     </div>
   );
 };
+
+export default MealCard;
