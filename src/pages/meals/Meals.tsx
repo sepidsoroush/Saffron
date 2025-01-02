@@ -25,9 +25,8 @@ function MealsPage() {
   const isEmptyStateVisible = !isLoading && mealsData.length === 0;
 
   return (
-    <div className="flex flex-col overflow-y-auto -mx-[22px]">
+    <div className="flex flex-col overflow-y-auto -mx-[22px] mt-[72px]">
       <Header
-        className="px-[22px]"
         actionComponent={
           <div className="flex flex-row space-x-6">
             <NewMealDrawer />

@@ -70,7 +70,7 @@ function SchedulePage() {
   const today = new Date().toLocaleString("en-us", { weekday: "long" });
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col mt-[72px]">
       <Header actionComponent={<Settings />}>Plan</Header>
 
       <div className="space-y-4 md:mb-4">

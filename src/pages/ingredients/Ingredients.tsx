@@ -54,12 +54,12 @@ function IngredientsPage() {
   const isEmptyStateVisible = !isLoading && numberOfIngredients === 0;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-[72px]">
       <Header
         actionComponent={
           <div className="flex flex-row space-x-6">
             <NewItemButton onClick={handleNewItemClick} />
-            <div className="text-zinc-500" onClick={handleShowCompleted}>
+            <div className="text-neutral-500" onClick={handleShowCompleted}>
               {showCompleted ? (
                 <Eye2Line width={30} height={30} />
               ) : (
