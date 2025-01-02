@@ -4,12 +4,11 @@ import { deleteIngredient } from "@/store/ingredients/ingredients.actions";
 import { deleteComposition } from "@/store/compositions/compositions.actions";
 import { selectCompositions } from "@/store/compositions/compositions.selector";
 
-import { Button } from "@/components/ui/button";
+import { Delete3Line } from "@/components/shared/icons";
 import IngredientForm from "./ingredient-form";
 
 import { Ingredient } from "@/types";
 import { cn, showErrorToast, showSuccessToast } from "@/lib/utils";
-import { Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -135,9 +134,12 @@ export const IngredientItem = ({ item }: Props) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
         >
-          <Button variant="destructive" onClick={deleteHandler}>
-            <Trash2 size={16} />
-          </Button>
+          <button
+            className="text-orange-600 bg-neutral-100 rounded-full w-6 h-6 flex items-center place-content-center shadow-inner"
+            onClick={deleteHandler}
+          >
+            <Delete3Line width={16} height={16} />
+          </button>
         </motion.div>
       )}
     </motion.div>
