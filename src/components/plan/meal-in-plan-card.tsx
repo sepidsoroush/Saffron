@@ -1,5 +1,4 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
-
 import {
   Drawer,
   DrawerContent,
@@ -8,16 +7,24 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Badge } from "../ui/badge";
-import { cn } from "@/lib/utils";
-import CloudinaryImage from "../shared/cloudinary-image";
-import NoImageMeal from "../meals/no-image-meal";
-import IngredientListItem from "../ingredients/ingredient-list-item";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
+import CloudinaryImage from "@/components/shared/cloudinary-image";
+import NoImageMeal from "@/components/meals/no-image-meal";
+import IngredientListItem from "@/components/ingredients/ingredient-list-item";
+import { Delete3Line } from "@/components/shared/icons";
 import { Meal, Ingredient } from "@/types";
 import { WeekDay } from "@/types/constants";
-import { Delete3Line } from "../shared/icons";
+import { cn } from "@/lib/utils";
 
-interface MealCardDrawerProps {
+interface MealInPlanCardProps {
   day: WeekDay;
   meal: Meal;
   onDelete: (day: WeekDay) => void;
@@ -29,20 +36,27 @@ interface MealCardDrawerProps {
   }[];
 }
 
-export const MealCardDrawer = ({
+export const MealInPlanCard = ({
   day,
   meal,
   ingredients,
   onDelete,
-}: MealCardDrawerProps) => {
+}: MealInPlanCardProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const MAXCOUNT = 7;
 
+  const ModalComponent = isDesktop ? Sheet : Drawer;
+  const TriggerComponent = isDesktop ? SheetTrigger : DrawerTrigger;
+  const ContentComponent = isDesktop ? SheetContent : DrawerContent;
+  const HeaderComponent = isDesktop ? SheetHeader : DrawerHeader;
+  const TitleComponent = isDesktop ? SheetTitle : DrawerTitle;
+  const DescriptionComponent = isDesktop ? SheetDescription : DrawerDescription;
+
   return (
     <div className="flex flex-row justify-between items-start space-x-1.5">
-      <Drawer direction={isDesktop ? "right" : "bottom"}>
-        <DrawerTrigger asChild>
-          <div className="w-full flex flex-row space-x-1.5">
+      <ModalComponent>
+        <TriggerComponent asChild>
+          <div className="w-full flex flex-row space-x-1.5 cursor-pointer">
             {meal.imageUrl ? (
               <CloudinaryImage
                 imageNameOrUrl={meal.imageUrl}
@@ -93,28 +107,28 @@ export const MealCardDrawer = ({
               </div>
             </div>
           </div>
-        </DrawerTrigger>
-        <DrawerContent>
-          <div className="h-[80vh] overflow-y-auto">
-            <DrawerHeader className="p-0">
-              <DrawerTitle className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 fixed flex justify-center items-end w-full bg-white py-2 top-5">
+        </TriggerComponent>
+        <ContentComponent>
+          <div
+            className={cn("overflow-y-auto", isDesktop ? "h-full" : "h-[80vh]")}
+          >
+            <HeaderComponent className="p-0">
+              <TitleComponent className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 text-center">
                 {day}
-              </DrawerTitle>
-              <DrawerDescription className="px-4">
+              </TitleComponent>
+              <DescriptionComponent className="px-4">
                 {meal.imageUrl ? (
                   <CloudinaryImage
                     imageNameOrUrl={meal.imageUrl}
                     width={500}
                     height={500}
-                    className={cn(
-                      "h-[200px] w-full rounded-xl object-cover mt-12"
-                    )}
+                    className={cn("h-[200px] w-full rounded-xl object-cover")}
                   />
                 ) : (
                   <NoImageMeal className="h-20 w-20" />
                 )}
-              </DrawerDescription>
-            </DrawerHeader>
+              </DescriptionComponent>
+            </HeaderComponent>
             <div className="w-full p-4 gap-3">
               <div className="flex flex-row justify-between items-center py-[3px] w-full">
                 <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200">
@@ -143,8 +157,8 @@ export const MealCardDrawer = ({
               </div>
             </div>
           </div>
-        </DrawerContent>
-      </Drawer>
+        </ContentComponent>
+      </ModalComponent>
       <div
         onClick={() => onDelete(day)}
         className="text-neutral-500 hover:text-orange-600 focus:text-orange-600 bg-neutral-100 rounded-full w-6 h-6 flex items-center place-content-center shadow-inner"
