@@ -9,7 +9,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Ingredient } from "@/types";
-import { showErrorToast, uniqueId } from "@/lib/utils";
+import { showErrorToast, uniqueId, cn } from "@/lib/utils";
 
 interface Props {
   ingredient?: Ingredient;
@@ -19,7 +19,7 @@ interface Props {
 
 const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
   const dispatch = useAppDispatch();
-  const [isEditing, setIsEditing] = useState(type === "create");
+  const [isEditing, setIsEditing] = useState<boolean>(type === "create");
   const [updatedName, setUpdatedName] = useState(ingredient?.name || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +39,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
       }
     }, 0);
   };
+
   const finishEditing = () => {
     setIsEditing(false);
     const trimmedName = updatedName.trim();
@@ -112,6 +113,7 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
       }
     }
   };
+
   const handleLabelClick = () => {
     if (!isEditing) {
       startEditing();
@@ -130,14 +132,15 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
   };
 
   return (
-    <li className="flex items-center space-x-1.5 w-full pl-1 py-1.5">
+    <div className="flex flex-row items-center space-x-1.5 w-full h-10 pl-1 py-1.5">
       <Checkbox
         checked={ingredient?.available || false}
-        className={
+        className={cn(
+          "-mr-0.5",
           ingredient?.available
             ? "data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
             : "border-2 border-neutral-300"
-        }
+        )}
         onClick={checkboxHandler}
       />
       {isEditing ? (
@@ -148,16 +151,20 @@ const IngredientForm = ({ ingredient, type, onFinish }: Props) => {
           onBlur={finishEditing}
           onKeyDown={handleKeyDown}
           ref={inputRef}
+          className="focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-[15px] font-medium text-neutral-600 pl-1 caret-orange-500 border-neutral-300"
         />
       ) : (
-        <p
-          className={ingredient?.available ? "text-neutral-400" : ""}
+        <div
+          className={cn(
+            "text-[15px] font-medium text-neutral-600 pl-[5px]",
+            ingredient?.available ? "text-neutral-400" : ""
+          )}
           onClick={handleLabelClick}
         >
           {ingredient?.name}
-        </p>
+        </div>
       )}
-    </li>
+    </div>
   );
 };
 export default IngredientForm;

@@ -6,7 +6,7 @@ import {
 } from "@/store/ingredients/ingredients.selector";
 import { selectLoading } from "@/store/ui/ui.selector";
 
-import NewIngredient from "@/components/ingredients/new-ingredient";
+import IngredientForm from "@/components/ingredients/ingredient-form";
 import { IngredientItem } from "@/components/ingredients/ingredient-item";
 import { IngredientSkeleton } from "@/components/skeleton/ingredient-skeleton";
 import { NewItemButton } from "@/components/shared/new-item-button";
@@ -47,6 +47,10 @@ function IngredientsPage() {
     setShowCompleted(!showCompleted);
   };
 
+  const finishCreatingHandler = () => {
+    setIsCreating(false);
+  };
+
   const isEmptyStateVisible = !isLoading && numberOfIngredients === 0;
 
   return (
@@ -68,7 +72,9 @@ function IngredientsPage() {
         Shopping list
       </Header>
 
-      {isCreating && <NewIngredient setIsCreating={setIsCreating} />}
+      {isCreating && (
+        <IngredientForm type="create" onFinish={finishCreatingHandler} />
+      )}
 
       {isLoading ? (
         <SkeletonList count={6} />
@@ -121,7 +127,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       >
         {header}
       </div>
-      <div className="space-y-1">
+      <div className="space-y-[3px]">
         {items
           .sort((a, b) => Number(a.available) - Number(b.available))
           .map((item) => (

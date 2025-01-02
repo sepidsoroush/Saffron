@@ -118,10 +118,13 @@ export const IngredientItem = ({ item }: Props) => {
       onMouseLeave={handleDragEnd}
     >
       <div
-        className={cn("relative transition-colors duration-400 ease-in-out", {
-          "text-neutral-400": active,
-          "text-neutral-600": !active,
-        })}
+        className={cn(
+          "relative transition-colors duration-400 ease-in-out w-full",
+          {
+            "text-neutral-400": active,
+            "text-neutral-600": !active,
+          }
+        )}
       >
         <IngredientForm type="update" ingredient={item} />
       </div>
