@@ -20,7 +20,7 @@ export function Header({
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-between w-full top-0 z-10 bg-background transition-all h-[72px] mt-4",
+        "flex flex-row items-center justify-between w-full top-0 z-10 transition-all h-[72px] mt-4",
         className
       )}
     >

@@ -24,7 +24,7 @@ const NavbarItem = ({ link }: Props) => {
       className={cn(
         "relative group flex md:flex-row items-center justify-center md:justify-between rounded-full py-[6px] px-4 hover:text-accent",
         isActive
-          ? "bg-accent-foreground md:bg-transparent text-accent"
+          ? "bg-accent-foreground md:bg-transparent text-accent delay-300"
           : "bg-transparent text-neutral-400"
       )}
     >
@@ -35,7 +35,7 @@ const NavbarItem = ({ link }: Props) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          transition={{ duration: 0.3 }}
         />
       )}
       <div className="flex items-center justify-center relative z-10">
