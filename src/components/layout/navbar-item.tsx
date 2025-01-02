@@ -45,7 +45,7 @@ const NavbarItem = ({ link }: Props) => {
           ) : (
             <link.icon width={30} height={30} className="md:mr-2" />
           )}
-          {link.title === "Grocery list" &&
+          {link.title === "Shopping list" &&
           !isActive &&
           essentialItems !== 0 ? (
             <span className="px-1 py-[1px] rounded-full border-2 border-white bg-orange-500 text-white text-[8px] text-center absolute -right-1.5 -top-1.5 md:hidden">
@@ -57,7 +57,7 @@ const NavbarItem = ({ link }: Props) => {
           {link.title}
         </span>
       </div>
-      {link.title === "Grocery list" ? (
+      {link.title === "Shopping list" ? (
         <Badge className="ml-1 hidden bg-orange-600 md:flex">
           {essentialItems}
         </Badge>

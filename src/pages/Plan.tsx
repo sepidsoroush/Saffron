@@ -14,7 +14,7 @@ import Settings from "@/components/setting/settings";
 import { WeekDay, emptySchedule } from "@/types/constants";
 import { uniqueId } from "@/lib/utils";
 
-function SchedulePage() {
+function PlanPage() {
   const dispatch = useAppDispatch();
   const scheduleWithMeals = useAppSelector(selectScheduleWithMeals);
 
@@ -115,4 +115,4 @@ function SchedulePage() {
   );
 }
 
-export default SchedulePage;
+export default PlanPage;

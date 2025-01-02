@@ -11,15 +11,15 @@ import {
 
 export const NAVBAR: NavItem[] = [
   {
-    title: "Schedule",
-    href: "/schedule",
+    title: "Plan",
+    href: "/plan",
     icon: Calendar3Line,
     iconfill: Calendar3Fill,
   },
   { title: "Meals", href: "/meals", icon: ChefHatLine, iconfill: ChefHatFill },
   {
-    title: "Grocery list",
-    href: "/ingredients",
+    title: "Shopping list",
+    href: "/shoppinglist",
     icon: Basket2Line,
     iconfill: Basket2Fill,
   },

@@ -4,10 +4,10 @@ import AuthPage from "./pages/Auth";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./pages/Root";
-import MealsPage from "./pages/meals/Meals";
-import IngredientsPage from "./pages/ingredients/Ingredients";
-import SchedulePage from "./pages/schedule/Schedule";
-import OnboardingPage from "./pages/onboarding/Onboarding";
+import MealsPage from "./pages/Meals";
+import ShoppingListPage from "./pages/ShoppingList";
+import PlanPage from "./pages/Plan";
+import OnboardingPage from "./pages/Onboarding";
 import RedirectToProperPage from "./pages/Redirect";
 
 const router = createBrowserRouter([
@@ -25,20 +25,21 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "schedule",
-        element: <ProtectedRoute element={<SchedulePage />} />,
-      },
-      {
         path: "onboarding",
         element: <ProtectedRoute element={<OnboardingPage />} />,
       },
+      {
+        path: "plan",
+        element: <ProtectedRoute element={<PlanPage />} />,
+      },
+
       {
         path: "meals",
         element: <ProtectedRoute element={<MealsPage />} />,
       },
       {
-        path: "ingredients",
-        element: <ProtectedRoute element={<IngredientsPage />} />,
+        path: "shoppinglist",
+        element: <ProtectedRoute element={<ShoppingListPage />} />,
       },
     ],
   },

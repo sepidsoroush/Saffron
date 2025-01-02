@@ -15,7 +15,7 @@ export function GetStartedButton({ title, icon }: Props) {
 
   const handleOnClick = () => {
     if (user) {
-      navigate("/schedule");
+      navigate("/plan");
     } else {
       navigate("/login");
     }

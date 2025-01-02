@@ -27,7 +27,7 @@ function SkeletonList({ count }: { count: number }) {
   );
 }
 
-function IngredientsPage() {
+function ShoppingListPage() {
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [showCompleted, setShowCompleted] = useState<boolean>(false);
 
@@ -104,7 +104,7 @@ function IngredientsPage() {
   );
 }
 
-export default IngredientsPage;
+export default ShoppingListPage;
 
 interface CategoryCardProps {
   header: string;

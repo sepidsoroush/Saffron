@@ -26,7 +26,7 @@ const RedirectToSchedule = ({ user }: Props) => {
 
   useEffect(() => {
     if (user) {
-      navigate("/schedule");
+      navigate("/plan");
     }
   }, [user, navigate]);
 
