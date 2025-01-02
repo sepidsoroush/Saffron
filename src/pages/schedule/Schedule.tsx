@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   deleteSchedule,
@@ -10,11 +9,11 @@ import { selectCompositionsByMealId } from "@/store/compositions/compositions.se
 
 import { Header } from "@/components/layout/header";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
-import { Settings1Fill } from "@/components/shared/icons";
 
 import { WeekDay, emptySchedule } from "@/types/constants";
 import { uniqueId } from "@/lib/utils";
 import { MealCardDrawer } from "@/components/plan/meal-card-drawer";
+import Settings from "@/components/setting/settings";
 
 function SchedulePage() {
   const dispatch = useAppDispatch();
@@ -72,15 +71,7 @@ function SchedulePage() {
 
   return (
     <div className="flex flex-col w-full">
-      <Header
-        actionComponent={
-          <Link to="/setting" className="text-zinc-400 block md:hidden">
-            <Settings1Fill width={24} height={24} />
-          </Link>
-        }
-      >
-        Plan
-      </Header>
+      <Header actionComponent={<Settings />}>Plan</Header>
 
       <div className="space-y-4 md:mb-4">
         {completeSchedule

@@ -1,8 +1,6 @@
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { Dispatch, SetStateAction } from "react";
 import {
   AlertDialog,
-  AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -11,43 +9,24 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 
 type Props = {
-  className?: string;
+  open: boolean;
+  onOpenChange: Dispatch<SetStateAction<boolean>>;
   onConfirm: () => void;
-  triggerText?: string;
-  triggerIcon?: ReactNode;
   title: string;
   descriptionText: string;
-  variant:
-    | "link"
-    | "default"
-    | "ghost"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | null
-    | undefined;
 };
 
 const ConfirmAlertDialog = ({
+  open,
+  onOpenChange,
   onConfirm,
-  triggerText,
-  triggerIcon,
   title,
   descriptionText,
-  variant,
-  className,
 }: Props) => {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant={variant} className={cn(className, "px-2")}>
-          {triggerText}
-          {triggerIcon}
-        </Button>
-      </AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
