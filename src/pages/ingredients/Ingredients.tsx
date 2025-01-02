@@ -81,7 +81,7 @@ function IngredientsPage() {
       ) : isEmptyStateVisible && !isCreating ? (
         <EmptyStateIngredients />
       ) : (
-        <div className="flex-1 py-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
+        <div className="py-2 flex flex-col gap-2 md:grid md:grid-cols-3 md:space-y-0">
           {Object.values(CategoryType).map((category) => {
             const categoryItems = getIngredientsByCategory(category);
             const numberOfIngredientsInCategory = categoryItems.length;
@@ -118,15 +118,22 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   className,
 }) => {
   return (
-    <div>
+    <div
+      className={
+        items.length > 0
+          ? "flex flex-col justify-start items-start w-full"
+          : "hidden"
+      }
+    >
       <div
         className={cn(
-          "text-xs font-medium text-neutral-400 py-1 mb-1 md:text-lg flex flex-row justify-between items-center w-full",
+          "text-xs font-medium text-neutral-400 py-1 mb-1 md:text-lg",
           className
         )}
       >
         {header}
       </div>
+
       <div className="space-y-[3px]">
         {items
           .sort((a, b) => Number(a.available) - Number(b.available))
