@@ -4,11 +4,9 @@ import {
   Calendar3Fill,
   ChefHatLine,
   Basket2Line,
-  Settings1Fill,
   Calendar3Line,
   ChefHatFill,
   Basket2Fill,
-  Settings1Line,
 } from "@/components/shared/icons";
 
 export const NAVBAR: NavItem[] = [
@@ -24,12 +22,6 @@ export const NAVBAR: NavItem[] = [
     href: "/ingredients",
     icon: Basket2Line,
     iconfill: Basket2Fill,
-  },
-  {
-    title: "Setting",
-    href: "/setting",
-    icon: Settings1Line,
-    iconfill: Settings1Fill,
   },
 ];
 
