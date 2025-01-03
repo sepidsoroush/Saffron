@@ -5,7 +5,7 @@ import {
   addSchedule,
 } from "@/store/schedule/schedule.actions";
 import { selectScheduleWithMeals } from "@/store/meals/meals.selector";
-import { selectCompositionsByMealId } from "@/store/compositions/compositions.selector";
+import { selectIngredientsByMealId } from "@/store/schedule/schedule.selector";
 
 import { Header } from "@/components/layout/header";
 import { SelectMealComboBox } from "@/components/meals/select-meal";
@@ -17,18 +17,7 @@ import { uniqueId } from "@/lib/utils";
 function PlanPage() {
   const dispatch = useAppDispatch();
   const scheduleWithMeals = useAppSelector(selectScheduleWithMeals);
-
-  const ingredientsByMealId = useAppSelector((state) =>
-    scheduleWithMeals.reduce((acc, schedule) => {
-      if (schedule.meal?.id) {
-        acc[schedule.meal.id] = selectCompositionsByMealId(
-          state,
-          schedule.meal.id
-        );
-      }
-      return acc;
-    }, {} as Record<number, ReturnType<typeof selectCompositionsByMealId>>)
-  );
+  const ingredientsByMealId = useAppSelector(selectIngredientsByMealId);
 
   const completeSchedule = emptySchedule.map((emptyItem) => {
     const scheduleItem = scheduleWithMeals.find(
