@@ -19,7 +19,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['"SF Pro Rounded"', "Fredoka"],
+        sans: ["Inter", "serif"],
       },
       boxShadow: {
         combined:
