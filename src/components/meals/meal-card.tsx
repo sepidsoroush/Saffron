@@ -93,10 +93,8 @@ export const MealCard = ({ meal }: MealCardProps) => {
               <NoImageMeal className="w-full h-[117px] rounded-t-[14px] rounded-b-none border-solid border" />
             )}
             <div className="w-full bottom-0 min-h-14 flex flex-col items-start py-1 px-[9px]">
-              <div className="font-semibold text-sm text-neutral-800 whitespace-nowrap mb-1.5">
-                {meal.name.length > 18
-                  ? `${meal.name.slice(0, 18)}...`
-                  : meal.name}
+              <div className="font-semibold text-sm text-neutral-800 mb-1.5 overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
+                {meal.name}
               </div>
               <div className="font-medium text-xs text-neutral-500">
                 {meal.cuisine}
