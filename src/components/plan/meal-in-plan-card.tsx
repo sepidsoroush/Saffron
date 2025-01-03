@@ -43,7 +43,7 @@ export const MealInPlanCard = ({
   onDelete,
 }: MealInPlanCardProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const MAXCOUNT = 7;
+  const MAXCOUNT = isDesktop ? 20 : 7;
 
   const ModalComponent = isDesktop ? Sheet : Drawer;
   const TriggerComponent = isDesktop ? SheetTrigger : DrawerTrigger;
@@ -53,10 +53,10 @@ export const MealInPlanCard = ({
   const DescriptionComponent = isDesktop ? SheetDescription : DrawerDescription;
 
   return (
-    <div className="flex flex-row justify-between items-start space-x-1.5">
+    <div className="flex flex-row justify-between items-start space-x-1.5 overflow-hidden">
       <ModalComponent>
         <TriggerComponent asChild>
-          <div className="w-full flex flex-row space-x-1.5 cursor-pointer">
+          <div className="w-full flex flex-row flex-nowrap space-x-1.5 cursor-pointer overflow-hidden">
             {meal.imageUrl ? (
               <CloudinaryImage
                 imageNameOrUrl={meal.imageUrl}
@@ -67,44 +67,42 @@ export const MealInPlanCard = ({
             ) : (
               <NoImageMeal className="h-[72px] w-[72px]" />
             )}
-            <div className="">
-              <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200">
+            <div>
+              <div className="text-[17px] font-semibold text-neutral-800 dark:text-neutral-200 overflow-hidden text-ellipsis whitespace-nowrap max-w-[calc(100%-45px)]">
                 {meal?.name}
               </div>
-              <div>
-                <ul className="flex fle-row flex-wrap gap-1">
-                  {ingredients
-                    .sort(
-                      (a, b) =>
-                        Number(a.ingredient?.available) -
-                        Number(b.ingredient?.available)
-                    )
-                    .slice(0, MAXCOUNT)
-                    .map((comp) => (
-                      <Badge
-                        key={comp.id}
-                        variant="outline"
-                        className={cn(
-                          "text-xs font-medium py-[3px] px-2",
-                          comp.ingredient?.available
-                            ? "text-neutral-500"
-                            : "text-yellow-700 bg-yellow-100 border border-yellow-200"
-                        )}
-                      >
-                        {comp.ingredient?.name}
-                      </Badge>
-                    ))}
-
-                  {ingredients.length > MAXCOUNT && (
+              <ul className="flex fle-row flex-wrap gap-1 max-w-[calc(100%-10px)] max-h-14">
+                {ingredients
+                  .sort(
+                    (a, b) =>
+                      Number(a.ingredient?.available) -
+                      Number(b.ingredient?.available)
+                  )
+                  .slice(0, MAXCOUNT)
+                  .map((comp) => (
                     <Badge
+                      key={comp.id}
                       variant="outline"
-                      className="text-xs font-medium text-neutral-500 py-[3px] px-2"
+                      className={cn(
+                        "text-xs font-medium py-[3px] px-2",
+                        comp.ingredient?.available
+                          ? "text-neutral-500"
+                          : "text-yellow-700 bg-yellow-100 border border-yellow-200"
+                      )}
                     >
-                      {`+ ${ingredients.length - MAXCOUNT}`}
+                      {comp.ingredient?.name}
                     </Badge>
-                  )}
-                </ul>
-              </div>
+                  ))}
+
+                {ingredients.length > MAXCOUNT && (
+                  <Badge
+                    variant="outline"
+                    className="text-xs font-medium text-neutral-500 py-[3px] px-2"
+                  >
+                    {`+ ${ingredients.length - MAXCOUNT}`}
+                  </Badge>
+                )}
+              </ul>
             </div>
           </div>
         </TriggerComponent>
